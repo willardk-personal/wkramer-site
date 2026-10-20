@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mac mini setup</title><meta name="description" content="An Apple M6 Mac mini: connected devices, storage and network speeds, displays and dock.">
+<title>Mac mini setup</title><meta name="description" content="An Apple M6 Mac mini: connected devices, storage and network speeds, displays, dock and Thunderbolt troubleshooting.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -53,25 +53,29 @@ svg .mk{stroke:var(--muted);fill:none;stroke-width:1.5;stroke-linecap:round;stro
 .legend i.ok{background:var(--ok-bg);border-color:var(--ok-bd)}.legend i.warn{background:var(--warn-bg);border-color:var(--warn-bd)}.legend i.idle{background:var(--idle-bg);border-color:var(--idle-bd)}
 @media(max-width:480px){h1{font-size:28px}}
 </style></head><body><div class="wrap">
-<nav><a class="brand" href="index.html">Willard Kramer</a><a href="index.html">About</a><a href="mac-mini.html" aria-current="page">Mac mini setup</a><a href="dev-env.html">Dev environment</a></nav>
+<nav><a class="brand" href="index.html">Willard Kramer</a><a href="index.html">About</a><a href="mac-mini.html" aria-current="page">Mac mini setup</a><a href="macbook-pro.html">Work MacBook Pro</a><a href="dev-env.html">Dev environment</a></nav>
 <main>
-<header><h1>Mac mini setup</h1><p class="lede">An Apple M6 Mac mini, what is plugged into it, and how fast each part runs. Measured October 17, 2026.</p></header>
+<header><h1>Mac mini setup</h1><p class="lede">An Apple M6 Mac mini, what is plugged into it, and how fast each part runs. Rescanned October 19, 2026.</p></header>
 <section class="panel"><h2>The machine</h2><div class="scroll"><table><tbody>
 <tr><td>Model</td><td>Mac mini (Mac18,5), 2026</td></tr>
 <tr><td>Chip</td><td>Apple M6: 12-core CPU (2 Super, 4 Performance, 6 Efficiency), 12-core GPU</td></tr>
-<tr><td>Memory and storage</td><td>16 GB, 512 GB internal SSD</td></tr>
+<tr><td>Memory and storage</td><td>16 GB LPDDR5, 512 GB internal SSD</td></tr>
 <tr><td>Software</td><td>macOS 27.0.1</td></tr>
-<tr><td>Ports in use</td><td>3 Thunderbolt 4, HDMI, 2.5 Gb Ethernet</td></tr></tbody></table></div></section>
+<tr><td>Ports in use</td><td>2 of 3 Thunderbolt 4, HDMI, 2.5 Gb Ethernet</td></tr></tbody></table></div></section>
+<section class="panel"><h2>Where things stand</h2><ul class="notes">
+<li><b>TB 1</b> is empty. <b>TB 2</b> holds the Mokin USB4 enclosure with a 2 TB NVMe drive, stable at 40 Gb/s. <b>TB 4</b> has the USB dock.</li>
+<li>The mini runs <b>one</b> bus-powered NVMe enclosure reliably, not two. See the troubleshooting section below.</li>
+<li>The MacBook Pro is no longer cabled to the mini. Its <a href="macbook-pro.html">own page</a> has the details.</li></ul></section>
 <section class="panel"><h2>Connection map</h2><div class="scroll"><div class="mapbox"><svg viewBox="0 0 680 850" role="img" aria-labelledby="mt md">
 <title id="mt">Mac mini M6 connection map</title>
-<desc id="md">Diagram of the devices connected to the Mac mini: two Thunderbolt storage and laptop links, a USB dock with an SSD, hard drive, card reader, monitor and disc burner, an HDMI monitor, wired and wireless networking, and Bluetooth peripherals.</desc>
+<desc id="md">Diagram of the devices connected to the Mac mini: one Thunderbolt storage enclosure, an empty Thunderbolt port, a USB dock with an SSD, hard drive, card reader, monitor and disc burner, an HDMI monitor, wired and wireless networking, and Bluetooth peripherals.</desc>
 <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="mk" d="M2 1L8 5L2 9"/></marker></defs>
 
 <rect class="host" x="20" y="20" width="110" height="770" rx="10"/>
 <text class="th host-t" x="75" y="395" text-anchor="middle">Mac mini</text>
 <text class="ts host-t" x="75" y="414" text-anchor="middle">M6, 16 GB</text>
 
-<line class="ln" x1="130" y1="50" x2="176" y2="50" marker-end="url(#ah)"/>
+<line class="ln dash" x1="130" y1="50" x2="176" y2="50" marker-end="url(#ah)"/>
 <line class="ln" x1="130" y1="120" x2="176" y2="120" marker-end="url(#ah)"/>
 <line class="ln" x1="130" y1="304" x2="176" y2="304" marker-end="url(#ah)"/>
 <line class="ln dash" x1="130" y1="478" x2="176" y2="478" marker-end="url(#ah)"/>
@@ -80,17 +84,16 @@ svg .mk{stroke:var(--muted);fill:none;stroke-width:1.5;stroke-linecap:round;stro
 <line class="ln" x1="130" y1="690" x2="176" y2="690" marker-end="url(#ah)"/>
 <line class="ln dash" x1="130" y1="760" x2="176" y2="760" marker-end="url(#ah)"/>
 
-<rect class="ok" x="180" y="26" width="200" height="48" rx="6"/>
-<text class="th ok-t" x="280" y="44" text-anchor="middle">TB 1: Mokin enclosure</text>
-<text class="ts ok-t" x="280" y="62" text-anchor="middle">Fanless, USB4 (ASMedia), 40 Gb/s</text>
-<line class="ln" x1="380" y1="50" x2="416" y2="50" marker-end="url(#ah)"/>
-<rect class="ok" x="420" y="26" width="230" height="48" rx="6"/>
-<text class="th ok-t" x="535" y="44" text-anchor="middle">Crucial P310 2 TB NVMe</text>
-<text class="ts ok-t" x="535" y="62" text-anchor="middle">PCIe x4 · W 2752 · R 2660 MB/s</text>
+<rect class="idle dash" x="180" y="32" width="200" height="36" rx="6"/>
+<text class="ts idle-t" x="280" y="54" text-anchor="middle">TB 1: empty</text>
 
 <rect class="ok" x="180" y="96" width="200" height="48" rx="6"/>
-<text class="th ok-t" x="280" y="114" text-anchor="middle">TB 2: MacBook Pro</text>
-<text class="ts ok-t" x="280" y="132" text-anchor="middle">Mac17,9 · TB5 to TB4, 40 Gb/s</text>
+<text class="th ok-t" x="280" y="114" text-anchor="middle">TB 2: Mokin enclosure</text>
+<text class="ts ok-t" x="280" y="132" text-anchor="middle">Fanless, USB4 (ASMedia), 40 Gb/s</text>
+<line class="ln" x1="380" y1="120" x2="416" y2="120" marker-end="url(#ah)"/>
+<rect class="ok" x="420" y="96" width="230" height="48" rx="6"/>
+<text class="th ok-t" x="535" y="114" text-anchor="middle">Crucial P310 2 TB NVMe</text>
+<text class="ts ok-t" x="535" y="132" text-anchor="middle">Gen4 x4 · W 3043 · R 3667 MB/s</text>
 
 <rect class="ok" x="180" y="276" width="200" height="56" rx="6"/>
 <text class="th ok-t" x="280" y="297" text-anchor="middle">TB 4: Ivanky Fusion Dock 3</text>
@@ -105,16 +108,16 @@ svg .mk{stroke:var(--muted);fill:none;stroke-width:1.5;stroke-linecap:round;stro
 
 <rect class="ok" x="420" y="170" width="230" height="44" rx="6"/>
 <text class="th ok-t" x="535" y="187" text-anchor="middle">Scratch Disk · dock M.2 SSD</text>
-<text class="ts ok-t" x="535" y="204" text-anchor="middle">10 Gb/s · W 802 · R 669 MB/s</text>
+<text class="ts ok-t" x="535" y="204" text-anchor="middle">10 Gb/s · W 779 · R 776 MB/s</text>
 <rect class="ok" x="420" y="226" width="230" height="44" rx="6"/>
 <text class="th ok-t" x="535" y="243" text-anchor="middle">WD Elements 4 TB · 5 Gb/s</text>
 <text class="ts ok-t" x="535" y="260" text-anchor="middle">Time Machine, ~106 MB/s</text>
 <rect class="ok" x="420" y="282" width="230" height="44" rx="6"/>
 <text class="th ok-t" x="535" y="299" text-anchor="middle">Dock card reader</text>
 <text class="ts ok-t" x="535" y="316" text-anchor="middle">5 Gb/s, no card</text>
-<rect class="ok" x="420" y="338" width="230" height="44" rx="6"/>
-<text class="th ok-t" x="535" y="355" text-anchor="middle">Dock HDMI: Dell S2425HS</text>
-<text class="ts ok-t" x="535" y="372" text-anchor="middle">1080p, 100 Hz · dock max 4K 144</text>
+<rect class="warn" x="420" y="338" width="230" height="44" rx="6"/>
+<text class="th warn-t" x="535" y="355" text-anchor="middle">Dock HDMI: Dell S2425HS</text>
+<text class="ts warn-t" x="535" y="372" text-anchor="middle">Not detected in the Oct 19 scan</text>
 <rect class="ok" x="420" y="394" width="230" height="44" rx="6"/>
 <text class="th ok-t" x="535" y="411" text-anchor="middle">Blu-ray/DVD burner</text>
 <text class="ts ok-t" x="535" y="428" text-anchor="middle">MATSHITA BD-MLT UJ260 · USB 2.0</text>
@@ -130,8 +133,8 @@ svg .mk{stroke:var(--muted);fill:none;stroke-width:1.5;stroke-linecap:round;stro
 <text class="th ok-t" x="280" y="614" text-anchor="middle">Ethernet 2.5GbE (en0)</text>
 <text class="ts ok-t" x="280" y="632" text-anchor="middle">2291↓ 2176↑ Mbps · 0.64 ms</text>
 <rect class="warn" x="180" y="666" width="200" height="48" rx="6"/>
-<text class="th warn-t" x="280" y="684" text-anchor="middle">Wi-Fi 7, 6 GHz (en1)</text>
-<text class="ts warn-t" x="280" y="702" text-anchor="middle">802↓ 736↑ Mbps · 52 ms</text>
+<text class="th warn-t" x="280" y="684" text-anchor="middle">Wi-Fi 7, 5 GHz (en1)</text>
+<text class="ts warn-t" x="280" y="702" text-anchor="middle">720 Mb/s link · jittery latency</text>
 <polyline class="ln" points="380,620 400,620 400,690 380,690"/>
 <line class="ln" x1="400" y1="655" x2="416" y2="655" marker-end="url(#ah)"/>
 <rect class="idle" x="420" y="627" width="230" height="56" rx="6"/>
@@ -140,29 +143,56 @@ svg .mk{stroke:var(--muted);fill:none;stroke-width:1.5;stroke-linecap:round;stro
 
 <rect class="ok" x="180" y="736" width="470" height="48" rx="6"/>
 <text class="th ok-t" x="415" y="754" text-anchor="middle">Bluetooth 6 (wireless)</text>
-<text class="ts ok-t" x="415" y="772" text-anchor="middle">MX Anywhere 3S · MX Keys S · iPhone · hearing aids</text>
+<text class="ts ok-t" x="415" y="772" text-anchor="middle">MX Anywhere 3S mouse · keyboard</text>
 </svg></div></div>
 <div class="legend"><span><i class="ok"></i>Healthy</span><span><i class="warn"></i>Needs a look</span><span><i class="idle"></i>Unused or infrastructure</span></div></section>
-<section class="panel"><h2>Drive speeds</h2><p class="sub" style="margin-bottom:10px">2 GB uncached sequential transfers.</p><div class="scroll"><table>
-<thead><tr><th>Device</th><th>Link</th><th class="n">Write</th><th class="n">Read</th></tr></thead><tbody>
-<tr><td>Crucial P310 2 TB in a Mokin enclosure</td><td>Thunderbolt, 40 Gb/s</td><td class="n">2752 MB/s</td><td class="n">2660 MB/s</td></tr>
-<tr><td>SSD in the dock's M.2 slot</td><td>USB, 10 Gb/s</td><td class="n">802 MB/s</td><td class="n">669 MB/s</td></tr>
-<tr><td>Internal SSD</td><td>Apple fabric</td><td class="n">5963 MB/s</td><td class="n">3057 MB/s</td></tr>
-<tr><td>WD Elements 4 TB (Time Machine)</td><td>USB, 5 Gb/s</td><td class="n" colspan="2">~106 MB/s rated, not tested</td></tr></tbody></table></div>
-<p class="sub" style="margin-top:10px">The Mokin enclosure is about 15% faster on write and 13% on read than the ACASIS enclosure it replaced.</p></section>
-<section class="panel"><h2>Network</h2><div class="scroll"><table>
+<section class="panel"><h2>Drive speeds</h2><p class="sub" style="margin-bottom:10px">4 GB sequential runs with <span class="mono">fio</span>, 1 MB blocks, direct I/O, queue depth 16. October 19, 2026.</p><div class="scroll"><table>
+<thead><tr><th>Device</th><th>Link</th><th class="n">Write</th><th class="n">Read</th><th class="n">Temp</th></tr></thead><tbody>
+<tr><td>Internal SSD (Apple AP0512Z, 512 GB)</td><td>Apple fabric</td><td class="n">6838 MB/s</td><td class="n">6450 MB/s</td><td class="n">33 °C</td></tr>
+<tr><td>Crucial P310 2 TB in a Mokin enclosure</td><td>USB4, 40 Gb/s, PCIe Gen4 x4</td><td class="n">3043 MB/s</td><td class="n">3667 MB/s</td><td class="n">47 °C</td></tr>
+<tr><td>SSD in the dock's M.2 slot</td><td>USB, 10 Gb/s</td><td class="n">779 MB/s</td><td class="n">776 MB/s</td><td class="n">n/a</td></tr>
+<tr><td>WD Elements 4 TB (Time Machine)</td><td>USB, 5 Gb/s</td><td class="n" colspan="3">~106 MB/s rated, not tested</td></tr></tbody></table></div>
+<p class="sub" style="margin-top:10px">The 4 GB write on the P310 stays inside its fast cache. In a longer run, writes fall to about 0.9 GB/s once the cache fills, which is the limit of its QLC flash. Temperature peaked at 70 °C after about 400 GB of nonstop writes and never throttled. The dock SSD was measured shortly after a reboot, slightly under its usual ~850 MB/s. Temperature and wear come from <span class="mono">smartctl</span>, which cannot read the USB-bridged drives.</p></section>
+<section class="panel"><h2>Thunderbolt troubleshooting</h2>
+<p class="sub" style="margin-bottom:10px">Two NVMe enclosures, two ports, one afternoon.</p><div class="scroll"><table>
+<thead><tr><th>Setup</th><th>Result</th></tr></thead><tbody>
+<tr><td>Mokin on TB 1, ACASIS second</td><td>ACASIS fell back to USB 10 Gb/s and its 990 PRO ran at about 950 MB/s. A new cable and a reboot did not help.</td></tr>
+<tr><td>Swapped: ACASIS on TB 1, Mokin second</td><td>ACASIS came up at 40 Gb/s (2792 MB/s write, 3021 read). The Mokin's drive failed to attach, mounted unwritable, then dropped. No PCIe or NVMe errors were logged first.</td></tr>
+<tr><td>Mokin alone on TB 2</td><td>Stable at 40 Gb/s, 3043 MB/s write and 3667 read.</td></tr></tbody></table></div>
+<ul class="notes" style="margin-top:12px">
+<li><b>The second enclosure to connect loses.</b> Each Thunderbolt port supplies bus power of about 15 W. The likely cause is that two bus-powered enclosures don't fit, though the logs can't prove it: overcurrent counters stayed at 0.</li>
+<li><b>TB 2 is not faulty.</b> The Mokin runs the same speed on TB 1 and TB 2.</li>
+<li><b>If both are ever needed:</b> put one behind a self-powered Thunderbolt hub.</li>
+<li><b>Eject before unplugging.</b> The P310 has 31 unsafe shutdowns on record, several from this troubleshooting.</li></ul></section>
+<section class="panel"><h2>USB4 and Thunderbolt 3 here</h2><div class="scroll"><table>
+<thead><tr><th>Standard</th><th class="n">Speed</th><th>In this setup</th></tr></thead><tbody>
+<tr><td>Thunderbolt 3 (2015)</td><td class="n">40 Gb/s</td><td>ACASIS enclosure, now on the MacBook</td></tr>
+<tr><td>USB4 (2019)</td><td class="n">20/40 Gb/s</td><td>Mokin enclosure (ASMedia chip)</td></tr>
+<tr><td>Thunderbolt 4 (2020)</td><td class="n">40 Gb/s</td><td>The mini's three back ports</td></tr>
+<tr><td>Thunderbolt 5 (2024)</td><td class="n">80/120 Gb/s</td><td>The MacBook Pro and its dock</td></tr></tbody></table></div>
+<p class="sub" style="margin-top:10px">Both enclosures run a 40 Gb/s link, but inside the Mokin the USB4 chip reaches the SSD at PCIe Gen4 (about 3.7 GB/s here) while the ACASIS Thunderbolt 3 chip runs Gen3 (about 3 GB/s), even with a faster drive. Neither gets faster on a Thunderbolt 5 port.</p></section>
+<section class="panel"><h2>Network</h2><p class="sub" style="margin-bottom:10px">Speed test from October 17, 2026.</p><div class="scroll"><table>
 <thead><tr><th>Link</th><th class="n">Down</th><th class="n">Up</th><th class="n">Router ping</th></tr></thead><tbody>
 <tr><td>Ethernet, 2.5 Gb</td><td class="n">2291 Mbps</td><td class="n">2176 Mbps</td><td class="n">0.64 ms</td></tr>
-<tr><td>Wi-Fi 7, 6 GHz</td><td class="n">802 Mbps</td><td class="n">736 Mbps</td><td class="n">52 ms avg</td></tr></tbody></table></div>
-<p class="sub" style="margin-top:10px">Ethernet carries the traffic. Wi-Fi has a strong signal but latency that swings from 2.5 to 113 ms.</p></section>
+<tr><td>Wi-Fi 7</td><td class="n">802 Mbps</td><td class="n">736 Mbps</td><td class="n">52 ms avg</td></tr></tbody></table></div>
+<p class="sub" style="margin-top:10px">Ethernet carries the traffic. Wi-Fi has a strong signal but latency that swings from 2.5 to 113 ms. The October 19 scan found Wi-Fi on 5 GHz (channel 157, 80 MHz) at 720 Mb/s, not the 6 GHz band of the earlier test.</p></section>
 <section class="panel"><h2>Displays</h2><div class="scroll"><table><tbody>
-<tr><td>Dell S2425HS</td><td class="mono">1080p, 100 Hz, through the dock's HDMI</td></tr>
-<tr><td>HP 23er</td><td class="mono">1080p, 60 Hz, on the Mac's HDMI</td></tr></tbody></table></div>
+<tr><td>HP 23er</td><td class="mono">1080p, 60 Hz, on the Mac's HDMI</td></tr>
+<tr><td>Dell S2425HS</td><td class="mono">1080p, 100 Hz, through the dock's HDMI (not detected in the latest scan)</td></tr></tbody></table></div>
 <p class="sub" style="margin-top:10px">The M6 can drive three displays, including two 4K screens at 165 Hz. A pair of 4K 144 to 165 Hz monitors is the next upgrade.</p></section>
 <section class="panel"><h2>The dock</h2><ul class="notes">
-<li>An Ivanky Fusion Dock 3. It is a USB dock, not Thunderbolt, so everything behind it shares one 10 Gb/s link.</li>
-<li>HDMI up to 4K at 144 Hz, a 10 Gb and a 5 Gb USB hub, an SD card reader, and an M.2 slot that holds a 512 GB SSD used for scratch files.</li>
+<li>An Ivanky Fusion Dock 3. It is a USB dock, not Thunderbolt, so everything behind it shares one 10 Gb/s link and macOS lists its Thunderbolt port as empty.</li>
+<li>HDMI up to 4K at 144 Hz, a 10 Gb and a 5 Gb USB hub, an SD card reader, and an M.2 slot that holds a 512 GB SSD used for scratch files. It is powered from a separate 100 W USB-C supply.</li>
 <li>Also behind it: the 4 TB Time Machine drive and a Blu-ray/DVD burner on USB 2.0.</li></ul></section>
+<section class="panel"><h2>Next to the MacBook Pro</h2><div class="scroll"><table>
+<thead><tr><th></th><th>This Mac mini</th><th>Work MacBook Pro</th></tr></thead><tbody>
+<tr><td>Chip</td><td>Apple M6</td><td>Apple M5 Pro</td></tr>
+<tr><td>CPU</td><td>12 cores: 2 Super, 4 Performance, 6 Efficiency</td><td>18 cores: 6 Super, 12 Performance</td></tr>
+<tr><td>GPU</td><td>12 cores</td><td>20 cores</td></tr>
+<tr><td>Memory</td><td>16 GB</td><td>48 GB</td></tr>
+<tr><td>Internal SSD</td><td>512 GB</td><td>1 TB</td></tr>
+<tr><td>Thunderbolt</td><td>Thunderbolt 4, 40 Gb/s</td><td>Thunderbolt 5, up to 80 Gb/s</td></tr></tbody></table></div>
+<p class="sub" style="margin-top:10px">"Performance" is the lower of two tiers on the M5 Pro but the middle of three on the M6. See the <a href="macbook-pro.html">MacBook Pro page</a>.</p></section>
 </main>
 <footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
 </div></body></html>
