@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Work MacBook Pro</title><meta name="description" content="An Apple M5 Pro MacBook Pro: Thunderbolt 5 dock, connected drives and measured speeds.">
+<title>Work MacBook Pro</title><meta name="description" content="An Apple M5 Pro MacBook Pro: one-cable Thunderbolt 5 dock, connected drives and measured speeds.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -55,76 +55,100 @@ svg .mk{stroke:var(--muted);fill:none;stroke-width:1.5;stroke-linecap:round;stro
 </style></head><body><div class="wrap">
 <nav><a class="brand" href="index.html">Willard Kramer</a><a href="index.html">About</a><a href="mac-mini.html">Mac mini setup</a><a href="macbook-pro.html" aria-current="page">Work MacBook Pro</a><a href="dev-env.html">Dev environment</a></nav>
 <main>
-<header><h1>Work MacBook Pro</h1><p class="lede">An Apple M5 Pro MacBook Pro with 48 GB of memory, a Thunderbolt 5 dock and two external drives. Read October 19, 2026.</p></header>
+<header><h1>Work MacBook Pro</h1><p class="lede">An Apple M5 Pro MacBook Pro with 48 GB of memory, a Thunderbolt 5 dock and two external drives. Read October 19, 2026, updated that evening with the dock and drive tests.</p></header>
 <section class="panel"><h2>The machine</h2><div class="scroll"><table><tbody>
 <tr><td>Model</td><td>MacBook Pro (Mac17,9)</td></tr>
 <tr><td>Chip</td><td>Apple M5 Pro: 18-core CPU (6 Super, 12 Performance, no hyperthreading), 20-core GPU</td></tr>
 <tr><td>Memory and storage</td><td>48 GB LPDDR5, 1 TB internal SSD (317 GB used, 584 GB free)</td></tr>
 <tr><td>Software</td><td>macOS 27.0.1</td></tr>
-<tr><td>Power</td><td>96 W adapter, battery at 80% after 10 cycles, condition Normal</td></tr>
+<tr><td>Power</td><td>Powered through the dock (96 W seen); battery at 80% after 10 cycles, condition Normal</td></tr>
 <tr><td>Display</td><td>Dell S2425HS, 1080p</td></tr></tbody></table></div></section>
-<section class="panel"><h2>Connection map</h2><div class="scroll"><div class="mapbox"><svg viewBox="0 0 680 520" role="img" aria-labelledby="bt bd">
+<section class="panel"><h2>Connection map</h2><div class="scroll"><div class="mapbox"><svg viewBox="0 0 680 560" role="img" aria-labelledby="bt bd">
 <title id="bt">Work MacBook Pro connection map</title>
-<desc id="bd">Diagram of the MacBook Pro connected over Thunderbolt 5 to a Wavlink dock. Behind the dock are a Thunderbolt enclosure holding an NVMe drive, a USB 3 hub with an SSD, a hard drive and a wired network adapter, and a USB 2 hub with a camera and controllers. Two Thunderbolt buses are free.</desc>
+<desc id="bd">Diagram of the MacBook Pro connected over one Thunderbolt 5 cable to a Wavlink dock that also powers it. Behind the dock are a Thunderbolt enclosure holding an NVMe drive, a USB 3 hub with an SSD, a hard drive and a 2.5G wired network adapter, a USB 2 hub with a camera, and two empty Thunderbolt ports. The Dell display's port is not reported.</desc>
 <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="mk" d="M2 1L8 5L2 9"/></marker></defs>
 
-<rect class="host" x="20" y="20" width="110" height="480" rx="10"/>
-<text class="th host-t" x="75" y="250" text-anchor="middle">MacBook Pro</text>
-<text class="ts host-t" x="75" y="269" text-anchor="middle">M5 Pro, 48 GB</text>
+<rect class="host" x="20" y="20" width="110" height="520" rx="10"/>
+<text class="th host-t" x="75" y="270" text-anchor="middle">MacBook Pro</text>
+<text class="ts host-t" x="75" y="289" text-anchor="middle">M5 Pro, 48 GB</text>
 
-<line class="ln" x1="130" y1="120" x2="176" y2="120" marker-end="url(#ah)"/>
-<line class="ln dash" x1="130" y1="420" x2="176" y2="420" marker-end="url(#ah)"/>
-<line class="ln dash" x1="130" y1="470" x2="176" y2="470" marker-end="url(#ah)"/>
+<line class="ln" x1="130" y1="150" x2="176" y2="150" marker-end="url(#ah)"/>
+<line class="ln dash" x1="130" y1="480" x2="176" y2="480" marker-end="url(#ah)"/>
 
-<rect class="ok" x="180" y="92" width="200" height="56" rx="6"/>
-<text class="th ok-t" x="280" y="113" text-anchor="middle">Wavlink WL-UTD59 dock</text>
-<text class="ts ok-t" x="280" y="132" text-anchor="middle">Thunderbolt 5, 80 Gb/s</text>
+<rect class="ok" x="180" y="116" width="200" height="68" rx="6"/>
+<text class="th ok-t" x="280" y="138" text-anchor="middle">Wavlink WL-UTD59 dock</text>
+<text class="ts ok-t" x="280" y="157" text-anchor="middle">Thunderbolt 5, 80 Gb/s</text>
+<text class="ts ok-t" x="280" y="174" text-anchor="middle">Powers the Mac over the same cable</text>
 
-<polyline class="ln" points="380,120 400,120"/>
-<polyline class="ln" points="400,50 400,330"/>
+<polyline class="ln" points="380,150 400,150"/>
+<polyline class="ln" points="400,50 400,400"/>
 <line class="ln" x1="400" y1="50" x2="416" y2="50" marker-end="url(#ah)"/>
 <line class="ln" x1="400" y1="140" x2="416" y2="140" marker-end="url(#ah)"/>
 <line class="ln" x1="400" y1="230" x2="416" y2="230" marker-end="url(#ah)"/>
-<line class="ln" x1="400" y1="330" x2="416" y2="330" marker-end="url(#ah)"/>
+<line class="ln" x1="400" y1="310" x2="416" y2="310" marker-end="url(#ah)"/>
+<line class="ln" x1="400" y1="400" x2="416" y2="400" marker-end="url(#ah)"/>
 
 <rect class="ok" x="420" y="26" width="230" height="48" rx="6"/>
-<text class="th ok-t" x="535" y="44" text-anchor="middle">ACASIS TBU405Pro · 40 Gb/s</text>
-<text class="ts ok-t" x="535" y="62" text-anchor="middle">Samsung 990 PRO 1 TB</text>
+<text class="th ok-t" x="535" y="44" text-anchor="middle">TB 1: ACASIS · 40 Gb/s</text>
+<text class="ts ok-t" x="535" y="62" text-anchor="middle">990 PRO 1 TB · W 2930 · R 2440</text>
 
-<rect class="ok" x="420" y="108" width="230" height="64" rx="6"/>
-<text class="th ok-t" x="535" y="127" text-anchor="middle">USB 3 hub · 10 Gb/s</text>
-<text class="ts ok-t" x="535" y="146" text-anchor="middle">SanDisk SSD 1 TB · 10 Gb/s</text>
-<text class="ts ok-t" x="535" y="162" text-anchor="middle">Seagate 2 TB HDD · 5 Gb/s</text>
+<rect class="ok" x="420" y="100" width="230" height="80" rx="6"/>
+<text class="th ok-t" x="535" y="119" text-anchor="middle">USB 3 hub · 10 Gb/s</text>
+<text class="ts ok-t" x="535" y="138" text-anchor="middle">SanDisk 1 TB · W 779 · R 702</text>
+<text class="ts ok-t" x="535" y="156" text-anchor="middle">Seagate 2 TB HDD · 5 Gb/s</text>
 
-<rect class="ok" x="420" y="190" width="230" height="80" rx="6"/>
-<text class="th ok-t" x="535" y="209" text-anchor="middle">Also on the USB 3 hub</text>
-<text class="ts ok-t" x="535" y="228" text-anchor="middle">Realtek 2.5G wired LAN</text>
-<text class="ts ok-t" x="535" y="246" text-anchor="middle">Linked at 5 Gb/s</text>
+<rect class="ok" x="420" y="196" width="230" height="68" rx="6"/>
+<text class="th ok-t" x="535" y="215" text-anchor="middle">Realtek 2.5G wired LAN</text>
+<text class="ts ok-t" x="535" y="234" text-anchor="middle">USB side 5 Gb/s, 2500Base-T</text>
+<text class="ts ok-t" x="535" y="251" text-anchor="middle">Down 1.74 · up 2.11 Gb/s</text>
 
-<rect class="idle" x="420" y="290" width="230" height="80" rx="6"/>
-<text class="th idle-t" x="535" y="309" text-anchor="middle">USB 2 hub</text>
-<text class="ts idle-t" x="535" y="328" text-anchor="middle">Lenovo camera</text>
-<text class="ts idle-t" x="535" y="346" text-anchor="middle">Dock and display controllers</text>
+<rect class="idle" x="420" y="280" width="230" height="60" rx="6"/>
+<text class="th idle-t" x="535" y="300" text-anchor="middle">USB 2 hub · 480 Mb/s</text>
+<text class="ts idle-t" x="535" y="319" text-anchor="middle">Lenovo camera, dock controllers</text>
 
-<rect class="idle dash" x="180" y="398" width="200" height="44" rx="6"/>
-<text class="ts idle-t" x="280" y="424" text-anchor="middle">Thunderbolt bus 1: free</text>
-<rect class="idle dash" x="180" y="448" width="200" height="44" rx="6"/>
-<text class="ts idle-t" x="280" y="474" text-anchor="middle">Thunderbolt bus 2: free</text>
+<rect class="idle dash" x="420" y="370" width="230" height="60" rx="6"/>
+<text class="ts idle-t" x="535" y="396" text-anchor="middle">TB 2 and TB 3: empty</text>
+<text class="ts idle-t" x="535" y="414" text-anchor="middle">Also free: USB-A, SD, audio</text>
+
+<rect class="idle" x="180" y="456" width="200" height="48" rx="6"/>
+<text class="th idle-t" x="280" y="475" text-anchor="middle">Dell S2425HS · 1080p, 100 Hz</text>
+<text class="ts idle-t" x="280" y="493" text-anchor="middle">Port not reported by macOS</text>
 </svg></div></div>
 <div class="legend"><span><i class="ok"></i>Healthy</span><span><i class="idle"></i>Unused or infrastructure</span></div></section>
+<section class="panel"><h2>The dock</h2><div class="scroll"><table>
+<thead><tr><th>Item</th><th>Spec</th><th>Seen on the Mac</th></tr></thead><tbody>
+<tr><td>Upstream</td><td>1 Thunderbolt 5 port, 80 or 120 Gb/s, 140 W power delivery</td><td>80 Gb/s in USB4 v2 mode. The dock powers the Mac: macOS shows a 96 W source, with no charging because the battery is holding at 80%.</td></tr>
+<tr><td>Thunderbolt downstream</td><td>3 Thunderbolt 5 ports (one 30 W, two 15 W)</td><td>One holds the ACASIS at 40 Gb/s; two are empty</td></tr>
+<tr><td>USB-A</td><td>4 ports, USB 3.2, 10 Gb/s</td><td>An Intel 10 Gb/s hub; the SanDisk links at 10 Gb/s, the Seagate and the network adapter at 5 Gb/s</td></tr>
+<tr><td>Ethernet</td><td>2.5 Gb/s RJ45</td><td>A Realtek USB adapter, 2500Base-T full duplex</td></tr>
+<tr><td>Card readers and audio</td><td>SD, microSD, 3.5 mm jack</td><td>All unused</td></tr></tbody></table></div>
+<p class="sub" style="margin-top:10px">One Thunderbolt 5 cable carries power and everything else. Everything behind the dock shares its 80 Gb/s upstream, and the USB-A devices also share the Intel hub's 10 Gb/s. That is why the SanDisk and Seagate slow each other during a backup. macOS does not say which physical USB-A socket a device uses.</p></section>
 <section class="panel"><h2>Drives and speeds</h2><div class="scroll"><table>
 <thead><tr><th>Drive</th><th>Link</th><th class="n">Write</th><th class="n">Read</th></tr></thead><tbody>
 <tr><td>Samsung 990 PRO 1 TB in the ACASIS enclosure</td><td>Thunderbolt, 40 Gb/s, PCIe</td><td class="n">~2930 MB/s</td><td class="n">~2440 MB/s</td></tr>
-<tr><td>SanDisk SSD 1 TB (Time Machine)</td><td>USB, 10 Gb/s</td><td class="n" colspan="2">not yet measured</td></tr>
-<tr><td>Seagate Expansion 2 TB HDD</td><td>USB, 5 Gb/s</td><td class="n" colspan="2">not tested</td></tr></tbody></table></div>
-<p class="sub" style="margin-top:10px">The 990 PRO figure is an 8 GB test with caching bypassed and a forced flush, run while a Time Machine backup was copying over the same dock. This is a different method from the one on the <a href="mac-mini.html">Mac mini page</a>, so compare numbers only within one method. The read is single-threaded and understates the drive.</p></section>
+<tr><td>SanDisk SSD 1 TB (Time Machine)</td><td>USB, 10 Gb/s</td><td class="n">~779 MB/s</td><td class="n">~702 MB/s</td></tr>
+<tr><td>Seagate Expansion 2 TB HDD (Time Machine)</td><td>USB, 5 Gb/s</td><td class="n" colspan="2">not tested</td></tr></tbody></table></div>
+<p class="sub" style="margin-top:10px">The 990 PRO figure is an 8 GB test with caching bypassed. The SanDisk was tested with <span class="mono">dd</span> and a cache purge, no backup running. Two methods, so compare numbers only within one method. They also differ from the <span class="mono">fio</span> numbers on the <a href="mac-mini.html">Mac mini page</a>. On 17 October the 990 PRO read about 3170 MB/s with <span class="mono">dd</span>.</p></section>
+<section class="panel"><h2>The SanDisk, port by port</h2><p class="sub" style="margin-bottom:10px">8 GB write, cache purged, read back. 17 October, with a 19 October retest.</p><div class="scroll"><table>
+<thead><tr><th>Connection</th><th class="n">Write</th><th class="n">Read</th></tr></thead><tbody>
+<tr><td>Mac's direct Thunderbolt port, new cable</td><td class="n">~783 MB/s</td><td class="n">~769 MB/s</td></tr>
+<tr><td>Dock USB-A, 19 Oct retest, no backup copying</td><td class="n">~779 MB/s</td><td class="n">~702 MB/s</td></tr>
+<tr><td>Dock rear USB-A, non-SanDisk cable and adapter (in use)</td><td class="n">~712-725 MB/s</td><td class="n">~661-668 MB/s</td></tr>
+<tr><td>Dock front USB-A, same cable</td><td class="n">~730 MB/s</td><td class="n">~584 MB/s</td></tr>
+<tr><td>Dock USB-A, SanDisk's own cable and adapter</td><td class="n">~446 MB/s</td><td class="n">~682 MB/s</td></tr>
+<tr><td>Ivanky dock on the Mac mini</td><td class="n">~398 MB/s</td><td class="n">~379 MB/s</td></tr></tbody></table></div>
+<p class="sub" style="margin-top:10px">The cable made the difference: on the dock's USB-A ports the non-SanDisk cable raised write speed from about 450-580 to about 710-730 MB/s. Plugged straight into the Mac it is only slightly faster.</p></section>
+<section class="panel"><h2>Backups and network</h2><ul class="notes">
+<li>Time Machine has two destinations on the dock: the SanDisk SSD, chosen for portability and toughness, and the Seagate hard drive. The latest Seagate backup ran 19:42 to 20:49 and the drive holds 560 GB.</li>
+<li>The wired link measured 1.74 Gb/s down and 2.11 Gb/s up with <span class="mono">networkQuality</span>, with 12 ms idle latency. A test to the Mac mini over the LAN gave 2.35 Gb/s one way and 1.86 Gb/s the other.</li>
+<li>The two Macs are on the LAN only. The direct Thunderbolt link between them that worked on 17 October is not connected now.</li></ul></section>
 <section class="panel"><h2>A drive that moves around</h2><ul class="notes">
-<li>The ACASIS enclosure with the 990 PRO lived on the Mac mini for a while. A Thunderbolt 3 chip inside it, plus a USB fallback, made it drop to USB speed when the mini couldn't power two enclosures at once.</li>
-<li>On this dock, which is powered separately, it holds 40 Gb/s. The full story is in the <a href="mac-mini.html">Mac mini troubleshooting notes</a>.</li>
-<li>A Thunderbolt 5 port doesn't make it faster. The enclosure's Thunderbolt 3 chip and its link both top out at 40 Gb/s.</li></ul></section>
-<section class="panel"><h2>Thunderbolt and memory</h2><ul class="notes">
-<li>Bus 0 runs at 80 Gb/s to the dock, out of a 120 Gb/s maximum for the port. Buses 1 and 2 are free.</li>
-<li>On the Mac mini side, a cable between the two Macs reached about 2.9 GB/s using parallel streams. The link isn't connected now.</li>
+<li>The ACASIS enclosure with the 990 PRO lived on the Mac mini for a while. It has a Thunderbolt 3 chip plus a USB fallback, so it dropped to USB speed when the mini couldn't power two enclosures at once.</li>
+<li>On this self-powered dock it holds 40 Gb/s. The full story is in the <a href="mac-mini.html">Mac mini troubleshooting notes</a>.</li>
+<li>A Thunderbolt 5 port doesn't make it faster. The enclosure's chip and its link both top out at 40 Gb/s.</li></ul></section>
+<section class="panel"><h2>On the Mac itself</h2><ul class="notes">
+<li>A Magic Keyboard with Touch ID, on the Mac's own USB bus rather than through the dock. Keys go over Bluetooth or USB.</li>
+<li>The iPhone's microphone is available through Continuity, next to the MacBook's own mic and speakers.</li>
 <li>Memory at the time of reading: about 20.9 GiB active, 20.9 GiB inactive, 3.6 GiB wired, no swap.</li></ul></section>
 <section class="panel"><h2>Next to the Mac mini</h2><div class="scroll"><table>
 <thead><tr><th></th><th>Work MacBook Pro</th><th>Home Mac mini</th></tr></thead><tbody>
