@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mac mini M6 map</title>
+<style>
+:root{
+  --bg:#17181b; --panel:#1d1e22; --box:#25262b; --line:#4a4c54; --text:#e8e8ea; --dim:#9a9ca6;
+  --accent:#e8743b; --ok:#6fbf8a;
+}
+@media (prefers-color-scheme: light){
+  :root{--bg:#f4f3f0; --panel:#fbfaf8; --box:#fff; --line:#b9b8b2; --text:#1d1e22; --dim:#6a6b73; --accent:#c4501a; --ok:#2f8a55;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;padding:24px 16px 48px}
+.wrap{max-width:1040px;margin:0 auto}
+.fig{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;margin-bottom:24px}
+.cap{font:11px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:0 0 14px}
+.box{background:var(--box);border:1px solid var(--line);border-radius:5px;padding:10px 12px}
+.box.hot{border-color:var(--accent)}
+.box.free{opacity:.75}
+.t{font-weight:600}
+.s{color:var(--dim);font-size:12.5px}
+.hot .t{color:var(--accent)}
+.row{display:grid;gap:12px}
+.chipwrap{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:20px;align-items:start}
+.chip{border:1.5px solid var(--text);border-radius:6px;padding:12px}
+.chip>.hd{margin-bottom:10px}
+.tiers{display:grid;grid-template-columns:2fr 4fr 6fr;gap:10px;margin-bottom:10px}
+.cores{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.core{width:26px;height:26px;border:1px solid var(--dim);border-radius:3px}
+.gpu .core{width:20px;height:22px}
+.buses{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.side{display:grid;gap:12px}
+.link{font:11px ui-monospace,Menlo,monospace;color:var(--dim)}
+.tree{display:grid;gap:10px}
+.kids{margin-left:18px;padding-left:14px;border-left:1.5px solid var(--line);display:grid;gap:10px}
+.pill{display:inline-block;font:11px ui-monospace,Menlo,monospace;padding:1px 7px;border:1px solid var(--line);border-radius:10px;color:var(--dim);margin-left:6px;vertical-align:1px}
+.pill.fast{color:var(--accent);border-color:var(--accent)}
+.pill.slow{color:var(--dim)}
+.note{color:var(--dim);font-size:13px;margin:14px 0 0;max-width:80ch}
+code{font:12px ui-monospace,Menlo,monospace}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:760px){.chipwrap,.two,.tiers,.buses{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="fig">
+  <p class="cap">Figure 1 · The chip and what hangs directly off it</p>
+  <div class="chipwrap">
+    <div class="chip">
+      <div class="hd"><span class="t">Apple M6</span> <span class="s">&nbsp;12 CPU cores · 12 GPU cores · one package, one memory pool</span></div>
+      <div class="tiers">
+        <div class="box"><div class="t">2 Super</div><div class="s">perflevel0 · 20 MB L2</div>
+          <div class="cores"><span class="core"></span><span class="core"></span></div>
+          <div class="s">fastest single thread</div></div>
+        <div class="box"><div class="t">4 Performance</div><div class="s">perflevel1 · 20 MB L2</div>
+          <div class="cores"><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span></div>
+          <div class="s">sustained load</div></div>
+        <div class="box"><div class="t">6 Efficiency</div><div class="s">perflevel2 · 8 MB L2</div>
+          <div class="cores"><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span></div>
+          <div class="s">background work</div></div>
+      </div>
+      <div class="box gpu">
+        <div><span class="t">GPU · 12 cores</span> <span class="s">&nbsp;Metal 4 · drives HP 23er 1920×1080 @ 60 Hz</span></div>
+        <div class="cores"><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span><span class="core"></span></div>
+      </div>
+      <div class="s" style="margin-top:12px">Thunderbolt 4 / USB4 buses</div>
+      <div class="buses">
+        <div class="box hot"><div class="t">bus 0 · 40 Gb/s</div><div class="s">→ ASMedia 246x USB4 (Mokin enclosure, Crucial P310 2 TB)</div></div>
+        <div class="box free"><div class="t">bus 1 · free</div><div class="s">no TB device · up to 40 Gb/s</div></div>
+        <div class="box free"><div class="t">bus 3 · free</div><div class="s">no TB device · up to 40 Gb/s</div></div>
+      </div>
+      <div class="s" style="margin-top:10px">Not on the TB buses: the Ivanky dock (plain USB, Fig. 2) and the ACASIS enclosure (USB 10 Gb/s).</div>
+    </div>
+
+    <div class="side">
+      <div class="box">
+        <div class="t">16 GB LPDDR5</div>
+        <div class="s">unified memory · Samsung</div>
+        <div class="s" style="margin-top:8px">page size 16 KB<br>cache line 128 B<br>swap in use: 504 MB of 1 GB</div>
+      </div>
+      <div class="box">
+        <div class="t">APPLE SSD AP0512Z · 512 GB</div>
+        <div class="s">Macintosh HD · 167 GiB used · 293 GiB free</div>
+      </div>
+      <div class="box">
+        <div class="t">Network</div>
+        <div class="s">en0 Realtek 8125 · 2.5 GbE · 192.168.1.2<br>Wi-Fi 7: not associated (wired only)</div>
+      </div>
+      <div class="box">
+        <div class="t">Power</div>
+        <div class="s">AC only · no battery · 155 W max</div>
+      </div>
+    </div>
+  </div>
+  <p class="note">What <code>sysctl</code> and <code>system_profiler</code> report on 10-19. This chip has three CPU tiers (Super, Performance, Efficiency) and no hyperthreads, so 12 physical equals 12 logical. The front USB-C ports are empty. Only the HP 23er is enumerated as a display right now; the Dell S2425HS hangs off the dock's HDMI (Fig. 2).</p>
+</section>
+
+<section class="fig">
+  <p class="cap">Figure 2 · Everything behind the dock, plus the loose drives</p>
+  <div class="two">
+    <div class="tree">
+      <div class="box hot">
+        <div class="t">Ivanky Fusion Dock 3 <span class="pill fast">10 Gb/s USB uplink</span></div>
+        <div class="s">USB dock (not Thunderbolt) · VIA Labs hubs · self-powered from your 100 W supply · everything below shares one 10 Gb/s link</div>
+      </div>
+      <div class="kids">
+        <div class="box">
+          <div class="t">USB 3.1 hub <span class="pill fast">10 Gb/s</span></div>
+          <div class="kids" style="margin-top:10px">
+            <div class="box">
+              <div class="t">USB 3.0 hub <span class="pill">5 Gb/s</span></div>
+              <div class="kids" style="margin-top:10px">
+                <div class="box"><div class="t">WD Elements 4 TB <span class="pill">5 Gb/s</span></div><div class="s">"Backup" · Time Machine · 2.1 TiB used of 3.6</div></div>
+                <div class="box"><div class="t">Card reader <span class="pill">5 Gb/s</span></div><div class="s">SD / TF, empty</div></div>
+              </div>
+            </div>
+            <div class="box"><div class="t">RTL9210B-CG (M.2 slot) <span class="pill fast">10 Gb/s</span></div><div class="s">Scratch Disk · 512 GB · 198 GiB used · 278 GiB free</div></div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="t">USB 2.0 side <span class="pill slow">480 Mb/s</span></div>
+          <div class="kids" style="margin-top:10px">
+            <div class="box"><div class="t">USB-C Digital AV Adapter <span class="pill slow">12 Mb/s</span></div><div class="s">the dock's HDMI out → Dell S2425HS</div></div>
+            <div class="box"><div class="t">"External" · Generic <span class="pill slow">480 Mb/s</span></div><div class="s">likely the Blu-ray burner</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tree">
+      <div class="box hot">
+        <div class="t">Thunderbolt bus 0 → ASMedia 246x <span class="pill fast">40 Gb/s USB4</span></div>
+        <div class="s">Mokin fanless enclosure</div>
+      </div>
+      <div class="kids">
+        <div class="box"><div class="t">Crucial P310 2 TB (NVMe, x4 Gen4)</div><div class="s">EXTERNAL-2TB · 837 GiB used · 1.0 TiB free<br>fio on 10-18: read ~3.78 GB/s, write ~3 GB/s burst then ~0.9 GB/s</div></div>
+      </div>
+      <div class="box" style="margin-top:6px">
+        <div class="t">ACASIS TBU405Pro <span class="pill fast">10 Gb/s USB</span></div>
+        <div class="s">On its own USB bus, not on a TB bus. Holds the Samsung SSD 1 TB (931 GiB, empty). This is the MacBook's enclosure; it is plugged in here now.</div>
+      </div>
+      <div class="box free">
+        <div class="t">Thunderbolt bus 1 · bus 3</div>
+        <div class="s">No TB device. Your MacBook Pro link over Thunderbolt IP isn't up right now.</div>
+      </div>
+    </div>
+  </div>
+  <p class="note">USB tree from <code>system_profiler SPUSBHostDataType</code>. The Scratch Disk is on the dock's 10 Gb/s side and the WD Elements is on its 5 Gb/s hub, which is the arrangement that keeps both at full speed.</p>
+</section>
+
+</div>
+</body>
+</html>

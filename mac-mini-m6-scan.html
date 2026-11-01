@@ -1,0 +1,387 @@
+<title>Mac mini M6 Scan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column of numbered figure plates, a status block up top, a command appendix at the end. */
+:root{
+  --bg:#141518; --plate:#1a1b1f; --box:#202126; --rule:#3d3f47; --rule-soft:#2c2e34;
+  --fg:#e6e6e9; --dim:#9497a1; --faint:#6c6f79;
+  --accent:#e8743b; --ok:#7cc496; --warn:#e0b45a; --bad:#e2706a;
+  --sans:"IBM Plex Sans",-apple-system,"Helvetica Neue",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
+  --bg:#f3f3f1; --plate:#fbfbfa; --box:#ffffff; --rule:#b8bac0; --rule-soft:#dcdde0;
+  --fg:#1b1c20; --dim:#5c5f68; --faint:#8a8d96; --accent:#c4501a; --ok:#2e8550; --warn:#9a6a10; --bad:#b23b33; color-scheme:light } }
+:root[data-theme="light"]{
+  --bg:#f3f3f1; --plate:#fbfbfa; --box:#ffffff; --rule:#b8bac0; --rule-soft:#dcdde0;
+  --fg:#1b1c20; --dim:#5c5f68; --faint:#8a8d96; --accent:#c4501a; --ok:#2e8550; --warn:#9a6a10; --bad:#b23b33; color-scheme:light }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 var(--sans);
+  padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1060px;margin:0 auto;display:grid;gap:28px}
+header{display:grid;gap:6px}
+h1{font:600 26px/1.2 var(--sans);margin:0;text-wrap:balance}
+h2{font:600 15px/1.3 var(--sans);margin:0}
+.meta{font:12px var(--mono);color:var(--dim);display:flex;flex-wrap:wrap;gap:4px 18px}
+.lede{color:var(--dim);max-width:72ch;margin:6px 0 0}
+
+.fig{background:var(--plate);border:1px solid var(--rule-soft);border-radius:4px;padding:18px;display:grid;gap:16px;min-width:0}
+.cap{font:500 11px var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--dim);margin:0}
+.note{color:var(--dim);font-size:13.5px;max-width:80ch;margin:0}
+.note b{color:var(--fg);font-weight:500}
+code{font:12px var(--mono)}
+
+.box{background:var(--box);border:1px solid var(--rule);border-radius:4px;padding:10px 12px;min-width:0}
+.box.hot{border-color:var(--accent)}
+.box.hot>.t{color:var(--accent)}
+.box.idle{border-style:dashed;background:transparent}
+.t{font-weight:600}
+.s{color:var(--dim);font-size:12.5px}
+.k{font:11px var(--mono);color:var(--faint)}
+.pill{display:inline-block;font:11px var(--mono);padding:0 7px;border:1px solid var(--rule);border-radius:9px;color:var(--dim);margin-left:6px;vertical-align:1px;white-space:nowrap}
+.pill.fast{color:var(--accent);border-color:var(--accent)}
+.pill.ok{color:var(--ok);border-color:var(--ok)}
+.pill.warn{color:var(--warn);border-color:var(--warn)}
+.pill.bad{color:var(--bad);border-color:var(--bad)}
+td .pill{margin-left:0}
+
+/* status block */
+.status{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.status ul{margin:8px 0 0;padding-left:18px;display:grid;gap:5px;font-size:13.5px}
+.status li{color:var(--dim)}
+.status li b{color:var(--fg);font-weight:500}
+
+/* Fig 1 */
+.f1{display:grid;grid-template-columns:minmax(0,1fr) 250px;align-items:start}
+.chip{border:1.5px solid var(--fg);border-radius:5px;padding:14px;display:grid;gap:12px}
+.tiers{display:grid;grid-template-columns:2fr 4fr 6fr;gap:10px}
+.cores{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 6px}
+.c{width:24px;height:24px;border:1px solid var(--dim);border-radius:2px}
+.gpu .c{width:19px;height:21px}
+.buses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.side{display:grid;gap:12px}
+.wire{display:grid;grid-template-columns:44px minmax(0,1fr);align-items:center}
+.wire::before{content:"";height:1.5px;background:var(--rule)}
+.wire.hot::before{background:var(--accent)}
+
+/* Fig 2 ports */
+.panel{display:grid;gap:10px}
+.panel-row{display:grid;gap:10px}
+.back{grid-template-columns:repeat(6,minmax(0,1fr))}
+.front{grid-template-columns:repeat(3,minmax(0,1fr));max-width:540px}
+.port{display:grid;grid-template-rows:auto 18px auto}
+.plug{font:500 11.5px var(--mono);text-align:center;border:1px solid var(--rule);border-radius:3px;padding:5px 4px;background:var(--box)}
+.port.hot .plug{border-color:var(--accent);color:var(--accent)}
+.stem{width:1.5px;background:var(--rule);justify-self:center}
+.port.hot .stem{background:var(--accent)}
+.port.empty .stem{background:transparent;border-left:1.5px dashed var(--rule-soft)}
+.side-label{font:500 11px var(--mono);color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+
+/* Fig 3 tree */
+.f3{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;align-items:start}
+.tree{display:grid;gap:10px}
+.kids{margin-left:16px;padding-left:14px;border-left:1.5px solid var(--rule);display:grid;gap:10px}
+
+/* tables */
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.wide{min-width:780px}
+th{font:500 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:6px 10px;border-bottom:1px solid var(--rule)}
+td{padding:9px 10px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+td.n,th.n{text-align:right}
+td.n{font-family:var(--mono);font-size:12.5px}
+td.m{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.bar{height:6px;background:var(--rule-soft);border-radius:3px;margin-top:5px;overflow:hidden;min-width:70px}
+.bar>i{display:block;height:100%;background:var(--dim)}
+.speed{height:8px;background:var(--rule-soft);border-radius:2px;overflow:hidden;min-width:90px;margin-top:4px}
+.speed>i{display:block;height:100%;background:var(--accent)}
+
+/* Fig 5 */
+.f5{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:8px 0 0;font-size:12.5px}
+dt{font:11.5px var(--mono);color:var(--faint)}
+dd{margin:0;color:var(--dim)}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lane{display:grid;gap:6px}
+.lane-h{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--dim)}
+.lane-h b{color:var(--fg);font-weight:500}
+.sq{display:flex;flex-wrap:wrap;gap:5px}
+.sq i{width:18px;height:18px;border-radius:2px;border:1px solid var(--rule)}
+.sq i.su{background:var(--accent);border-color:var(--accent)}
+.sq i.pe{border-color:var(--fg)}
+.sq i.ef{border-style:dashed;border-color:var(--dim)}
+.sq i.g{width:12px;height:16px;border-color:var(--dim)}
+.meter{height:10px;border:1px solid var(--rule);border-radius:2px;position:relative;overflow:hidden}
+.meter>i{position:absolute;inset:0 auto 0 0;background:var(--accent)}
+.meter>u{position:absolute;inset:0 auto 0 0;border-right:1px dashed var(--dim);text-decoration:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--dim);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:2px;border:1px solid var(--rule);display:inline-block}
+
+pre{margin:0;background:var(--box);border:1px solid var(--rule);border-radius:4px;padding:12px 14px;overflow-x:auto;font:12px/1.6 var(--mono);color:var(--fg)}
+pre .cm{color:var(--faint)}
+
+@media (max-width:820px){
+  .f1,.f3,.f5,.cmp,.status{grid-template-columns:1fr}
+  .wire{display:none}
+  .tiers,.buses{grid-template-columns:1fr}
+  .back{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:460px){ .back,.front{grid-template-columns:repeat(2,minmax(0,1fr))} }
+</style>
+
+<div class="wrap">
+
+<header>
+  <h1>Mac mini · Apple M6</h1>
+  <div class="meta"><span>Mac18,5</span><span>macOS 27.0.1 (26A434)</span><span>rescanned 2026-10-19 20:44</span><span>rebooted 19:57</span></div>
+  <p class="lede">Handoff for the Mac mini as it stands tonight: what is attached, how fast each drive is, and what today's Thunderbolt troubleshooting found. Devices that are not plugged in right now are left off the maps. All checks were read-only except short speed-test files, which were deleted.</p>
+</header>
+
+<!-- STATUS -->
+<section class="fig">
+  <p class="cap">Where things stand</p>
+  <div class="status">
+    <div class="box">
+      <h2>Current state</h2>
+      <ul>
+        <li><b>TB2:</b> Mokin USB4 enclosure with the Crucial P310 2 TB, 40 Gb/s, stable, ~3.0 GB/s write and ~3.7 GB/s read.</li>
+        <li><b>TB1:</b> empty.</li>
+        <li><b>TB4:</b> Ivanky dock as plain USB 10 Gb/s, with Scratch Disk, the Time Machine drive, card reader, Blu-ray burner and an HDMI adapter.</li>
+        <li><b>Display:</b> HP 23er on the mini's HDMI. Nothing is on the dock's HDMI right now.</li>
+        <li><b>Network:</b> 2.5GbE wired first, Wi-Fi 7 on 5 GHz, Tailscale up.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>Findings and open items</h2>
+      <ul>
+        <li><b>The mini runs one bus-powered NVMe enclosure reliably, not two.</b> Whichever enclosure connected second fell back to USB or dropped its drive.</li>
+        <li><b>The ACASIS TBU405Pro moved back to the MacBook's 30 W Wavlink TB5 dock</b>, where it is stable at 40 Gb/s.</li>
+        <li><b>TB2 is not faulty:</b> no PCIe or NVMe errors, overcurrent counters at 0, and the Mokin is stable there.</li>
+        <li><b>Open:</b> the P310 now has 31 unsafe shutdowns on record. Eject before unplugging.</li>
+        <li><b>Open:</b> if both enclosures are ever needed on the mini, put one behind a self-powered Thunderbolt hub.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FIGURE 1 -->
+<section class="fig">
+  <p class="cap">Figure 1 · The chip and what hangs directly off it</p>
+  <div class="f1">
+    <div class="chip">
+      <div><span class="t">Apple M6</span> <span class="s">&nbsp;12 CPU cores · 12 GPU cores · one package, one memory pool</span></div>
+      <div class="tiers">
+        <div class="box"><div class="t">2 Super</div><div class="s">perflevel0 · 20 MB L2</div>
+          <div class="cores"><i class="c"></i><i class="c"></i></div><div class="s">fastest single thread</div></div>
+        <div class="box"><div class="t">4 Performance</div><div class="s">perflevel1 · 20 MB L2</div>
+          <div class="cores"><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i></div><div class="s">sustained load</div></div>
+        <div class="box"><div class="t">6 Efficiency</div><div class="s">perflevel2 · 8 MB L2</div>
+          <div class="cores"><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i></div><div class="s">background work</div></div>
+      </div>
+      <div class="box gpu"><span class="t">GPU · 12 cores</span> <span class="s">&nbsp;Metal 4 · drives HP 23er 1920×1080 @ 60 Hz over HDMI</span>
+        <div class="cores"><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i><i class="c"></i></div></div>
+      <div class="s">Thunderbolt 4 / USB4 buses</div>
+      <div class="buses">
+        <div class="box idle"><div class="t">bus 0 · port 1</div><div class="s">empty</div></div>
+        <div class="box hot"><div class="t">bus 1 · port 2 · 40 Gb/s</div><div class="s">→ Mokin USB4, P310 2 TB</div></div>
+        <div class="box idle"><div class="t">bus 3 · port 4</div><div class="s">no TB device · Ivanky dock runs here as USB</div></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="wire hot"><div class="box"><div class="t">16 GB LPDDR5</div><div class="s">unified memory · Samsung</div>
+        <div class="s" style="margin-top:8px">page size 16 KB<br>cache line 128 B<br>74% free · swap 0</div></div></div>
+      <div class="wire"><div class="box"><div class="t">APPLE SSD AP0512Z · 512 GB</div><div class="s">Macintosh HD · 167 GiB used · 293 GiB free</div><div class="s">33 °C · 0% worn · 6.40 TB written</div></div></div>
+      <div class="wire"><div class="box"><div class="t">Apple N1 wireless</div><div class="s">Wi-Fi 7 + Bluetooth (Fig. 5)</div></div></div>
+      <div class="wire"><div class="box"><div class="t">Power · AC only</div><div class="s">no battery · 155 W max · system sleep off</div></div></div>
+    </div>
+  </div>
+  <p class="note">Three CPU tiers and no hyperthreads, so 12 physical cores equal 12 logical. The dock sits in a Thunderbolt port but runs as ordinary USB, so <code>system_profiler</code> lists bus 3 as empty.</p>
+</section>
+
+<!-- FIGURE 2 -->
+<section class="fig">
+  <p class="cap">Figure 2 · Every port and what is in it</p>
+  <div class="panel">
+    <div class="side-label">Back</div>
+    <div class="panel-row back">
+      <div class="port empty"><div class="plug">TB 1</div><div class="stem"></div><div class="box idle"><div class="s">empty</div></div></div>
+      <div class="port hot"><div class="plug">TB 2</div><div class="stem"></div><div class="box"><div class="t">Mokin USB4</div><div class="s">P310 2 TB · 40 Gb/s</div></div></div>
+      <div class="port"><div class="plug">TB 4</div><div class="stem"></div><div class="box"><div class="t">Ivanky dock</div><div class="s">USB 10 Gb/s uplink</div></div></div>
+      <div class="port"><div class="plug">HDMI</div><div class="stem"></div><div class="box"><div class="t">HP 23er</div><div class="s">1080p @ 60 Hz · main</div></div></div>
+      <div class="port hot"><div class="plug">2.5GbE</div><div class="stem"></div><div class="box"><div class="t">LAN · en0</div><div class="s">2500Base-T · active</div></div></div>
+      <div class="port"><div class="plug">AC</div><div class="stem"></div><div class="box"><div class="t">Power</div><div class="s">internal PSU</div></div></div>
+    </div>
+    <div class="side-label" style="margin-top:6px">Front</div>
+    <div class="panel-row front">
+      <div class="port empty"><div class="plug">USB-C 10G</div><div class="stem"></div><div class="box idle"><div class="s">empty</div></div></div>
+      <div class="port empty"><div class="plug">USB-C 10G</div><div class="stem"></div><div class="box idle"><div class="s">empty</div></div></div>
+      <div class="port empty"><div class="plug">3.5 mm</div><div class="stem"></div><div class="box idle"><div class="s">not reported</div></div></div>
+    </div>
+  </div>
+  <p class="note">TB2 is confirmed by its Thunderbolt receptacle number. The dock is USB only, which macOS doesn't tie to a receptacle; TB4 is from your notes and is the only port left. The front USB-C ports are 10 Gb/s USB and can't carry Thunderbolt.</p>
+</section>
+
+<!-- FIGURE 3 -->
+<section class="fig">
+  <p class="cap">Figure 3 · Everything behind the cables</p>
+  <div class="f3">
+    <div class="tree">
+      <div class="box hot"><div class="t">Ivanky Fusion Dock 3 <span class="pill fast">10 Gb/s</span></div>
+        <div class="s">USB dock with VIA Labs hubs, powered from your 100 W supply. Everything below shares this one link.</div></div>
+      <div class="kids">
+        <div class="box"><div class="t">USB 3.1 hub <span class="pill fast">10 Gb/s</span></div>
+          <div class="kids" style="margin-top:10px">
+            <div class="box"><div class="t">RTL9210B-CG · M.2 slot <span class="pill fast">10 Gb/s</span></div><div class="s">Scratch Disk · 512 GB</div></div>
+            <div class="box"><div class="t">USB 3.0 hub <span class="pill">5 Gb/s</span></div>
+              <div class="kids" style="margin-top:10px">
+                <div class="box"><div class="t">WD Elements 4 TB <span class="pill">5 Gb/s</span></div><div class="s">"Backup" · Time Machine</div></div>
+                <div class="box"><div class="t">Card reader <span class="pill">5 Gb/s</span></div><div class="s">SD / TF · no card</div></div>
+              </div></div>
+          </div></div>
+        <div class="box"><div class="t">USB 2.0 hubs <span class="pill">480 Mb/s</span></div>
+          <div class="kids" style="margin-top:10px">
+            <div class="box"><div class="t">USB-C Digital AV Adapter <span class="pill">12 Mb/s</span></div><div class="s">the dock's HDMI out · no display detected on it</div></div>
+            <div class="box"><div class="t">"External" · Generic <span class="pill">480 Mb/s</span></div><div class="s">probably the Blu-ray burner</div></div>
+          </div></div>
+      </div>
+    </div>
+    <div class="tree">
+      <div class="box hot"><div class="t">Mokin USB4 enclosure <span class="pill fast">40 Gb/s</span></div><div class="s">ASMedia 246x · fw 4b.29 · fanless · TB2</div></div>
+      <div class="kids"><div class="box"><div class="t">Crucial P310 2 TB</div><div class="s">NVMe · x4 at 16 GT/s (Gen4)</div><div class="s">EXTERNAL-2TB</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FIGURE 4 -->
+<section class="fig">
+  <p class="cap">Figure 4 · Storage and measured speed</p>
+  <div class="tbl">
+    <table class="wide">
+      <thead><tr><th>Volume</th><th>Drive · link</th><th class="n">Size</th><th>Used</th><th>Write</th><th>Read</th><th class="n">Temp</th><th class="n">Wear</th></tr></thead>
+      <tbody>
+        <tr><td><b>Macintosh HD</b><div class="k">internal</div></td><td>Apple AP0512Z<div class="k">Apple Fabric</div></td><td class="n">460 GiB</td><td>167 GiB<div class="bar"><i style="width:36%"></i></div></td><td class="m">6,838 MB/s<div class="speed"><i style="width:100%"></i></div></td><td class="m">6,450 MB/s<div class="speed"><i style="width:94%"></i></div></td><td class="n">33 °C</td><td class="n">0%</td></tr>
+        <tr><td><b>EXTERNAL-2TB</b><div class="k">TB2 · Mokin</div></td><td>Crucial P310 2 TB<div class="k">USB4 40G · Gen4 x4</div></td><td class="n">1.8 TiB</td><td>837 GiB<div class="bar"><i style="width:45%"></i></div></td><td class="m">3,043 MB/s<div class="speed"><i style="width:44%"></i></div></td><td class="m">3,667 MB/s<div class="speed"><i style="width:54%"></i></div></td><td class="n">47 °C</td><td class="n">0%</td></tr>
+        <tr><td><b>Scratch Disk</b><div class="k">dock M.2</div></td><td>SSD via RTL9210B<div class="k">USB 10G</div></td><td class="n">477 GiB</td><td>198 GiB<div class="bar"><i style="width:42%"></i></div></td><td class="m">779 MB/s<div class="speed"><i style="width:11%"></i></div></td><td class="m">776 MB/s<div class="speed"><i style="width:11%"></i></div></td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td><b>Backup</b><div class="k">dock · Time Machine</div></td><td>WD Elements 4 TB HDD<div class="k">USB 5G</div></td><td class="n">3.6 TiB</td><td>2.1 TiB<div class="bar"><i style="width:58%"></i></div></td><td class="m">not tested</td><td class="m">not tested</td><td class="n">—</td><td class="n">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Speeds are <code>fio</code> 4 GB sequential runs, 1 MB blocks, direct I/O, queue depth 16, all bar lengths on one scale. Scratch Disk was measured 4 minutes after a reboot while the Mac was still busy, a little under the ~850 MB/s it usually does. The 4 GB P310 write stays in its fast cache; long writes fall to ~0.9 GB/s. Temperature and wear come from <code>smartctl</code>, which can't read the USB-bridged drives. Both NVMe drives show 0 data-integrity errors; the P310 has 31 unsafe shutdowns, several from today's unplugging.</p>
+</section>
+
+<!-- FIGURE 5 -->
+<section class="fig">
+  <p class="cap">Figure 5 · Network and wireless</p>
+  <div class="f5">
+    <div class="box hot"><div class="t">Wired · en0 <span class="pill ok">active</span></div>
+      <dl><dt>chip</dt><dd>Realtek 8125, PCIe Gen2 x1</dd><dt>link</dt><dd>2500Base-T, full duplex</dd><dt>role</dt><dd>first in service order (default route)</dd></dl></div>
+    <div class="box"><div class="t">Wi-Fi · en1 <span class="pill ok">active</span></div>
+      <dl><dt>mode</dt><dd>802.11be (Wi-Fi 7)</dd><dt>band</dt><dd>5 GHz, channel 157, 80 MHz</dd><dt>signal</dt><dd>−40 dBm / −84 dBm noise</dd><dt>rate</dt><dd>720 Mb/s at rescan (1080 earlier)</dd></dl></div>
+    <div class="box"><div class="t">Tailscale · utun4 <span class="pill ok">up</span></div>
+      <dl><dt>use</dt><dd>personal tailnet address assigned</dd></dl></div>
+    <div class="box"><div class="t">Bluetooth <span class="pill ok">on</span></div>
+      <dl><dt>connected</dt><dd>MX Anywhere 3S · Magic Keyboard (100%)</dd></dl></div>
+  </div>
+  <p class="note">Wi-Fi is on 5 GHz, not the 6 GHz band in your notes.</p>
+</section>
+
+<!-- FIGURE 6 -->
+<section class="fig">
+  <p class="cap">Figure 6 · Today's Thunderbolt troubleshooting</p>
+  <div class="tbl">
+    <table class="wide">
+      <thead><tr><th>Time</th><th>TB1</th><th>TB2</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td class="m">afternoon</td><td>Mokin (first)</td><td>ACASIS (second)</td><td><span class="pill bad">ACASIS on USB 10G</span> 990 PRO capped at ~950 MB/s. A new cable didn't help.</td></tr>
+        <tr><td class="m">19:57 reboot</td><td>Mokin</td><td>ACASIS</td><td><span class="pill bad">ACASIS on USB 10G</span> Same after reseating and a reboot.</td></tr>
+        <tr><td class="m">20:12 swap</td><td>ACASIS (first)</td><td>Mokin (second)</td><td><span class="pill ok">ACASIS on TB3 40G</span> 2,792 MB/s write · 3,021 read. <span class="pill bad">Mokin's drive</span> didn't attach, then mounted unwritable.</td></tr>
+        <tr><td class="m">20:18:29</td><td>ACASIS</td><td>Mokin</td><td><span class="pill bad">P310 dropped</span> Link and plug-detect fell together. No PCIe or NVMe errors logged first.</td></tr>
+        <tr><td class="m">20:19 on</td><td>empty</td><td>Mokin alone</td><td><span class="pill ok">Stable</span> 3,043 MB/s write · 3,667 read.</td></tr>
+        <tr><td class="m">MacBook</td><td colspan="2">ACASIS on the 30 W Wavlink TB5 dock</td><td><span class="pill ok">Stable on TB 40G</span> ~2,930 MB/s write · ~2,440 read (single-threaded test, so the read is understated).</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>Pattern: the second enclosure to connect loses.</b> Each mini Thunderbolt port is bus-powered at 15 W, and the two enclosures never both worked at once. The ACASIS has a Thunderbolt 3 chip plus a Realtek USB fallback, so when it comes up short on power it drops to USB instead of failing. Overcurrent counters stayed at 0, so this is a likely explanation that the logs can't prove. TB2 itself checked out: the Mokin is stable there. Next step if both are needed: a self-powered Thunderbolt hub.</p>
+</section>
+
+<!-- FIGURE 7 -->
+<section class="fig">
+  <p class="cap">Figure 7 · USB4 versus Thunderbolt 3, as it applies here</p>
+  <div class="tbl">
+    <table class="wide">
+      <thead><tr><th>Standard</th><th>Speed</th><th>What it is</th><th>Here</th></tr></thead>
+      <tbody>
+        <tr><td><b>Thunderbolt 3</b> · 2015</td><td class="m">40 Gb/s</td><td>Intel's standard, Intel controller chips. Carries PCIe and DisplayPort.</td><td>ACASIS TBU405Pro (now on the MacBook)</td></tr>
+        <tr><td><b>USB4 v1</b> · 2019</td><td class="m">20/40 Gb/s</td><td>TB3's protocol as an open USB standard. Any chipmaker can build it.</td><td>Mokin (ASMedia 246x)</td></tr>
+        <tr><td><b>Thunderbolt 4</b> · 2020</td><td class="m">40 Gb/s</td><td>USB4 with full speed, PCIe and TB3 support required.</td><td>The mini's three back ports</td></tr>
+        <tr><td><b>Thunderbolt 5</b> · 2024</td><td class="m">80/120 Gb/s</td><td>USB4 v2 with the top speeds required.</td><td>The MacBook and the Wavlink dock</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Both enclosures run on a 40 Gb/s link. The difference is inside: the Mokin's USB4 chip talks to the SSD at PCIe Gen4 (~3.7 GB/s here), while the ACASIS's Thunderbolt 3 chip runs Gen3 (~3 GB/s), even with the faster 990 PRO in it. Neither gets faster on a TB5 port.</p>
+</section>
+
+<!-- FIGURE 8 -->
+<section class="fig">
+  <p class="cap">Figure 8 · This mini next to the office MacBook Pro</p>
+  <div class="legend">
+    <span><i style="background:var(--accent);border-color:var(--accent)"></i>Super</span>
+    <span><i style="border-color:var(--fg)"></i>Performance</span>
+    <span><i style="border-style:dashed;border-color:var(--dim)"></i>Efficiency</span>
+    <span><i style="width:9px;border-color:var(--dim)"></i>GPU core</span>
+    <span>Bars share one scale per row</span>
+  </div>
+  <div class="cmp">
+    <div class="chip">
+      <div><span class="t">Apple M5 Pro</span> <span class="s">&nbsp;office MacBook Pro · Mac17,9</span></div>
+      <div class="lane"><div class="lane-h"><span>CPU · 2 tiers</span><b>18 cores</b></div>
+        <div class="sq"><i class="su"></i><i class="su"></i><i class="su"></i><i class="su"></i><i class="su"></i><i class="su"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i></div>
+        <div class="s">6 Super · 16 MB L2 &nbsp;|&nbsp; 12 Performance · 8 MB L2</div></div>
+      <div class="lane"><div class="lane-h"><span>GPU</span><b>20 cores</b></div>
+        <div class="sq"><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i></div></div>
+      <div class="lane"><div class="lane-h"><span>Memory · LPDDR5, Micron</span><b>48 GB</b></div><div class="meter"><i style="width:100%"></i></div></div>
+      <div class="lane"><div class="lane-h"><span>Thunderbolt 5 · in use / port max</span><b>80 of 120 Gb/s</b></div><div class="meter"><i style="width:66.7%"></i><u style="width:100%"></u></div></div>
+      <div class="lane"><div class="lane-h"><span>Internal SSD</span><b>1 TB</b></div><div class="meter"><i style="width:100%"></i></div></div>
+    </div>
+    <div class="chip">
+      <div><span class="t">Apple M6</span> <span class="s">&nbsp;this Mac mini · Mac18,5</span></div>
+      <div class="lane"><div class="lane-h"><span>CPU · 3 tiers</span><b>12 cores</b></div>
+        <div class="sq"><i class="su"></i><i class="su"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="pe"></i><i class="ef"></i><i class="ef"></i><i class="ef"></i><i class="ef"></i><i class="ef"></i><i class="ef"></i></div>
+        <div class="s">2 Super · 20 MB L2 &nbsp;|&nbsp; 4 Performance · 20 MB L2 &nbsp;|&nbsp; 6 Efficiency · 8 MB L2</div></div>
+      <div class="lane"><div class="lane-h"><span>GPU</span><b>12 cores</b></div>
+        <div class="sq"><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i></div></div>
+      <div class="lane"><div class="lane-h"><span>Memory · LPDDR5, Samsung</span><b>16 GB</b></div><div class="meter"><i style="width:33.3%"></i></div></div>
+      <div class="lane"><div class="lane-h"><span>Thunderbolt 4 · in use / port max</span><b>40 of 40 Gb/s</b></div><div class="meter"><i style="width:33.3%"></i><u style="width:33.3%"></u></div></div>
+      <div class="lane"><div class="lane-h"><span>Internal SSD</span><b>512 GB</b></div><div class="meter"><i style="width:50%"></i></div></div>
+    </div>
+  </div>
+  <p class="note">"Performance" is the lower of two tiers on the M5 Pro but the middle of three on the M6. M5 Pro figures come from a screenshot of its scan; neither scan reports clock speeds.</p>
+</section>
+
+<!-- APPENDIX -->
+<section class="fig">
+  <p class="cap">Appendix · Commands to repeat these checks</p>
+<pre><span class="cm"># links: Thunderbolt, NVMe, USB</span>
+system_profiler SPThunderboltDataType SPNVMeDataType SPUSBHostDataType
+
+<span class="cm"># drive temp, wear, unsafe shutdowns (NVMe only; find N with diskutil list external)</span>
+smartctl -a -d nvme /dev/diskN
+
+<span class="cm"># sequential speed, 4 GB, no cache; delete the file after</span>
+fio --name=w --filename=/Volumes/VOL/.fio.bin --rw=write --bs=1m --size=4g --direct=1 --ioengine=posixaio --iodepth=16
+fio --name=r --filename=/Volumes/VOL/.fio.bin --rw=read  --bs=1m --size=4g --direct=1 --ioengine=posixaio --iodepth=16
+
+<span class="cm"># port connect/drop events; use the full path, zsh has its own `log` builtin</span>
+/usr/bin/log show --info --last 30m --style compact --predicate 'process == "kernel" AND eventMessage CONTAINS "TunneledTransport"'
+
+<span class="cm"># overcurrent counters (all 0 today)</span>
+ioreg -l | grep -i overcurrent</pre>
+</section>
+
+</div>
