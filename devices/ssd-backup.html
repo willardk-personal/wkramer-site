@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SSD BACKUP · Mac mini setup</title><meta name="description" content="WD Green SN350 2 TB in a UGREEN USB enclosure on the mini&#x27;s front port. Time Machine copy of Media.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-usb">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html" aria-current="page">Mac mini setup</a><a href="../macbook-pro.html">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Storage / <b>10 Gb/s USB</b></div>
+<h1>SSD BACKUP <em>WD Green SN350 2 TB</em></h1>
+<p class="lede">The fast backup. A WD Green SN350 2 TB in a UGREEN USB enclosure on the mini's own front USB-C port, outside the dock.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-usb"><span>front USB-C · 10 Gb/s</span><i></i></div><div class="hop"><b>UGREEN enclosure</b><span>Realtek RTL9210</span></div><div class="wire b-usb"><span>NVMe</span><i></i></div><div class="hop me"><b>WD Green SN350 2 TB</b><span>volume SSD BACKUP</span></div></div>
+<div class="stats"><div class="stat"><b>870<small>MB/s</small></b><span>read</span></div><div class="stat"><b>1.10<small>TB</small></b><span>used of 2 TB</span></div><div class="stat"><b>10<small>Gb/s</small></b><span>USB link</span></div><div class="stat"><b>0<small></small></b><span>shared with the dock</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>The drive and its enclosure</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Drive</td><td>WD Green SN350 2 TB, PCIe Gen3, QLC flash, no DRAM cache</td></tr>
+<tr><td>Enclosure</td><td>UGREEN USB enclosure, Realtek RTL9210 bridge <span class="mono">(0bda:9210)</span></td></tr>
+<tr><td>Link</td><td>USB 10 Gb/s, the most the front port and the enclosure both offer</td></tr>
+<tr><td>Where</td><td>One of the mini's two front USB-C ports. The other is free.</td></tr>
+<tr><td>Volume</td><td>SSD BACKUP (case-sensitive APFS). 1.10 TB used, 896 GB free.</td></tr>
+<tr><td>Job</td><td>Time Machine destination. It holds a backup of <a href="media.html">Media</a>.</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>Measured speed</h2>
+<div class="bars"><div class="bar b-usb"><div class="lab">Alone<small>Nov 11, 8 GB read</small></div><div class="t w"><span><em>write not tested</em></span></div><div class="t r"><i style="width:56.4%"></i><span>860 <em>MB/s read</em></span></div></div>
+<div class="bar b-usb"><div class="lab">While the dock is busy<small>Nov 11</small></div><div class="t w"><span><em>write not tested</em></span></div><div class="t r"><i style="width:57.1%"></i><span>870 <em>MB/s read</em></span></div></div></div>
+<p class="note-t">Time Machine blocks ordinary writes to its destination, so this drive was tested read-only on an existing file. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link.</p>
+<p>Because it is on the mini's own port, it does not share the dock's link. It held 870 MB/s while all three dock drives ran flat out.</p>
+</section>
+<section><h2>Things to know</h2>
+<ul class="notes"><li>QLC flash with no DRAM: a large first backup slows once the drive's cache fills. Later backups are small and quick.</li><li>Keep 15 to 20% free so the drive has room to work.</li><li>USB enclosures do not pass the drive's temperature or SMART data through, so there is no health readout for it.</li></ul>
+</section>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 11, 2026.</p>
+<div class="pager"><a href="scratch-disk.html">&larr; Scratch Disk</a><a href="../mac-mini.html">All devices</a><a href="backup-hdd.html">Backup &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>

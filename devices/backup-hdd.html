@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backup · Mac mini setup</title><meta name="description" content="WD Elements 4 TB hard drive. The main Time Machine disk.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-usb5">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html" aria-current="page">Mac mini setup</a><a href="../macbook-pro.html">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Storage / <b>5 Gb/s USB</b></div>
+<h1>Backup <em>WD Elements 4 TB</em></h1>
+<p class="lede">The big, slow, safe one. A WD Elements 4 TB hard drive on the dock's USB hub, used only by Time Machine.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R4</span><i></i></div><a class="hop" href="wavlink-dock.html"><b>Wavlink dock</b><span>WL-UTD59</span></a><div class="wire b-usb5"><span>USB hub · 5 Gb/s</span><i></i></div><div class="hop me"><b>WD Elements 4 TB</b><span>volume Backup</span></div></div>
+<div class="stats"><div class="stat"><b>~95<small>MB/s</small></b><span>read</span></div><div class="stat"><b>2.6<small>TB</small></b><span>used of 4 TB</span></div><div class="stat"><b>5<small>Gb/s</small></b><span>USB link</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>The drive</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Drive</td><td>WD Elements 4 TB portable hard drive <span class="mono">(1058:2621)</span></td></tr>
+<tr><td>Link</td><td>USB 5 Gb/s, drawing up to 4.5 W from the dock</td></tr>
+<tr><td>Where</td><td>The Wavlink's USB 3 hub, behind one of its Parade hubs</td></tr>
+<tr><td>Volume</td><td>Backup (APFS). 2.6 TB used, 1.4 TB free.</td></tr>
+<tr><td>Job</td><td>Time Machine destination for the mini.</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>Measured speed</h2>
+<p>Reads measured 89 to 98 MB/s on November 6. That is normal for a portable hard drive, and far below what its 5 Gb/s link could carry. Time Machine blocks ordinary writes, so writes were not tested.</p>
+</section>
+<section><h2>Things to know</h2>
+<ul class="notes"><li>A hard drive is the slowest device here by a wide margin, which does not matter for hourly backups that run in the background.</li><li>The <a href="ssd-backup.html">SSD BACKUP</a> drive is a second, faster Time Machine destination.</li></ul>
+</section>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 11, 2026.</p>
+<div class="pager"><a href="ssd-backup.html">&larr; SSD BACKUP</a><a href="../mac-mini.html">All devices</a><a href="ktc-h24t7.html">KTC H24T7 &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>

@@ -1,0 +1,138 @@
+<svg viewBox="0 0 1160 830" role="img" aria-labelledby="dgT">
+        <title id="dgT">Port map: the Mac mini drives two displays, the home network, the SSD BACKUP drive on a front USB-C port, and the Wavlink dock, which carries three SSDs, the Time Machine hard drive, a LAN adapter and a Blu-ray burner.</title>
+
+        <!-- links -->
+        <line x1="97" y1="260" x2="97" y2="148" class="ln l-dp"/>
+        <text x="108" y="200" class="lbl c-dp">DisplayPort</text>
+        <text x="108" y="216" class="lbl2">4 lanes · HBR3</text>
+
+        <line x1="272" y1="260" x2="272" y2="148" class="ln l-hdmi"/>
+        <text x="283" y="200" class="lbl c-hdmi">HDMI</text>
+        <text x="283" y="216" class="lbl2">100Hz</text>
+
+        <line x1="300" y1="330" x2="430" y2="330" class="ln l-tb"/>
+        <text x="365" y="318" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
+        <text x="365" y="350" class="lbl2" text-anchor="middle">USB4 v2 mode</text>
+
+        <line x1="300" y1="410" x2="352" y2="410" class="ln l-free"/>
+        <text x="358" y="414" class="lbl2">free</text>
+
+        <line x1="97" y1="480" x2="97" y2="560" class="ln l-net"/>
+        <text x="108" y="524" class="lbl c-net">2.5GbE</text>
+        <line x1="272" y1="480" x2="272" y2="560" class="ln l-air"/>
+        <text x="283" y="524" class="lbl c-mut">wireless</text>
+
+        <line x1="185" y1="480" x2="185" y2="700" class="ln l-u10"/>
+        <text x="185" y="692" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
+
+        <line x1="638" y1="181" x2="760" y2="181" class="ln l-tb"/>
+        <text x="699" y="172" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
+        <line x1="638" y1="257" x2="760" y2="257" class="ln l-tb"/>
+        <text x="699" y="248" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
+        <line x1="638" y1="333" x2="760" y2="333" class="ln l-u10"/>
+        <text x="699" y="324" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
+        <line x1="638" y1="509" x2="760" y2="509" class="ln l-u5"/>
+        <text x="699" y="500" class="lbl c-u5" text-anchor="middle">5 Gb/s</text>
+        <line x1="638" y1="585" x2="760" y2="585" class="ln l-u5"/>
+        <text x="699" y="576" class="lbl c-u5" text-anchor="middle">5 Gb/s</text>
+        <line x1="638" y1="661" x2="760" y2="661" class="ln l-u2"/>
+        <text x="699" y="652" class="lbl c-u2" text-anchor="middle">480 Mb/s</text>
+
+        <!-- displays -->
+        <rect x="15" y="30" width="165" height="118" rx="8" class="node"/>
+        <text x="28" y="56" class="t1">KTC H24T7</text>
+        <text x="28" y="76" class="t2">Main · 24in 1440p IPS</text>
+        <text x="28" y="94" class="t2">1920×1080 @ 180Hz</text>
+        <text x="28" y="112" class="t2">HiDPI, 4K backing, VRR</text>
+        <text x="28" y="132" class="tm">Cable Matters USB-C→DP</text>
+
+        <rect x="190" y="30" width="165" height="118" rx="8" class="node"/>
+        <text x="203" y="56" class="t1">Dell S2425HS</text>
+        <text x="203" y="76" class="t2">Second · 24in 1080p IPS</text>
+        <text x="203" y="94" class="t2">1920×1080 @ 100Hz</text>
+        <text x="203" y="112" class="t2">HiDPI, 4K backing</text>
+        <text x="203" y="132" class="tm">HDMI cable</text>
+
+        <!-- mac mini -->
+        <rect x="30" y="260" width="270" height="220" rx="14" class="node mini"/>
+        <text x="97" y="278" class="tag" text-anchor="middle">TB R1</text>
+        <text x="272" y="278" class="tag" text-anchor="middle">HDMI</text>
+        <text x="290" y="334" class="tag" text-anchor="end">TB R4</text>
+        <text x="290" y="414" class="tag" text-anchor="end">TB R2</text>
+        <text x="48" y="320" class="t-big">Mac mini</text>
+        <text x="48" y="342" class="t2">M6 · Mac18,5 · 16GB</text>
+        <text x="48" y="384" class="t2">Internal 512GB SSD</text>
+        <text x="48" y="402" class="t2">Front USB-C: 1 used, 1 free</text>
+        <text x="97" y="470" class="tag" text-anchor="middle">en0</text>
+        <text x="185" y="470" class="tag" text-anchor="middle">USB-C</text>
+        <text x="272" y="470" class="tag" text-anchor="middle">en1 · BT</text>
+
+        <!-- network / wireless -->
+        <rect x="15" y="560" width="165" height="110" rx="8" class="node"/>
+        <text x="28" y="586" class="t1">Home network</text>
+        <text x="28" y="606" class="t2">Wired, default route</text>
+        <text x="28" y="624" class="t2">2.5 Gb/s full duplex</text>
+        <text x="28" y="650" class="tm">192.168.1.2</text>
+
+        <rect x="190" y="560" width="165" height="110" rx="8" class="node"/>
+        <text x="203" y="586" class="t1">Wireless</text>
+        <text x="203" y="606" class="t2">Wi-Fi 7 · 5GHz · 80MHz</text>
+        <text x="203" y="624" class="t2">MX Keys S keyboard</text>
+        <text x="203" y="642" class="t2">MX Anywhere 3S mouse</text>
+
+        <!-- front usb-c drive -->
+        <rect x="15" y="700" width="340" height="106" rx="8" class="node"/>
+        <text x="28" y="726" class="t1">WD Green SN350 2TB · SSD BACKUP</text>
+        <text x="28" y="746" class="t2">Time Machine · holds a backup of Media</text>
+        <text x="28" y="764" class="t2">UGREEN USB enclosure · Realtek RTL9210</text>
+        <text x="28" y="790" class="tm">mini front USB-C · outside the dock</text>
+
+        <!-- wavlink -->
+        <rect x="430" y="40" width="230" height="680" rx="14" class="node dock"/>
+        <text x="448" y="72" class="t-big" style="font-size:18px">Wavlink WL-UTD59</text>
+        <text x="448" y="94" class="t2">Thunderbolt 5 dock</text>
+        <text x="448" y="112" class="t2">Self-powered</text>
+        <text x="448" y="130" class="tm">firmware 64.64</text>
+
+        <rect x="446" y="150" width="192" height="214" rx="8" class="sub"/>
+        <text x="460" y="176" class="t1">Thunderbolt ×3</text>
+        <text x="460" y="196" class="t2">40 Gb/s each</text>
+        <text x="460" y="214" class="t2">(TB5 ports, host is TB4)</text>
+        <text x="460" y="240" class="t2">Port 2 is the front 30W</text>
+        <text x="460" y="258" class="t2">USB-C port</text>
+        <text x="460" y="290" class="t2">Port 3: USB enclosure,</text>
+        <text x="460" y="308" class="t2">carried by the USB hub</text>
+
+        <rect x="446" y="470" width="192" height="230" rx="8" class="sub"/>
+        <text x="460" y="496" class="t1">USB hub · 10 Gb/s</text>
+        <text x="460" y="530" class="tm">Intel 8087:5787</text>
+        <text x="460" y="546" class="tm">+ Parade hubs</text>
+        <text x="460" y="616" class="t2">Shared by these three</text>
+        <text x="460" y="634" class="t2">and the Scratch Disk</text>
+
+        <!-- right column: thunderbolt -->
+        <rect x="760" y="150" width="385" height="62" rx="8" class="node"/>
+        <text x="774" y="176" class="t1">Crucial P310 2TB · Media</text>
+        <text x="774" y="196" class="t2">Plex and Apple TV source · Mokin, ASMedia 246x · Gen4 x4</text>
+
+        <rect x="760" y="226" width="385" height="62" rx="8" class="node"/>
+        <text x="774" y="252" class="t1">Samsung 990 PRO 1TB · DATA</text>
+        <text x="774" y="272" class="t2">ACASIS, TB3 · Gen3 x4 · front 30W port</text>
+
+        <rect x="760" y="302" width="385" height="62" rx="8" class="node"/>
+        <text x="774" y="328" class="t1">Scratch Disk · 512GB SSD</text>
+        <text x="774" y="348" class="t2">Ugreen USB enclosure · Realtek RTL9210 · on a TB port</text>
+
+        <!-- right column: usb -->
+        <rect x="760" y="478" width="385" height="62" rx="8" class="node"/>
+        <text x="774" y="504" class="t1">Backup · WD Elements 4TB HDD</text>
+        <text x="774" y="524" class="t2">Time Machine · behind a Parade hub</text>
+
+        <rect x="760" y="554" width="385" height="62" rx="8" class="node"/>
+        <text x="774" y="580" class="t1">Realtek 2.5G USB LAN</text>
+        <text x="774" y="600" class="t2">RTL8156 · en12 · not in use</text>
+
+        <rect x="760" y="630" width="385" height="62" rx="8" class="node"/>
+        <text x="774" y="656" class="t1">Blu-ray / DVD burner</text>
+        <text x="774" y="676" class="t2">Matshita UJ260 · Initio slim-drive bridge</text>
+      </svg>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wavlink WL-UTD59 · Mac mini setup</title><meta name="description" content="Self-powered Thunderbolt 5 dock. Carries three SSDs, the Time Machine disk, a LAN adapter and the Blu-ray burner on one cable.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-tb">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html" aria-current="page">Mac mini setup</a><a href="../macbook-pro.html">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Dock / <b>40 Gb/s uplink</b></div>
+<h1>Wavlink WL-UTD59 <em>Thunderbolt 5 dock</em></h1>
+<p class="lede">The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R4, with all three downstream Thunderbolt ports in use.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R4</span><i></i></div><div class="hop me"><b>Wavlink WL-UTD59</b><span>USB4 v2 mode · fw 64.64</span></div></div>
+<div class="stats"><div class="stat"><b>40<small>Gb/s</small></b><span>link to the mini</span></div><div class="stat"><b>3 / 3<small></small></b><span>Thunderbolt ports in use</span></div><div class="stat"><b>~4.0<small>GB/s</small></b><span>combined drive ceiling</span></div><div class="stat"><b>6<small></small></b><span>devices behind it</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>What it is</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Model</td><td>Wavlink WL-UTD59 Thunderbolt 5 Dock</td></tr>
+<tr><td>Reported vendor</td><td>Winstars Technology Limited <span class="mono">(vendor 0x2629, device 0xD59, rev 3)</span></td></tr>
+<tr><td>Firmware</td><td>64.64, port controllers 1.11.0</td></tr>
+<tr><td>Link to the mini</td><td>40 Gb/s in USB4 v2 mode, on Thunderbolt port R4</td></tr>
+<tr><td>Power</td><td>Its own power supply. It does not draw from the mini.</td></tr>
+<tr><td>Downstream Thunderbolt</td><td>3 ports, 40 Gb/s each. One of them is the front 30 W USB-C port.</td></tr>
+<tr><td>USB 3 side</td><td>Intel hub <span class="mono">8087:5787</span> at 10 Gb/s, feeding Parade hubs <span class="mono">1da0:5512</span></td></tr>
+<tr><td>USB 2 side</td><td>Fresco Logic hub <span class="mono">1d5c:5801</span>, feeding Parade hubs <span class="mono">1da0:551d</span></td></tr>
+<tr><td>Dock controller</td><td>Infineon management device <span class="mono">2629:0d59</span></td></tr>
+</tbody></table></div>
+<p class="note-t">It is a Thunderbolt 5 dock, but the mini's ports are Thunderbolt 4, so the link runs at 40 Gb/s. That is the top speed the mini offers.</p>
+</section>
+<section><h2>What is plugged into it</h2>
+<div class="scroll"><table class=""><thead><tr><th>Dock port</th><th>Device</th><th>Link</th><th>Carried by</th></tr></thead><tbody>
+<tr><td>Thunderbolt 1</td><td><a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure</td><td>40 Gb/s USB4</td><td>Thunderbolt</td></tr>
+<tr><td>Thunderbolt 2 (front, 30 W)</td><td><a href="data.html">DATA</a> · Samsung 990 PRO in an ACASIS enclosure</td><td>40 Gb/s Thunderbolt 3</td><td>Thunderbolt</td></tr>
+<tr><td>Thunderbolt 3</td><td><a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure</td><td>10 Gb/s USB</td><td>USB 3 hub</td></tr>
+<tr><td>USB 3 hub</td><td><a href="backup-hdd.html">Backup</a> · WD Elements 4 TB</td><td>5 Gb/s</td><td>USB 3 hub</td></tr>
+<tr><td>USB 3 hub</td><td><a href="lan-adapter.html">Realtek 2.5G LAN</a></td><td>5 Gb/s</td><td>USB 3 hub</td></tr>
+<tr><td>USB 2 side</td><td><a href="blu-ray.html">Blu-ray burner</a></td><td>480 Mb/s</td><td>USB 2 hub</td></tr>
+</tbody></table></div>
+<p class="note-t">The Scratch Disk sits on a Thunderbolt port, but its enclosure is USB. macOS shows that Thunderbolt port as empty and lists the drive under the dock's USB hub, which it shares with the other USB devices.</p>
+</section>
+<section><h2>One shared uplink</h2>
+<p>Everything behind the dock shares the single 40 Gb/s link to the mini. Run alone, each NVMe drive gets about 3 GB/s. Run together, they split a ceiling of about 4 GB/s.</p>
+<div class="bars"><div class="bar b-tb"><div class="lab">DATA alone<small>990 PRO</small></div><div class="t w"><i style="width:59.0%"></i><span>2,930 <em>MB/s write</em></span></div><div class="t r"><i style="width:63.9%"></i><span>3,170 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Media alone<small>P310</small></div><div class="t w"><i style="width:57.4%"></i><span>2,850 <em>MB/s write</em></span></div><div class="t r"><i style="width:72.7%"></i><span>3,610 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">DATA, all at once<small>990 PRO</small></div><div class="t w"><i style="width:35.9%"></i><span>1,780 <em>MB/s write</em></span></div><div class="t r"><i style="width:33.6%"></i><span>1,670 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Media, all at once<small>P310</small></div><div class="t w"><i style="width:28.4%"></i><span>1,410 <em>MB/s write</em></span></div><div class="t r"><i style="width:33.0%"></i><span>1,640 <em>MB/s read</em></span></div></div>
+<div class="bar b-usb"><div class="lab">Scratch, all at once<small>USB 10 Gb/s</small></div><div class="t w"><i style="width:15.9%"></i><span>790 <em>MB/s write</em></span></div><div class="t r"><i style="width:15.2%"></i><span>755 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Dock total<small>three drives together</small></div><div class="t w"><i style="width:80.4%"></i><span>3,990 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>4,070 <em>MB/s read</em></span></div></div></div>
+<p class="note-t">fio, 8 GB direct I/O, November 11, 2026. No errors, peak drive temperature 53 °C. A two-drive run on November 7 gave the same ceiling: 3770 MB/s write and 3870 read combined, within 0.3% over three passes.</p>
+</section>
+<section><h2>Why the dock is here</h2>
+<p>The mini runs one bus-powered NVMe enclosure reliably, not two. On October 19 I tried every arrangement of the two enclosures on the mini's own ports:</p>
+<div class="scroll"><table class=""><thead><tr><th>Setup</th><th>Result</th></tr></thead><tbody>
+<tr><td>Mokin first, ACASIS second</td><td>ACASIS fell back to USB 10 Gb/s and its drive ran at about 950 MB/s. A new cable and a reboot did not help.</td></tr>
+<tr><td>ACASIS first, Mokin second</td><td>ACASIS came up at 40 Gb/s. The Mokin's drive failed to attach, mounted unwritable, then dropped.</td></tr>
+<tr><td>Mokin alone</td><td>Stable at 40 Gb/s.</td></tr>
+</tbody></table></div>
+<p>Whichever enclosure connected second lost. Each port supplies about 15 W of bus power, and that is the likely cause, though the logs cannot prove it: no PCIe or NVMe errors, and the overcurrent counters stayed at 0. A dock with its own power supply fixes it. Both enclosures now run behind the Wavlink at 40 Gb/s with no drops.</p>
+</section>
+<section><h2>Keep monitors off it</h2>
+<p>DisplayPort video reserves outbound Thunderbolt bandwidth, the same direction drive writes use. With the KTC monitor (1440p at 180 Hz) on the dock, writes to the NVMe drives capped near 1.5 GB/s. With the monitor on the mini's own port, they reach about 3 GB/s. Reads were barely affected. Both monitors now plug into the mini directly.</p>
+</section>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 11, 2026.</p>
+<div class="pager"><a href="blu-ray.html">&larr; Blu-ray burner</a><a href="../mac-mini.html">All devices</a><a href="media.html">Media &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>

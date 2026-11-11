@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DATA · Mac mini setup</title><meta name="description" content="Samsung 990 PRO 1 TB in a fan-cooled ACASIS Thunderbolt 3 enclosure. The fastest drive here for small random work.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-tb">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html" aria-current="page">Mac mini setup</a><a href="../macbook-pro.html">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Storage / <b>40 Gb/s · Gen3 x4</b></div>
+<h1>DATA <em>Samsung 990 PRO 1 TB</em></h1>
+<p class="lede">The working drive. A Samsung 990 PRO 1 TB in a fan-cooled ACASIS Thunderbolt 3 enclosure, on the dock's front port.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R4</span><i></i></div><a class="hop" href="wavlink-dock.html"><b>Wavlink dock</b><span>WL-UTD59</span></a><div class="wire b-tb"><span>40 Gb/s TB3</span><i></i></div><div class="hop"><b>ACASIS TBU405Pro</b><span>Intel Titan Ridge</span></div><div class="wire b-tb"><span>PCIe Gen3 x4</span><i></i></div><div class="hop me"><b>990 PRO 1 TB</b><span>volume DATA</span></div></div>
+<div class="stats"><div class="stat"><b>3,170<small>MB/s</small></b><span>read, alone</span></div><div class="stat"><b>2,930<small>MB/s</small></b><span>write, alone</span></div><div class="stat"><b>111k<small>IOPS</small></b><span>random 4k read</span></div><div class="stat"><b>41<small>°C</small></b><span>idle</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>The drive and its enclosure</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Drive</td><td>Samsung SSD 990 PRO 1 TB, firmware 3B2QJXD7</td></tr>
+<tr><td>Drive link</td><td>PCIe Gen3, 4 lanes, 8 GT/s. The enclosure sets this limit; the drive itself is Gen4.</td></tr>
+<tr><td>Enclosure</td><td>ACASIS TBU405Pro, fan-cooled</td></tr>
+<tr><td>Enclosure chip</td><td>Intel Titan Ridge (Thunderbolt 3), firmware 69.1, link controller 1.45.0</td></tr>
+<tr><td>Enclosure link</td><td>40 Gb/s Thunderbolt 3, on the Wavlink's front 30 W port</td></tr>
+<tr><td>Volume</td><td>DATA (APFS, not encrypted), formerly SAMSUNG SSD. 146 GB used, 854 GB free.</td></tr>
+<tr><td>History</td><td>Came over from the MacBook Pro.</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>Measured speed</h2>
+<div class="bars"><div class="bar b-tb"><div class="lab">Behind the dock<small>Nov 11, 8 GB, alone</small></div><div class="t w"><i style="width:62.5%"></i><span>2,930 <em>MB/s write</em></span></div><div class="t r"><i style="width:67.6%"></i><span>3,170 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Behind the dock<small>Nov 11, all drives at once</small></div><div class="t w"><i style="width:38.0%"></i><span>1,780 <em>MB/s write</em></span></div><div class="t r"><i style="width:35.6%"></i><span>1,670 <em>MB/s read</em></span></div></div></div>
+<p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 111k read and 48k write operations per second. That is more than twice the internal SSD (46k and 20k) in the same test.</p>
+</section>
+<section><h2>Thunderbolt 3 against USB4</h2>
+<div class="scroll"><table class=""><thead><tr><th>Standard</th><th>Speed</th><th>In this setup</th></tr></thead><tbody>
+<tr><td>Thunderbolt 3 (2015)</td><td>40 Gb/s</td><td>This ACASIS enclosure</td></tr>
+<tr><td>USB4 (2019)</td><td>20 or 40 Gb/s</td><td>The Mokin enclosure holding <a href="media.html">Media</a></td></tr>
+<tr><td>Thunderbolt 4 (2020)</td><td>40 Gb/s</td><td>The mini's three back ports</td></tr>
+<tr><td>Thunderbolt 5 (2024)</td><td>80 or 120 Gb/s</td><td>The <a href="wavlink-dock.html">Wavlink dock</a>, held to 40 Gb/s by the mini</td></tr>
+</tbody></table></div>
+<p>Both enclosures hold a 40 Gb/s link. Inside, the Mokin's USB4 chip reaches its drive at PCIe Gen4, about 3.6 GB/s here. The ACASIS Thunderbolt 3 chip runs Gen3, about 3.2 GB/s, even though the 990 PRO is the faster drive. Neither would get faster on a Thunderbolt 5 port.</p>
+</section>
+<section><h2>Health</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Wear</td><td>0% used, 100% spare</td></tr>
+<tr><td>Written / read</td><td>2.36 TB / 1.15 TB</td></tr>
+<tr><td>Power-on time</td><td>655 hours, 119 power cycles</td></tr>
+<tr><td>Unsafe shutdowns</td><td>62</td></tr>
+<tr><td>Media errors</td><td>0</td></tr>
+</tbody></table></div>
+<p class="note-t">From smartctl, November 11, 2026. The count went from 58 to 61 when the drive was moved on November 10. Eject before unplugging.</p>
+</section>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 11, 2026.</p>
+<div class="pager"><a href="media.html">&larr; Media</a><a href="../mac-mini.html">All devices</a><a href="scratch-disk.html">Scratch Disk &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>

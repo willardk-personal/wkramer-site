@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Media · Mac mini setup</title><meta name="description" content="Crucial P310 2 TB in a fanless Mokin USB4 enclosure. The Plex and Apple TV streaming source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-tb">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html" aria-current="page">Mac mini setup</a><a href="../macbook-pro.html">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Storage / <b>40 Gb/s · Gen4 x4</b></div>
+<h1>Media <em>Crucial P310 2 TB</em></h1>
+<p class="lede">The streaming library. A Crucial P310 2 TB NVMe drive in a fanless Mokin USB4 enclosure, behind the Wavlink dock.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R4</span><i></i></div><a class="hop" href="wavlink-dock.html"><b>Wavlink dock</b><span>WL-UTD59</span></a><div class="wire b-tb"><span>40 Gb/s USB4</span><i></i></div><div class="hop"><b>Mokin enclosure</b><span>ASMedia 246x</span></div><div class="wire b-tb"><span>PCIe Gen4 x4</span><i></i></div><div class="hop me"><b>Crucial P310 2 TB</b><span>volume Media</span></div></div>
+<div class="stats"><div class="stat"><b>3,610<small>MB/s</small></b><span>read, alone</span></div><div class="stat"><b>2,850<small>MB/s</small></b><span>write, alone</span></div><div class="stat"><b>912<small>GB</small></b><span>used of 2 TB</span></div><div class="stat"><b>48<small>°C</small></b><span>idle</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>The drive and its enclosure</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Drive</td><td>Crucial P310 2 TB <span class="mono">(CT2000P310SSD8)</span>, QLC flash, firmware VACR011</td></tr>
+<tr><td>Drive link</td><td>PCIe Gen4, 4 lanes, 16 GT/s</td></tr>
+<tr><td>Enclosure</td><td>Mokin USB4 enclosure, fanless</td></tr>
+<tr><td>Enclosure chip</td><td>ASMedia 246x <span class="mono">(device 0x2463)</span>, firmware 4b.29</td></tr>
+<tr><td>Enclosure link</td><td>40 Gb/s USB4, on a Wavlink Thunderbolt port</td></tr>
+<tr><td>Volume</td><td>Media (APFS), formerly EXTERNAL-2TB. 912 GB used, 1.09 TB free.</td></tr>
+<tr><td>Job</td><td>Source for Plex and Apple TV streaming. A 4K remux needs about 12 MB/s.</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>Measured speed</h2>
+<div class="bars"><div class="bar b-tb"><div class="lab">Direct on the mini<small>Nov 6, 4 GB</small></div><div class="t w"><i style="width:68.5%"></i><span>3,210 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>3,845 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Behind the dock<small>Nov 11, 8 GB, alone</small></div><div class="t w"><i style="width:60.8%"></i><span>2,850 <em>MB/s write</em></span></div><div class="t r"><i style="width:77.0%"></i><span>3,610 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Behind the dock<small>Nov 11, all drives at once</small></div><div class="t w"><i style="width:30.1%"></i><span>1,410 <em>MB/s write</em></span></div><div class="t r"><i style="width:35.0%"></i><span>1,640 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Sustained write<small>after the cache fills</small></div><div class="t w"><i style="width:19.2%"></i><span>900 <em>MB/s write</em></span></div></div></div>
+<p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 56k read and 24k write operations per second.</p>
+<p>Short writes land in a fast cache at about 3 GB/s. Once the cache fills, writes settle near 0.9 GB/s, which is the limit of QLC flash. Reads are not affected.</p>
+</section>
+<section><h2>Heat</h2>
+<p>The enclosure has no fan. The drive sits at 43 to 55 °C in normal use. It reached 70 °C after about 400 GB of nonstop writes, and 77 °C in a stress test that pushed about 560 GB of I/O in 8 minutes. It never throttled. The critical limit is 85 °C. A heatsink or some airflow would help on very long runs.</p>
+</section>
+<section><h2>Health</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Wear</td><td>0% used, 100% spare</td></tr>
+<tr><td>Written / read</td><td>6.52 TB / 10.3 TB</td></tr>
+<tr><td>Power-on time</td><td>863 hours, 98 power cycles</td></tr>
+<tr><td>Unsafe shutdowns</td><td>47</td></tr>
+<tr><td>Media errors</td><td>0</td></tr>
+</tbody></table></div>
+<p class="note-t">From smartctl, November 11, 2026. Most of the unsafe shutdowns come from unplugging without ejecting during the October troubleshooting. Eject first.</p>
+</section>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 11, 2026.</p>
+<div class="pager"><a href="wavlink-dock.html">&larr; Wavlink WL-UTD59</a><a href="../mac-mini.html">All devices</a><a href="data.html">DATA &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>

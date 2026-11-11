@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KTC H24T7 · Mac mini setup</title><meta name="description" content="24-inch 1440p Fast IPS at 180 Hz with VRR, on DisplayPort straight from the mini.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-dp">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html" aria-current="page">Mac mini setup</a><a href="../macbook-pro.html">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Displays / <b>DisplayPort · 180 Hz</b></div>
+<h1>KTC H24T7 <em>main display</em></h1>
+<p class="lede">The main display. A 24-inch 1440p Fast IPS panel at 180 Hz, on DisplayPort end to end from the mini's port R1.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-dp"><span>R1 · USB-C to DP</span><i></i></div><div class="hop"><b>Cable Matters cable</b><span>4 lanes · HBR3</span></div><div class="wire b-dp"><span>DisplayPort</span><i></i></div><div class="hop me"><b>KTC H24T7</b><span>1440p · 180 Hz · VRR</span></div></div>
+<div class="stats"><div class="stat"><b>180<small>Hz</small></b><span>refresh, with VRR</span></div><div class="stat"><b>2560×1440<small></small></b><span>panel</span></div><div class="stat"><b>400<small>nits</small></b><span>HDR400</span></div><div class="stat"><b>~95<small>%</small></b><span>DCI-P3</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>The panel</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Panel</td><td>24-inch Fast IPS, 2560×1440</td></tr>
+<tr><td>Refresh</td><td>180 Hz, 185 Hz overclocked, variable refresh</td></tr>
+<tr><td>Brightness</td><td>400 nits, HDR400</td></tr>
+<tr><td>Colour</td><td>8-bit plus FRC (sold as "10-bit"), about 95% DCI-P3 wide gamut</td></tr>
+<tr><td>Contrast</td><td>1000:1</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>How it is connected</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Port</td><td>Mac mini Thunderbolt port R1</td></tr>
+<tr><td>Cable</td><td>Cable Matters USB-C to DisplayPort</td></tr>
+<tr><td>Signal</td><td>DisplayPort alt mode, 4 lanes at HBR3, no compression (no DSC)</td></tr>
+<tr><td>Running at</td><td>Looks like 2048×1152 in HiDPI (4096×2304 backing) at 180 Hz</td></tr>
+<tr><td>Role</td><td>Main display</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>Things to know</h2>
+<ul class="notes"><li>Keep it on DisplayPort. Through an HDMI 1.4-class USB-C to HDMI cable it dropped to 75 Hz.</li><li>Keep it off the <a href="wavlink-dock.html">Wavlink dock</a>. With this monitor on the dock, writes to the NVMe drives behind it capped near 1.5 GB/s. On the mini's own port they reach about 3 GB/s.</li><li>Its white does not match the <a href="dell-s2425hs.html">Dell</a> out of the box: this is a wide-gamut 400-nit panel and the Dell is an sRGB 250-nit one. Match brightness first, then use the sRGB mode, then adjust RGB gain.</li></ul>
+</section>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 11, 2026.</p>
+<div class="pager"><a href="backup-hdd.html">&larr; Backup</a><a href="../mac-mini.html">All devices</a><a href="dell-s2425hs.html">Dell S2425HS &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>
