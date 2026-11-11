@@ -70,9 +70,9 @@
         <!-- network / wireless -->
         <rect x="15" y="560" width="165" height="110" rx="8" class="node"/>
         <text x="28" y="586" class="t1">Home network</text>
-        <text x="28" y="606" class="t2">Wired, default route</text>
+        <text x="28" y="606" class="t2">ACASIS 2.5GbE switch</text>
         <text x="28" y="624" class="t2">2.5 Gb/s full duplex</text>
-        <text x="28" y="650" class="tm">192.168.1.2</text>
+        <text x="28" y="650" class="tm">wired · default route</text>
 
         <rect x="190" y="560" width="165" height="110" rx="8" class="node"/>
         <text x="203" y="586" class="t1">Wireless</text>

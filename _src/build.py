@@ -367,7 +367,7 @@ D.append(dict(
             ("Where", "The Wavlink's USB 3 hub, behind one of its Parade hubs"),
             ("Status", "No cable, no address. Not in use."),
         ])),
-        sec("Why it is idle", '<p>The mini has its own 2.5 Gb Ethernet port (en0), and that carries all the traffic: about 2.15 Gb/s down and 2.12 Gb/s up with a 15 ms idle ping. A second 2.5 Gb port through a shared USB hub would add nothing, so this one stays empty.</p>'),
+        sec("Why it is idle", '<p>The mini has its own 2.5 Gb Ethernet port (en0), and that carries all the traffic through the <a href="home-network.html">home network</a>: about 2.13 Gb/s down and 2.12 Gb/s up. A second 2.5 Gb port through a shared USB hub would add nothing, so this one stays empty.</p>'),
     ]))
 
 # ---------------------------------------------------------------- Blu-ray
@@ -388,6 +388,46 @@ D.append(dict(
         sec("Is USB 2 enough?", '<p>Yes. USB 2 carries up to about 60 MB/s on paper. Blu-ray at 6x speed is about 27 MB/s, so the disc is the limit, not the cable.</p>'),
     ]))
 
+# ---------------------------------------------------------------- Home network
+D.append(dict(
+    slug="home-network", name="Home network", em="wired 2.5 Gb", group="Network", bus="net", spd="2.5 Gb/s Ethernet",
+    card="The mini's built-in 2.5 Gb Ethernet into an ACASIS 2.5 Gb switch. 2.13 Gb/s down and 2.12 Gb/s up in the last test.",
+    lede="How the mini reaches the internet. Its built-in 2.5 Gb Ethernet port runs to an ACASIS 2.5 Gb Ethernet switch, and from there to the router.",
+    path=[MINI, ("wire", "en0 · 2500Base-T", "net"), ("node", "ACASIS 2.5GbE switch", "Ethernet hub for the desk", "me"), ("wire", "Ethernet", "net"), ("node", "Router", "internet", None)],
+    stats=[("2.13", "Gb/s", "down"), ("2.12", "Gb/s", "up"), ("10.8", "ms", "idle latency"), ("0.76", "ms", "ping to the router")],
+    body=[
+        sec("The link", spec([
+            ("Mac port", "Built-in 2.5 Gb Ethernet, interface en0"),
+            ("Plugged into", "ACASIS 2.5 Gb Ethernet switch"),
+            ("Negotiated", "2500Base-T, full duplex, flow control on. That is the port's top speed."),
+            ("MTU", "1500"),
+            ("Role", "Default route. All of the mini's traffic goes over this cable."),
+            ("Router ping", "0.62 / 0.76 / 0.86 ms (min / average / max), 10 of 10 packets returned"),
+        ]),
+            '<p class="note-t">Read from ifconfig and ping on November 11, 2026.</p>'),
+        sec("Last speed test", '<p class="note-t">Apple\'s <span class="mono">networkQuality</span> on en0, November 11, 2026 at 6:42 PM. The test ran for 21.6 seconds.</p>',
+            table(["Measure", "Result", "Detail"], [
+                ("Download", "2.128 Gb/s", "5.56 GB moved over 8 flows"),
+                ("Upload", "2.124 Gb/s", "4.47 GB moved over 16 flows"),
+                ("Idle latency", "10.8 ms", "5,566 round trips per minute"),
+                ("Responsiveness under load", "High", "1,411 round trips per minute, 42.5 ms"),
+                ("Protocol", "HTTP/2", "100% of flows"),
+                ("Accuracy", "High", "For capacity, latency and responsiveness"),
+            ]),
+            '<p>Both directions land at about 85% of the 2.5 Gb/s link, so the cable, the switch and the internet line all keep up with each other. Latency stays low while the line is full, which is what the High responsiveness rating means.</p>'),
+        sec("Earlier tests", table(["Date", "Interface", "Down", "Up", "Idle latency"], [
+            ("Nov 11, 2026", "en0 · wired", "2.13 Gb/s", "2.12 Gb/s", "10.8 ms"),
+            ("Nov 7, 2026", "en0 · wired", "2.15 Gb/s", "2.12 Gb/s", "15 ms"),
+            ("Oct 17, 2026", "en0 · wired", "2.29 Gb/s", "2.18 Gb/s", "—"),
+            ("Nov 7, 2026", "en1 · Wi-Fi 7, 5 GHz", "226 Mb/s", "238 Mb/s", "17 ms"),
+        ], num=(2, 3, 4)),
+            '<p class="note-t">Wired has held at 2.1 to 2.3 Gb/s across three tests. Wi-Fi manages about a tenth of that.</p>'),
+        sec("Things to know", notes([
+            "The mini also has Wi-Fi 7 (en1) connected, but the wired port is the default route.",
+            'A second 2.5 Gb port sits unused on the dock: the <a href="lan-adapter.html">Realtek LAN adapter</a>.',
+        ])),
+    ]))
+
 SLUGS = [d["slug"] for d in D]
 for i, d in enumerate(D):
     prev, nxt = D[i - 1], D[(i + 1) % len(D)]
@@ -403,7 +443,7 @@ svg = (ROOT / "_src/diagram.svg").read_text().replace("1920×1080 @ 180Hz", "204
 HITS = [("ktc-h24t7", "dp", 15, 30, 165, 118), ("dell-s2425hs", "hdmi", 190, 30, 165, 118), ("ssd-backup", "usb", 15, 700, 340, 106),
         ("wavlink-dock", "tb", 430, 40, 230, 100), ("media", "tb", 760, 150, 385, 62), ("data", "tb", 760, 226, 385, 62),
         ("scratch-disk", "usb", 760, 302, 385, 62), ("backup-hdd", "usb5", 760, 478, 385, 62), ("lan-adapter", "net", 760, 554, 385, 62),
-        ("blu-ray", "usb2", 760, 630, 385, 62)]
+        ("blu-ray", "usb2", 760, 630, 385, 62), ("home-network", "net", 15, 560, 165, 110)]
 names = {d["slug"]: d["name"] for d in D}
 hits = "".join(f'<a href="devices/{s}.html" class="b-{b}" aria-label="{names[s]}"><rect class="hit" x="{x}" y="{y}" width="{w}" height="{h}" rx="8"/></a>' for s, b, x, y, w, h in HITS)
 svg = svg.replace("</svg>", hits + "</svg>")
@@ -413,7 +453,7 @@ fig = ('<figure class="wiring"><div class="dscroll">' + svg + '</div><figcaption
        + '<span>R1, R2 and R4 are the numbers macOS gives the mini\'s Thunderbolt ports. Select a device to open its page.</span></figcaption></figure>')
 
 cards = ""
-for g in ["Dock", "Storage", "Displays", "Other"]:
+for g in ["Dock", "Storage", "Displays", "Network", "Other"]:
     cards += f'<div class="grp">{g}</div><div class="grid">' + "".join(
         f'<a class="card b-{d["bus"]}" href="devices/{d["slug"]}.html"><span class="spd">{d["spd"]}</span><b>{d["name"]}</b><span>{d["card"]}</span><span class="go">Details &rarr;</span></a>'
         for d in D if d["group"] == g) + "</div>\n"
@@ -446,7 +486,7 @@ hub = "\n".join([
             ("Wavlink → " + L("backup-hdd", "Backup") + " · WD Elements", "WD USB bridge", "5 Gb/s", "5 Gb/s", OK),
             ("Wavlink → " + L("lan-adapter", "2.5G LAN adapter"), "Realtek RTL8156", "5 Gb/s", "5 Gb/s", OK),
             ("Wavlink → " + L("blu-ray", "Blu-ray burner"), "Initio bridge", "USB 2", "480 Mb/s", OK),
-            ('Mac mini → home network<br><span class="sub">en0</span>', "Built-in 2.5GbE", "2.5 Gb/s", "2500Base-T full duplex", OK),
+            ("Mac mini → " + L("home-network", "home network") + '<br><span class="sub">en0, into the ACASIS 2.5GbE switch</span>', "Built-in 2.5GbE", "2.5 Gb/s", "2500Base-T full duplex", OK),
         ])),
     sec("Drive speeds", '<p class="note-t">fio, 8 GB direct I/O, November 11, 2026. First each drive alone, then all of them at once.</p>',
         bars([
@@ -473,9 +513,9 @@ hub = "\n".join([
         (L("backup-hdd", "Backup"), "WD Elements 4 TB hard drive", "2.6 TB", "4.0 TB", "—"),
     ], num=(2, 3, 4)), '<p class="note-t">Idle temperatures. USB enclosures do not pass the drive\'s temperature through.</p>'),
     sec("Network", table(["Interface", "Link", "Down", "Up", "Idle ping"], [
-        ("en0 · wired", "2.5GbE, carries the traffic", "2.15 Gb/s", "2.12 Gb/s", "15 ms"),
+        ("en0 · wired", "2.5GbE via the ACASIS switch, carries the traffic", "2.13 Gb/s", "2.12 Gb/s", "10.8 ms"),
         ("en1 · Wi-Fi 7", "5 GHz, 80 MHz, 864 Mb/s link", "226 Mb/s", "238 Mb/s", "17 ms"),
-    ], num=(2, 3, 4)), '<p class="note-t">Measured November 7, 2026. The internet line is fine at about 2.1 Gb/s each way. Wi-Fi is the bottleneck at roughly a tenth of wired speed, so the mini stays on the cable.</p>'),
+    ], num=(2, 3, 4)), '<p class="note-t">Wired measured November 11, 2026, Wi-Fi November 7. Full details are on the ' + L("home-network", "home network page") + '. The internet line is fine at about 2.1 Gb/s each way. Wi-Fi is the bottleneck at roughly a tenth of wired speed, so the mini stays on the cable.</p>'),
     '<section><h2>Worth remembering</h2><div class="callouts">'
     '<div class="callout attn"><h3>Eject before unplugging</h3><p>Unsafe shutdowns on record: P310 47, 990 PRO 62, internal 10. All drives report no data errors.</p></div>'
     '<div class="callout"><h3>Monitors stay off the dock</h3><p>A display on the dock takes outbound Thunderbolt bandwidth, the direction drive writes use. Writes fell from about 3 GB/s to 1.5 GB/s.</p></div>'
