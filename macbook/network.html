@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Network · Mac Work Book Pro</title><meta name="description" content="2.5 Gb Ethernet through the dock&#x27;s Realtek adapter. 1.47 Gb/s down and 1.98 Gb/s up in the last test, with Wi-Fi 7 as the fallback.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-net">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html">Mac mini setup</a><a href="../macbook-pro.html" aria-current="page">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../macbook-pro.html">Mac Work Book Pro</a> / Network / <b>2.5 Gb/s Ethernet</b></div>
+<h1>Network <em>wired through the dock</em></h1>
+<p class="lede">How the MacBook reaches the network. The dock's 2.5 Gb Ethernet port is the default route, with Wi-Fi 7 behind it.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-tb"><span>80 Gb/s</span><i></i></div><a class="hop" href="anker-dock.html"><b>Anker Prime dock</b><span>Thunderbolt 5</span></a><div class="wire b-usb5"><span>USB hub · 5 Gb/s</span><i></i></div><div class="hop me"><b>Realtek RTL8156</b><span>en8 · 2500Base-T</span></div><div class="wire b-net"><span>Ethernet</span><i></i></div><div class="hop"><b>Home network</b><span></span></div></div>
+<div class="stats"><div class="stat"><b>1.47<small>Gb/s</small></b><span>down</span></div><div class="stat"><b>1.98<small>Gb/s</small></b><span>up</span></div><div class="stat"><b>10.9<small>ms</small></b><span>idle ping</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>The wired link</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Adapter</td><td>Realtek RTL8156, built into the dock, on its USB 3 hub at 5 Gb/s</td></tr>
+<tr><td>Interface</td><td>en8</td></tr>
+<tr><td>Negotiated</td><td>2500Base-T, full duplex. That is the port's top speed.</td></tr>
+<tr><td>Role</td><td>Default route</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>Last speed test</h2>
+<div class="scroll"><table class=""><thead><tr><th>Interface</th><th>Link</th><th class=n>Down</th><th class=n>Up</th><th class=n>Idle ping</th></tr></thead><tbody>
+<tr><td>en8 · wired</td><td>2.5GbE through the dock</td><td class=n>1.47 Gb/s</td><td class=n>1.98 Gb/s</td><td class=n>10.9 ms</td></tr>
+<tr><td>en0 · Wi-Fi 7</td><td>5 GHz, channel 36, 80 MHz, 1080 Mb/s link, −34 dBm</td><td class=n>161.8 Mb/s</td><td class=n>214.6 Mb/s</td><td class=n>14.3 ms</td></tr>
+</tbody></table></div>
+<p class="note-t">Measured November 8, 2026. On Wi-Fi, responsiveness under load was low (511 ms). The Mac mini, on its own Ethernet port, measured about 2.1 Gb/s each way the same day.</p>
+<p>Wired through the dock is about nine times faster than Wi-Fi here. The download figure sits below the Mac mini's because the dock's Ethernet rides a USB adapter that shares one uplink with the dock's other USB devices.</p>
+</section>
+<section><h2>Earlier tests</h2>
+<div class="scroll"><table class=""><thead><tr><th>Date</th><th class=n>Down</th><th class=n>Up</th><th class=n>Idle latency</th></tr></thead><tbody>
+<tr><td>Nov 8, 2026</td><td class=n>1.47 Gb/s</td><td class=n>1.98 Gb/s</td><td class=n>10.9 ms</td></tr>
+<tr><td>Oct 19, 2026</td><td class=n>1.74 Gb/s</td><td class=n>2.11 Gb/s</td><td class=n>12 ms</td></tr>
+<tr><td>Oct 19, 2026, earlier</td><td class=n>1.60 Gb/s</td><td class=n>2.00 Gb/s</td><td class=n>—</td></tr>
+</tbody></table></div>
+<p class="note-t">All wired. The October tests ran through the Wavlink dock that was here then, which uses the same Realtek adapter chip.</p>
+</section>
+<section><h2>Link to the Mac mini</h2>
+<p>The two Macs normally talk over the home network. A direct Thunderbolt cable between them linked at 40 Gb/s in a test on November 7. It is unplugged now.</p>
+</section>
+<p class="note-t">Read from macOS on the MacBook Pro, November 8, 2026.</p>
+<div class="pager"><a href="displays.html">&larr; Displays</a><a href="../macbook-pro.html">All devices</a><a href="anker-dock.html">Anker Prime &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>

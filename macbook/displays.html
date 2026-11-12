@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Displays · Mac Work Book Pro</title><meta name="description" content="The same two monitors as the Mac mini: KTC H24T7 at 1440p and 144 Hz, Dell S2425HS at 1080p and 100 Hz.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-hdmi">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html">Mac mini setup</a><a href="../macbook-pro.html" aria-current="page">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../macbook-pro.html">Mac Work Book Pro</a> / Displays / <b>144 Hz + 100 Hz</b></div>
+<h1>Displays <em>KTC and Dell</em></h1>
+<p class="lede">Two monitors, shared with the Mac mini. Each has an input for each computer.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-tb"><span>80 Gb/s</span><i></i></div><a class="hop" href="anker-dock.html"><b>Anker Prime dock</b><span>Thunderbolt 5</span></a><div class="wire b-hdmi"><span>HDMI or DisplayPort</span><i></i></div><div class="hop me"><b>KTC H24T7 · Dell S2425HS</b><span>one on the dock's video port</span></div></div>
+<div class="stats"><div class="stat"><b>1440p<small>144 Hz</small></b><span>KTC H24T7, main</span></div><div class="stat"><b>1080p<small>100 Hz</small></b><span>Dell S2425HS</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>What the MacBook sees</h2>
+<div class="scroll"><table class=""><thead><tr><th>Display</th><th>Role</th><th>Running at</th><th>Against its maximum</th></tr></thead><tbody>
+<tr><td><a href="../devices/ktc-h24t7.html">KTC H24T7</a></td><td>Main</td><td>2560×1440 at 144 Hz</td><td>Below the panel's 180 Hz, which the Mac mini reaches over DisplayPort</td></tr>
+<tr><td><a href="../devices/dell-s2425hs.html">Dell S2425HS</a></td><td>Second</td><td>1920×1080 at 100 Hz</td><td>The panel's maximum</td></tr>
+</tbody></table></div>
+<p class="note-t">Panel details for each monitor are on its Mac mini page.</p>
+</section>
+<section><h2>How they are connected</h2>
+<p>The dock has one HDMI 2.1 and one DisplayPort 2.1 output, and the box says they cannot be used at the same time. So one display runs from the dock's video port and the other takes a different path. macOS lists displays under the graphics chip, not under Thunderbolt, so it does not report which display is on which path.</p>
+</section>
+<section><h2>Sharing with the Mac mini</h2>
+<p>The Mac mini drives the same two monitors on their other inputs: the KTC over DisplayPort at 180 Hz and the Dell over HDMI at 100 Hz. Switching a monitor's input moves it from one computer to the other.</p>
+</section>
+<p class="note-t">Read from macOS on the MacBook Pro, November 8, 2026.</p>
+<div class="pager"><a href="seagate-backup.html">&larr; Seagate Expansion</a><a href="../macbook-pro.html">All devices</a><a href="network.html">Network &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>

@@ -8,11 +8,11 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">')
 
 
-def page(path, title, desc, bus, hero, main, one=True):
+def page(path, title, desc, bus, hero, main, one=True, cur="mac-mini.html"):
     p = "../" if "/" in path else ""
-    nav = (f'<nav><a class="brand" href="{p}index.html">Willard Kramer</a><a href="{p}index.html">About</a>'
-           f'<a href="{p}mac-mini.html" aria-current="page">Mac mini setup</a><a href="{p}macbook-pro.html">Mac Work Book Pro</a>'
-           f'<a href="{p}dev-env.html">Dev environment</a></nav>')
+    links = [("index.html", "About"), ("mac-mini.html", "Mac mini setup"), ("macbook-pro.html", "Mac Work Book Pro"), ("dev-env.html", "Dev environment")]
+    nav = (f'<nav><a class="brand" href="{p}index.html">Willard Kramer</a>'
+           + "".join(f'<a href="{p}{h}"{' aria-current="page"' if h == cur else ""}>{t}</a>' for h, t in links) + "</nav>")
     out = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title><meta name="description" content="{html.escape(desc, quote=True)}">

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anker Prime · Mac Work Book Pro</title><meta name="description" content="Anker Prime 14-in-1 Thunderbolt 5 docking station. One cable carries power, both monitors&#x27; dock video, wired network, a backup drive and the camera.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-tb">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html">Mac mini setup</a><a href="../macbook-pro.html" aria-current="page">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../macbook-pro.html">Mac Work Book Pro</a> / Dock / <b>80 Gb/s uplink</b></div>
+<h1>Anker Prime <em>Thunderbolt 5 dock</em></h1>
+<p class="lede">One cable to the MacBook. An Anker Prime 14-in-1 Thunderbolt 5 docking station with its power supply built in, linked at the full 80 Gb/s.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-tb"><span>80 Gb/s</span><i></i></div><div class="hop me"><b>Anker Prime dock</b><span>USB4 v2 mode · fw 64.1</span></div></div>
+<div class="stats"><div class="stat"><b>80<small>Gb/s</small></b><span>link to the MacBook</span></div><div class="stat"><b>14<small>ports</small></b><span>on the box</span></div><div class="stat"><b>140<small>W</small></b><span>charging, rated</span></div><div class="stat"><b>10<small>Gb/s</small></b><span>shared by all its USB</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>What it is</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Model</td><td>Anker Prime TB5 Docking Station, 14-in-1 (A83B5)</td></tr>
+<tr><td>Firmware</td><td>64.1</td></tr>
+<tr><td>Link to the MacBook</td><td>80 Gb/s in USB4 v2 mode, on the MacBook's Thunderbolt bus 0, receptacle 1</td></tr>
+<tr><td>Power</td><td>Built-in power supply, no brick. Rated to charge the laptop at up to 140 W.</td></tr>
+<tr><td>Size</td><td>116 × 116 × 75 mm, about 1.1 kg</td></tr>
+<tr><td>USB 3 inside</td><td>Intel hub <span class="mono">8087:5787</span> feeding two VIA VL822 hubs</td></tr>
+<tr><td>USB 2 inside</td><td>Fresco Logic hub <span class="mono">1d5c:5801</span> feeding two VIA 2822 hubs</td></tr>
+</tbody></table></div>
+<p class="note-t">Rated figures come from Anker's published specifications. Everything else is what macOS reported.</p>
+</section>
+<section><h2>Its ports, and what is in them</h2>
+<div class="scroll"><table class=""><thead><tr><th>Port</th><th>Where</th><th>Rated</th><th>In use</th></tr></thead><tbody>
+<tr><td>Thunderbolt 5 upstream</td><td>back</td><td>80 Gb/s, 120 Gb/s boost, 140 W</td><td>The MacBook, at 80 Gb/s</td></tr>
+<tr><td>Thunderbolt 5 downstream ×2</td><td>back</td><td>Up to 120 Gb/s</td><td>Empty. macOS lists three downstream ports; the box labels two.</td></tr>
+<tr><td>HDMI 2.1 / DisplayPort 2.1</td><td>back</td><td>One at a time</td><td>One of the <a href="displays.html">two displays</a>. macOS does not say which.</td></tr>
+<tr><td>Ethernet</td><td>back</td><td>2.5 Gb/s</td><td><a href="network.html">Realtek RTL8156</a>, en8, 2500Base-T full duplex</td></tr>
+<tr><td>USB-A ×2</td><td>back</td><td>10 Gb/s each</td><td><a href="seagate-backup.html">Seagate hard drive</a> (5 Gb/s) and the Lenovo camera (480 Mb/s). macOS does not report which socket each uses.</td></tr>
+<tr><td>USB-C ×2, USB-A ×1</td><td>front</td><td>10 Gb/s each, 45 W across the two USB-C</td><td>See the row above</td></tr>
+<tr><td>SD and TF</td><td>side</td><td>—</td><td>Card reader <span class="mono">(Genesys Logic 05e3:0764)</span>, 5 Gb/s, no card</td></tr>
+<tr><td>Audio</td><td>front</td><td>—</td><td>Not checked</td></tr>
+<tr><td>AC in</td><td>back</td><td>—</td><td>Mains power</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>One hub behind every USB port</h2>
+<p>Inside the dock, every USB port, the 2.5 Gb Ethernet and the card reader share one 10 Gb/s USB 3 uplink. That is a small slice of the 80 Gb/s cable, and it is the real limit for anything plugged into the dock's USB sockets.</p>
+<p>It is why the <a href="sandisk-backup.html">SanDisk backup SSD</a> moved off the dock to its own MacBook port: its backups no longer share that uplink with the wired network, and it runs faster in both directions.</p>
+</section>
+<section><h2>The dock before this one</h2>
+<p>Until early November this desk used a Wavlink WL-UTD59 Thunderbolt 5 dock. That dock now serves the <a href="../devices/wavlink-dock.html">Mac mini</a>, where its own power supply lets two NVMe enclosures run at once.</p>
+</section>
+<p class="note-t">Read from macOS on the MacBook Pro, November 8, 2026.</p>
+<div class="pager"><a href="network.html">&larr; Network</a><a href="../macbook-pro.html">All devices</a><a href="sandisk-backup.html">SanDisk SSD &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>
