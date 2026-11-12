@@ -518,7 +518,7 @@ hub = "\n".join([
     ], num=(2, 3, 4)), '<p class="note-t">Wired measured November 11, 2026, Wi-Fi November 7. Full details are on the ' + L("home-network", "home network page") + '. The internet line is fine at about 2.1 Gb/s each way. Wi-Fi is the bottleneck at roughly a tenth of wired speed, so the mini stays on the cable.</p>'),
     '<section><h2>Worth remembering</h2><div class="callouts">'
     '<div class="callout attn"><h3>Eject before unplugging</h3><p>Unsafe shutdowns on record: P310 47, 990 PRO 62, internal 10. All drives report no data errors.</p></div>'
-    '<div class="callout"><h3>Monitors stay off the dock</h3><p>A display on the dock takes outbound Thunderbolt bandwidth, the direction drive writes use. Writes fell from about 3 GB/s to 1.5 GB/s.</p></div>'
+    '<div class="callout attn"><h3>Video is king: a dock does video or fast drives</h3><p>Display traffic is reserved first on the Thunderbolt link. With a monitor on this dock, drive writes fell from about 3 GB/s to 1.5 GB/s. So the dock carries the SSDs and both monitors plug into the mini. The <a href="macbook-pro.html">MacBook</a> makes the opposite choice.</p></div>'
     '<div class="callout"><h3>Two enclosures need the dock</h3><p>The mini runs only one bus-powered NVMe enclosure reliably. The Wavlink\'s own power supply lets both run at 40 Gb/s.</p></div>'
     '<div class="callout"><h3>R2 is the spare lane</h3><p>DATA and Media rarely transfer at the same time. If both ever need full speed at once, move one to the free R2 port.</p></div>'
     '</div></section>',

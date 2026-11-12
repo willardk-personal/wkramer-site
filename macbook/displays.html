@@ -10,8 +10,8 @@
 <div class="hero">
 <div class="eyebrow"><a href="../macbook-pro.html">Mac Work Book Pro</a> / Displays / <b>144 Hz + 100 Hz</b></div>
 <h1>Displays <em>KTC and Dell</em></h1>
-<p class="lede">Two monitors, shared with the Mac mini. Each has an input for each computer.</p>
-<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-tb"><span>80 Gb/s</span><i></i></div><a class="hop" href="anker-dock.html"><b>Anker Prime dock</b><span>Thunderbolt 5</span></a><div class="wire b-hdmi"><span>HDMI or DisplayPort</span><i></i></div><div class="hop me"><b>KTC H24T7 · Dell S2425HS</b><span>one on the dock's video port</span></div></div>
+<p class="lede">Two monitors on the dock: the KTC on one of its Thunderbolt 5 ports and the Dell on its HDMI port. Both are shared with the Mac mini.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-tb"><span>80 Gb/s</span><i></i></div><a class="hop" href="anker-dock.html"><b>Anker Prime dock</b><span>Thunderbolt 5</span></a><div class="wire b-hdmi"><span>TB5 port · HDMI</span><i></i></div><div class="hop me"><b>KTC H24T7 · Dell S2425HS</b><span>KTC on Thunderbolt 5, Dell on HDMI</span></div></div>
 <div class="stats"><div class="stat"><b>1440p<small>144 Hz</small></b><span>KTC H24T7, main</span></div><div class="stat"><b>1080p<small>100 Hz</small></b><span>Dell S2425HS</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
@@ -23,7 +23,11 @@
 <p class="note-t">Panel details for each monitor are on its Mac mini page.</p>
 </section>
 <section><h2>How they are connected</h2>
-<p>The dock has one HDMI 2.1 and one DisplayPort 2.1 output, and the box says they cannot be used at the same time. So one display runs from the dock's video port and the other takes a different path. macOS lists displays under the graphics chip, not under Thunderbolt, so it does not report which display is on which path.</p>
+<div class="scroll"><table class=""><thead><tr><th>Display</th><th>Dock port</th><th>Notes</th></tr></thead><tbody>
+<tr><td>KTC H24T7</td><td>Thunderbolt 5 downstream</td><td>Leaves the dock's second Thunderbolt 5 port free</td></tr>
+<tr><td>Dell S2425HS</td><td>HDMI 2.1</td><td>The dock's DisplayPort output stays unused, since the box says HDMI and DisplayPort cannot run together</td></tr>
+</tbody></table></div>
+<p class="note-t">macOS lists displays under the graphics chip, not under Thunderbolt, so it shows the dock's Thunderbolt 5 ports as empty even with the KTC on one.</p>
 </section>
 <section><h2>Sharing with the Mac mini</h2>
 <p>The Mac mini drives the same two monitors on their other inputs: the KTC over DisplayPort at 180 Hz and the Dell over HDMI at 100 Hz. Switching a monitor's input moves it from one computer to the other.</p>
