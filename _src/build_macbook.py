@@ -43,7 +43,7 @@ D.append(dict(
         ])),
         sec("One hub behind every USB port", '<p>Inside the dock, every USB port, the 2.5 Gb Ethernet and the card reader share one 10 Gb/s USB 3 uplink. That is a small slice of the 80 Gb/s cable, and it is the real limit for anything plugged into the dock\'s USB sockets.</p>',
             '<p>It is why the <a href="sandisk-backup.html">SanDisk backup SSD</a> moved off the dock to its own MacBook port: its backups no longer share that uplink with the wired network, and it runs faster in both directions.</p>'),
-        sec("The dock before this one", '<p>Until early November this desk used a Wavlink WL-UTD59 Thunderbolt 5 dock. That dock now serves the <a href="../devices/wavlink-dock.html">Mac mini</a>, where its own power supply lets two NVMe enclosures run at once.</p>'),
+        sec("The dock before this one", '<p>Until early November this desk used a Wavlink WL-UTD58 Thunderbolt 5 dock. That dock now serves the <a href="../devices/wavlink-dock.html">Mac mini</a>, where its own power supply lets two NVMe enclosures run at once.</p>'),
     ]))
 
 # ---------------------------------------------------------------- SanDisk
@@ -271,7 +271,7 @@ hub = "\n".join([
         ("Memory", "48 GB", "16 GB"),
         ("Internal SSD", "1 TB", "512 GB"),
         ("Thunderbolt", "Thunderbolt 5, 80 Gb/s in use", "Thunderbolt 4, 40 Gb/s"),
-        ("Dock", "Anker Prime, Thunderbolt 5", "Wavlink WL-UTD59, Thunderbolt 5 at 40 Gb/s"),
+        ("Dock", "Anker Prime, Thunderbolt 5", "Wavlink WL-UTD58, Thunderbolt 5 at 40 Gb/s"),
     ]), '<p class="note-t">"Performance" is the lower of two tiers on the M5 Pro but the middle of three on the M6.</p>'),
 ])
 hero = (f'<div class="eyebrow">Read {READ} · Mac17,9</div>\n'

@@ -92,21 +92,21 @@ def notes(items):
 
 
 MINI = ("node", "Mac mini M6", "Mac18,5", "../mac-mini.html")
-DOCK = ("node", "Wavlink dock", "WL-UTD59", "wavlink-dock.html")
+DOCK = ("node", "Wavlink dock", "WL-UTD58", "wavlink-dock.html")
 UPLINK = ("wire", "40 Gb/s · R4", "tb")
 
 D = []  # device pages, in pager order
 
 # ---------------------------------------------------------------- Wavlink
 D.append(dict(
-    slug="wavlink-dock", name="Wavlink WL-UTD59", em="Thunderbolt 5 dock", group="Dock", bus="tb", spd="40 Gb/s uplink",
+    slug="wavlink-dock", name="Wavlink WL-UTD58", em="Thunderbolt 5 dock", group="Dock", bus="tb", spd="40 Gb/s uplink",
     card="Self-powered Thunderbolt 5 dock. Carries three SSDs, the Time Machine disk, a LAN adapter and the Blu-ray burner on one cable.",
     lede="The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R4, with all three downstream Thunderbolt ports in use.",
-    path=[MINI, UPLINK, ("node", "Wavlink WL-UTD59", "USB4 v2 mode · fw 64.64", "me")],
+    path=[MINI, UPLINK, ("node", "Wavlink WL-UTD58", "USB4 v2 mode · fw 64.64", "me")],
     stats=[("40", "Gb/s", "link to the mini"), ("3 / 3", "", "Thunderbolt ports in use"), ("~4.0", "GB/s", "combined drive ceiling"), ("6", "", "devices behind it")],
     body=[
         sec("What it is", spec([
-            ("Model", "Wavlink WL-UTD59 Thunderbolt 5 Dock"),
+            ("Model", "Wavlink WL-UTD58 Thunderbolt 5 Dock"),
             ("Reported vendor", 'Winstars Technology Limited <span class="mono">(vendor 0x2629, device 0xD59, rev 3)</span>'),
             ("Firmware", "64.64, port controllers 1.11.0"),
             ("Link to the mini", "40 Gb/s in USB4 v2 mode, on Thunderbolt port R4"),

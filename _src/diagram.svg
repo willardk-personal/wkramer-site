@@ -89,7 +89,7 @@
 
         <!-- wavlink -->
         <rect x="430" y="40" width="230" height="680" rx="14" class="node dock"/>
-        <text x="448" y="72" class="t-big" style="font-size:18px">Wavlink WL-UTD59</text>
+        <text x="448" y="72" class="t-big" style="font-size:18px">Wavlink WL-UTD58</text>
         <text x="448" y="94" class="t2">Thunderbolt 5 dock</text>
         <text x="448" y="112" class="t2">Self-powered</text>
         <text x="448" y="130" class="tm">firmware 64.64</text>
