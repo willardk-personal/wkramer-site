@@ -247,7 +247,7 @@ hub = "\n".join([
             ("SanDisk SSD", "own MacBook port", 845, 813, "usb"),
             ("SanDisk SSD", "on the dock", 794, 702, "usb"),
         ]),
-        '<p class="note-t">The SanDisk is faster on its own port in both directions. The 990 PRO and its ACASIS enclosure have since moved to the Mac mini, where the drive is called <a href="devices/data.html">DATA</a>.</p>'),
+        '<p class="note-t">The SanDisk is faster on its own port in both directions. The 990 PRO has since moved to the Mac mini, where the drive is called <a href="devices/data.html">DATA</a> and now sits in a Mokin USB4 enclosure.</p>'),
     sec("Storage", table(["Volume", "Drive", "Used", "Size"], [
         ("Macintosh HD", "Apple 1 TB internal (AP1024Z)", "336 GiB", "926 GiB"),
         (L("sandisk-backup", "SANDISK TIMEMACHINE"), "SanDisk SSD 1 TB, own MacBook port, Time Machine", "366 GiB", "931 GiB"),
@@ -262,7 +262,7 @@ hub = "\n".join([
     '<div class="callout"><h3>HDMI or DisplayPort, not both</h3><p>The dock\'s two video outputs cannot be used at the same time, so the Dell takes HDMI and the KTC runs from a Thunderbolt 5 port.</p></div>'
     '<div class="callout attn"><h3>Video is king: a dock does video or fast drives</h3><p>On any dock, display traffic is reserved first and data gets what is left. This dock carries both monitors, so the fast drive sits on the MacBook\'s own port, where it measured quicker. The <a href="mac-mini.html">Mac mini</a> makes the opposite choice: its dock carries the SSDs and the monitors plug into the mini.</p></div>'
     '<div class="callout"><h3>One free Thunderbolt 5 port</h3><p>The KTC uses one of the dock\'s two downstream ports. The other is empty, rated up to 120 Gb/s.</p></div>'
-    '<div class="callout"><h3>What moved to the Mac mini</h3><p>The Wavlink dock and the ACASIS enclosure with the Samsung 990 PRO both live on the <a href="mac-mini.html">Mac mini</a> now.</p></div>'
+    '<div class="callout"><h3>What moved to the Mac mini</h3><p>The Wavlink dock and the Samsung 990 PRO both live on the <a href="mac-mini.html">Mac mini</a> now. The ACASIS enclosure that held the 990 PRO is a spare.</p></div>'
     '</div></section>',
     sec("Next to the Mac mini", table(["", "Mac Work Book Pro", "Home Mac mini"], [
         ("Chip", "Apple M5 Pro", "Apple M6"),
