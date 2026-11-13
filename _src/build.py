@@ -106,7 +106,7 @@ D.append(dict(
     stats=[("40", "Gb/s", "link to the mini"), ("3 / 3", "", "Thunderbolt ports in use"), ("~4.0", "GB/s", "combined drive ceiling"), ("6", "", "devices behind it")],
     body=[
         sec("What it is", spec([
-            ("Model", "Wavlink WL-UTD58 Thunderbolt 5 Dock"),
+            ("Model", "Wavlink WL-UTD58 Rev.b Thunderbolt 5 Dock"),
             ("Reported vendor", 'Winstars Technology Limited <span class="mono">(vendor 0x2629, device 0xD59, rev 3)</span>'),
             ("Firmware", "64.64, port controllers 1.11.0"),
             ("Link to the mini", "40 Gb/s in USB4 v2 mode, on Thunderbolt port R4"),
