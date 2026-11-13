@@ -29,14 +29,16 @@
         <text x="699" y="172" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
         <line x1="638" y1="257" x2="760" y2="257" class="ln l-tb"/>
         <text x="699" y="248" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
-        <line x1="638" y1="333" x2="760" y2="333" class="ln l-u10"/>
-        <text x="699" y="324" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
+        <line x1="638" y1="333" x2="700" y2="333" class="ln l-free"/>
+        <text x="708" y="337" class="lbl2">front 30W · free</text>
         <line x1="638" y1="509" x2="760" y2="509" class="ln l-u5"/>
         <text x="699" y="500" class="lbl c-u5" text-anchor="middle">5 Gb/s</text>
         <line x1="638" y1="585" x2="760" y2="585" class="ln l-u5"/>
         <text x="699" y="576" class="lbl c-u5" text-anchor="middle">5 Gb/s</text>
         <line x1="638" y1="661" x2="760" y2="661" class="ln l-u2"/>
         <text x="699" y="652" class="lbl c-u2" text-anchor="middle">480 Mb/s</text>
+        <line x1="638" y1="737" x2="760" y2="737" class="ln l-u10"/>
+        <text x="699" y="728" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
 
         <!-- displays -->
         <rect x="15" y="30" width="165" height="118" rx="8" class="node"/>
@@ -88,7 +90,7 @@
         <text x="28" y="790" class="tm">mini front USB-C · outside the dock</text>
 
         <!-- wavlink -->
-        <rect x="430" y="40" width="230" height="680" rx="14" class="node dock"/>
+        <rect x="430" y="40" width="230" height="750" rx="14" class="node dock"/>
         <text x="448" y="72" class="t-big" style="font-size:18px">Wavlink WL-UTD58</text>
         <text x="448" y="94" class="t2">Thunderbolt 5 dock</text>
         <text x="448" y="112" class="t2">Self-powered</text>
@@ -100,15 +102,15 @@
         <text x="460" y="214" class="t2">(TB5 ports, host is TB4)</text>
         <text x="460" y="240" class="t2">Both Mokins: 15W ports</text>
         <text x="460" y="258" class="t2"> </text>
-        <text x="460" y="290" class="t2">Front 30W port: Scratch,</text>
-        <text x="460" y="308" class="t2">carried by the USB hub</text>
+        <text x="460" y="290" class="t2">Front 30W port: free,</text>
+        <text x="460" y="308" class="t2">for phone / iPad charging</text>
 
-        <rect x="446" y="470" width="192" height="230" rx="8" class="sub"/>
+        <rect x="446" y="470" width="192" height="300" rx="8" class="sub"/>
         <text x="460" y="496" class="t1">USB hub · 10 Gb/s</text>
         <text x="460" y="530" class="tm">Intel 8087:5787</text>
         <text x="460" y="546" class="tm">+ Parade hubs</text>
-        <text x="460" y="616" class="t2">Shared by these three</text>
-        <text x="460" y="634" class="t2">and the Scratch Disk</text>
+        <text x="460" y="616" class="t2">Shared by these four</text>
+        <text x="460" y="634" class="t2">on one 10 Gb/s link</text>
 
         <!-- right column: thunderbolt -->
         <rect x="760" y="150" width="385" height="62" rx="8" class="node"/>
@@ -119,9 +121,9 @@
         <text x="774" y="252" class="t1">Samsung 990 PRO 1TB · DATA</text>
         <text x="774" y="272" class="t2">Mokin, ASMedia 246x · Gen4 x4 · 15W port</text>
 
-        <rect x="760" y="302" width="385" height="62" rx="8" class="node"/>
-        <text x="774" y="328" class="t1">Scratch Disk · 512GB SSD</text>
-        <text x="774" y="348" class="t2">Ugreen USB enclosure · Realtek RTL9210 · front 30W port</text>
+        <rect x="760" y="706" width="385" height="62" rx="8" class="node"/>
+        <text x="774" y="732" class="t1">Scratch Disk · 512GB SSD</text>
+        <text x="774" y="752" class="t2">Ugreen USB enclosure · Realtek RTL9210 · orange USB-A port</text>
 
         <!-- right column: usb -->
         <rect x="760" y="478" width="385" height="62" rx="8" class="node"/>

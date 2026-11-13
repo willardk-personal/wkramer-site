@@ -10,9 +10,9 @@
 <div class="hero">
 <div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Storage / <b>10 Gb/s USB</b></div>
 <h1>Scratch Disk <em>512 GB SSD</em></h1>
-<p class="lede">Working space. A 512 GB SSD in a Ugreen USB enclosure, plugged into a Thunderbolt port on the dock but running as plain USB.</p>
+<p class="lede">Working space. A 512 GB SSD in a Ugreen USB enclosure, plugged into one of the dock's USB-A ports.</p>
 <div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R4</span><i></i></div><a class="hop" href="wavlink-dock.html"><b>Wavlink dock</b><span>WL-UTD58</span></a><div class="wire b-usb"><span>USB hub · 10 Gb/s</span><i></i></div><div class="hop"><b>Ugreen enclosure</b><span>Realtek RTL9210</span></div><div class="wire b-usb"><span>NVMe</span><i></i></div><div class="hop me"><b>512 GB SSD</b><span>volume Scratch Disk</span></div></div>
-<div class="stats"><div class="stat"><b>780<small>MB/s</small></b><span>write</span></div><div class="stat"><b>740<small>MB/s</small></b><span>read</span></div><div class="stat"><b>58<small>GB</small></b><span>used of 512 GB</span></div><div class="stat"><b>10<small>Gb/s</small></b><span>USB link</span></div></div>
+<div class="stats"><div class="stat"><b>766<small>MB/s</small></b><span>write</span></div><div class="stat"><b>684<small>MB/s</small></b><span>read</span></div><div class="stat"><b>58<small>GB</small></b><span>used of 512 GB</span></div><div class="stat"><b>10<small>Gb/s</small></b><span>USB link</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
 <section><h2>The drive and its enclosure</h2>
@@ -20,15 +20,16 @@
 <tr><td>Drive</td><td>512 GB NVMe SSD</td></tr>
 <tr><td>Enclosure</td><td>Ugreen USB enclosure, Realtek RTL9210 bridge <span class="mono">(0bda:9210)</span></td></tr>
 <tr><td>Link</td><td>USB 10 Gb/s, drawing up to 4.5 W from the dock</td></tr>
-<tr><td>Where</td><td>A Thunderbolt port on the Wavlink. Because the enclosure is USB, macOS lists it under the dock's USB hub and shows the Thunderbolt port as empty.</td></tr>
+<tr><td>Where</td><td>An orange USB-A port on the Wavlink, using a USB-A to C cable rated 10 Gb/s. It sits two Parade hubs below the dock's main USB hub. Until November 13 it was on a Thunderbolt port.</td></tr>
 <tr><td>Volume</td><td>Scratch Disk (APFS). 58 GB used, 454 GB free.</td></tr>
 <tr><td>Job</td><td>Temporary files, test output and working copies, so the internal SSD stays clear.</td></tr>
 </tbody></table></div>
 </section>
 <section><h2>Measured speed</h2>
-<div class="bars"><div class="bar b-usb"><div class="lab">Alone<small>Nov 11, 8 GB</small></div><div class="t w"><i style="width:51.2%"></i><span>780 <em>MB/s write</em></span></div><div class="t r"><i style="width:48.5%"></i><span>740 <em>MB/s read</em></span></div></div>
-<div class="bar b-usb"><div class="lab">All drives at once<small>Nov 11</small></div><div class="t w"><i style="width:51.8%"></i><span>790 <em>MB/s write</em></span></div><div class="t r"><i style="width:49.5%"></i><span>755 <em>MB/s read</em></span></div></div></div>
-<p class="note-t">fio with direct I/O. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link. Random 4k at queue depth 32: 13k read and 5k write operations per second.</p>
+<div class="bars"><div class="bar b-usb"><div class="lab">USB-A port, alone<small>Nov 13, 8 GB</small></div><div class="t w"><i style="width:50.2%"></i><span>766 <em>MB/s write</em></span></div><div class="t r"><i style="width:44.9%"></i><span>684 <em>MB/s read</em></span></div></div>
+<div class="bar b-usb"><div class="lab">Thunderbolt port, alone<small>Nov 13, 8 GB</small></div><div class="t w"><i style="width:51.6%"></i><span>787 <em>MB/s write</em></span></div><div class="t r"><i style="width:49.3%"></i><span>752 <em>MB/s read</em></span></div></div>
+<div class="bar b-usb"><div class="lab">Thunderbolt port, all at once<small>Nov 13</small></div><div class="t w"><i style="width:51.6%"></i><span>787 <em>MB/s write</em></span></div><div class="t r"><i style="width:49.5%"></i><span>754 <em>MB/s read</em></span></div></div></div>
+<p class="note-t">fio with direct I/O. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link. Random 4k at queue depth 32: 12k read and 5k write operations per second on either port. The USB-A port costs about 3% on writes and 9% on reads, from the two extra hub hops.</p>
 <p>The drive is limited by its USB bridge, not by the dock. It keeps full speed while the two NVMe drives are busy, because 0.8 GB/s is a small share of the dock's 4 GB/s.</p>
 </section>
 <section><h2>History</h2>

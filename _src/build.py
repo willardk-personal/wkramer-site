@@ -101,9 +101,9 @@ D = []  # device pages, in pager order
 D.append(dict(
     slug="wavlink-dock", name="Wavlink WL-UTD58", em="Thunderbolt 5 dock", group="Dock", bus="tb", spd="40 Gb/s uplink",
     card="Self-powered Thunderbolt 5 dock. Carries three SSDs, the Time Machine disk, a LAN adapter and the Blu-ray burner on one cable.",
-    lede="The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R4, with all three downstream Thunderbolt ports in use.",
+    lede="The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R4, with two of its three downstream Thunderbolt ports in use and the front 30 W one kept free for charging.",
     path=[MINI, UPLINK, ("node", "Wavlink WL-UTD58", "USB4 v2 mode · fw 64.64", "me")],
-    stats=[("40", "Gb/s", "link to the mini"), ("3 / 3", "", "Thunderbolt ports in use"), ("~4.0", "GB/s", "combined drive ceiling"), ("6", "", "devices behind it")],
+    stats=[("40", "Gb/s", "link to the mini"), ("2 / 3", "", "Thunderbolt ports in use"), ("~4.0", "GB/s", "combined drive ceiling"), ("6", "", "devices behind it")],
     body=[
         sec("What it is", spec([
             ("Model", "Wavlink WL-UTD58 Rev.b Thunderbolt 5 Dock"),
@@ -120,12 +120,13 @@ D.append(dict(
         sec("What is plugged into it", table(["Dock port", "Device", "Link", "Carried by"], [
             ("Thunderbolt (15 W)", '<a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
             ("Thunderbolt (15 W)", '<a href="data.html">DATA</a> · Samsung 990 PRO in a second Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
-            ("Thunderbolt (front, 30 W)", '<a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure', "10 Gb/s USB", "USB 3 hub"),
+            ("Thunderbolt (front, 30 W)", "Free, kept for fast-charging a phone or iPad mini", "—", "—"),
+            ("USB-A (orange)", '<a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure', "10 Gb/s USB", "USB 3 hub, two hubs down"),
             ("USB 3 hub", '<a href="backup-hdd.html">Backup</a> · WD Elements 4 TB', "5 Gb/s", "USB 3 hub"),
             ("USB 3 hub", '<a href="lan-adapter.html">Realtek 2.5G LAN</a>', "5 Gb/s", "USB 3 hub"),
             ("USB 2 side", '<a href="blu-ray.html">Blu-ray burner</a>', "480 Mb/s", "USB 2 hub"),
         ]),
-            '<p class="note-t">The Scratch Disk sits on a Thunderbolt port, but its enclosure is USB. macOS shows that Thunderbolt port as empty and lists the drive under the dock\'s USB hub, which it shares with the other USB devices.</p>'),
+            '<p class="note-t">The dock\'s four USB-A ports are rated 10 Gb/s each, but everything USB shares one 10 Gb/s link inside the dock: the Scratch Disk, the Backup drive, the LAN adapter and the card reader. The front 30 W port is the only 30 W port, so it stays free for charging.</p>'),
         sec("One shared uplink", '<p>Everything behind the dock shares the single 40 Gb/s link to the mini. Run alone, each NVMe drive gets about 3.7 to 3.8 GB/s. Run together, they split a ceiling of about 4 GB/s.</p>',
             bars([
                 ("DATA alone", "990 PRO", 3660, 3831, "tb"),
@@ -228,23 +229,24 @@ D.append(dict(
 D.append(dict(
     slug="scratch-disk", name="Scratch Disk", em="512 GB SSD", group="Storage", bus="usb", spd="10 Gb/s USB",
     card="512 GB SSD in a Ugreen USB enclosure. Temp files and working space, kept off the internal drive.",
-    lede="Working space. A 512 GB SSD in a Ugreen USB enclosure, plugged into a Thunderbolt port on the dock but running as plain USB.",
+    lede="Working space. A 512 GB SSD in a Ugreen USB enclosure, plugged into one of the dock's USB-A ports.",
     path=[MINI, UPLINK, DOCK, ("wire", "USB hub · 10 Gb/s", "usb"), ("node", "Ugreen enclosure", "Realtek RTL9210", None), ("wire", "NVMe", "usb"), ("node", "512 GB SSD", "volume Scratch Disk", "me")],
-    stats=[("780", "MB/s", "write"), ("740", "MB/s", "read"), ("58", "GB", "used of 512 GB"), ("10", "Gb/s", "USB link")],
+    stats=[("766", "MB/s", "write"), ("684", "MB/s", "read"), ("58", "GB", "used of 512 GB"), ("10", "Gb/s", "USB link")],
     body=[
         sec("The drive and its enclosure", spec([
             ("Drive", "512 GB NVMe SSD"),
             ("Enclosure", 'Ugreen USB enclosure, Realtek RTL9210 bridge <span class="mono">(0bda:9210)</span>'),
             ("Link", "USB 10 Gb/s, drawing up to 4.5 W from the dock"),
-            ("Where", "A Thunderbolt port on the Wavlink. Because the enclosure is USB, macOS lists it under the dock's USB hub and shows the Thunderbolt port as empty."),
+            ("Where", "An orange USB-A port on the Wavlink, using a USB-A to C cable rated 10 Gb/s. It sits two Parade hubs below the dock's main USB hub. Until November 13 it was on a Thunderbolt port."),
             ("Volume", "Scratch Disk (APFS). 58 GB used, 454 GB free."),
             ("Job", "Temporary files, test output and working copies, so the internal SSD stays clear."),
         ])),
         sec("Measured speed", bars([
-            ("Alone", "Nov 11, 8 GB", 780, 740, "usb"),
-            ("All drives at once", "Nov 11", 790, 755, "usb"),
+            ("USB-A port, alone", "Nov 13, 8 GB", 766, 684, "usb"),
+            ("Thunderbolt port, alone", "Nov 13, 8 GB", 787, 752, "usb"),
+            ("Thunderbolt port, all at once", "Nov 13", 787, 754, "usb"),
         ], 1250),
-            '<p class="note-t">fio with direct I/O. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link. Random 4k at queue depth 32: 13k read and 5k write operations per second.</p>',
+            '<p class="note-t">fio with direct I/O. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link. Random 4k at queue depth 32: 12k read and 5k write operations per second on either port. The USB-A port costs about 3% on writes and 9% on reads, from the two extra hub hops.</p>',
             '<p>The drive is limited by its USB bridge, not by the dock. It keeps full speed while the two NVMe drives are busy, because 0.8 GB/s is a small share of the dock\'s 4 GB/s.</p>'),
         sec("History", '<p>This SSD used to sit in the M.2 slot of an Ivanky USB dock, where it measured the same ~780 MB/s. When the Wavlink replaced that dock, the drive moved into its own enclosure.</p>'),
     ]))
@@ -445,7 +447,7 @@ for i, d in enumerate(D):
 svg = (ROOT / "_src/diagram.svg").read_text().replace("1920×1080 @ 180Hz", "2048×1152 @ 180Hz").replace("HiDPI, 4K backing, VRR", "HiDPI, VRR").replace('<text x="28" y="650" class="tm">192.168.1.2</text>', "")
 HITS = [("ktc-h24t7", "dp", 15, 30, 165, 118), ("dell-s2425hs", "hdmi", 190, 30, 165, 118), ("ssd-backup", "usb", 15, 700, 340, 106),
         ("wavlink-dock", "tb", 430, 40, 230, 100), ("media", "tb", 760, 150, 385, 62), ("data", "tb", 760, 226, 385, 62),
-        ("scratch-disk", "usb", 760, 302, 385, 62), ("backup-hdd", "usb5", 760, 478, 385, 62), ("lan-adapter", "net", 760, 554, 385, 62),
+        ("scratch-disk", "usb", 760, 706, 385, 62), ("backup-hdd", "usb5", 760, 478, 385, 62), ("lan-adapter", "net", 760, 554, 385, 62),
         ("blu-ray", "usb2", 760, 630, 385, 62), ("home-network", "net", 15, 560, 165, 110)]
 names = {d["slug"]: d["name"] for d in D}
 hits = "".join(f'<a href="devices/{s}.html" class="b-{b}" aria-label="{names[s]}"><rect class="hit" x="{x}" y="{y}" width="{w}" height="{h}" rx="8"/></a>' for s, b, x, y, w, h in HITS)

@@ -10,9 +10,9 @@
 <div class="hero">
 <div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Dock / <b>40 Gb/s uplink</b></div>
 <h1>Wavlink WL-UTD58 <em>Thunderbolt 5 dock</em></h1>
-<p class="lede">The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R4, with all three downstream Thunderbolt ports in use.</p>
+<p class="lede">The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R4, with two of its three downstream Thunderbolt ports in use and the front 30 W one kept free for charging.</p>
 <div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R4</span><i></i></div><div class="hop me"><b>Wavlink WL-UTD58</b><span>USB4 v2 mode · fw 64.64</span></div></div>
-<div class="stats"><div class="stat"><b>40<small>Gb/s</small></b><span>link to the mini</span></div><div class="stat"><b>3 / 3<small></small></b><span>Thunderbolt ports in use</span></div><div class="stat"><b>~4.0<small>GB/s</small></b><span>combined drive ceiling</span></div><div class="stat"><b>6<small></small></b><span>devices behind it</span></div></div>
+<div class="stats"><div class="stat"><b>40<small>Gb/s</small></b><span>link to the mini</span></div><div class="stat"><b>2 / 3<small></small></b><span>Thunderbolt ports in use</span></div><div class="stat"><b>~4.0<small>GB/s</small></b><span>combined drive ceiling</span></div><div class="stat"><b>6<small></small></b><span>devices behind it</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
 <section><h2>What it is</h2>
@@ -33,12 +33,13 @@
 <div class="scroll"><table class=""><thead><tr><th>Dock port</th><th>Device</th><th>Link</th><th>Carried by</th></tr></thead><tbody>
 <tr><td>Thunderbolt (15 W)</td><td><a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure</td><td>40 Gb/s USB4</td><td>Thunderbolt</td></tr>
 <tr><td>Thunderbolt (15 W)</td><td><a href="data.html">DATA</a> · Samsung 990 PRO in a second Mokin enclosure</td><td>40 Gb/s USB4</td><td>Thunderbolt</td></tr>
-<tr><td>Thunderbolt (front, 30 W)</td><td><a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure</td><td>10 Gb/s USB</td><td>USB 3 hub</td></tr>
+<tr><td>Thunderbolt (front, 30 W)</td><td>Free, kept for fast-charging a phone or iPad mini</td><td>—</td><td>—</td></tr>
+<tr><td>USB-A (orange)</td><td><a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure</td><td>10 Gb/s USB</td><td>USB 3 hub, two hubs down</td></tr>
 <tr><td>USB 3 hub</td><td><a href="backup-hdd.html">Backup</a> · WD Elements 4 TB</td><td>5 Gb/s</td><td>USB 3 hub</td></tr>
 <tr><td>USB 3 hub</td><td><a href="lan-adapter.html">Realtek 2.5G LAN</a></td><td>5 Gb/s</td><td>USB 3 hub</td></tr>
 <tr><td>USB 2 side</td><td><a href="blu-ray.html">Blu-ray burner</a></td><td>480 Mb/s</td><td>USB 2 hub</td></tr>
 </tbody></table></div>
-<p class="note-t">The Scratch Disk sits on a Thunderbolt port, but its enclosure is USB. macOS shows that Thunderbolt port as empty and lists the drive under the dock's USB hub, which it shares with the other USB devices.</p>
+<p class="note-t">The dock's four USB-A ports are rated 10 Gb/s each, but everything USB shares one 10 Gb/s link inside the dock: the Scratch Disk, the Backup drive, the LAN adapter and the card reader. The front 30 W port is the only 30 W port, so it stays free for charging.</p>
 </section>
 <section><h2>One shared uplink</h2>
 <p>Everything behind the dock shares the single 40 Gb/s link to the mini. Run alone, each NVMe drive gets about 3.7 to 3.8 GB/s. Run together, they split a ceiling of about 4 GB/s.</p>
