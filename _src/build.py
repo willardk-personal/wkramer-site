@@ -118,9 +118,9 @@ D.append(dict(
         ]),
             '<p class="note-t">It is a Thunderbolt 5 dock, but the mini\'s ports are Thunderbolt 4, so the link runs at 40 Gb/s. That is the top speed the mini offers.</p>'),
         sec("What is plugged into it", table(["Dock port", "Device", "Link", "Carried by"], [
-            ("Thunderbolt 1", '<a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
-            ("Thunderbolt 2 (front, 30 W)", '<a href="data.html">DATA</a> · Samsung 990 PRO in a second Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
-            ("Thunderbolt 3", '<a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure', "10 Gb/s USB", "USB 3 hub"),
+            ("Thunderbolt (15 W)", '<a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
+            ("Thunderbolt (15 W)", '<a href="data.html">DATA</a> · Samsung 990 PRO in a second Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
+            ("Thunderbolt (front, 30 W)", '<a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure', "10 Gb/s USB", "USB 3 hub"),
             ("USB 3 hub", '<a href="backup-hdd.html">Backup</a> · WD Elements 4 TB', "5 Gb/s", "USB 3 hub"),
             ("USB 3 hub", '<a href="lan-adapter.html">Realtek 2.5G LAN</a>', "5 Gb/s", "USB 3 hub"),
             ("USB 2 side", '<a href="blu-ray.html">Blu-ray burner</a>', "480 Mb/s", "USB 2 hub"),
@@ -186,7 +186,7 @@ D.append(dict(
 D.append(dict(
     slug="data", name="DATA", em="Samsung 990 PRO 1 TB", group="Storage", bus="tb", spd="40 Gb/s · Gen4 x4", checked="November 13, 2026",
     card="Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure. The fastest drive here for small random work.",
-    lede="The working drive. A Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure, on the dock's front port. It moved there from an ACASIS Thunderbolt 3 enclosure on November 13.",
+    lede="The working drive. A Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure, on a dock port next to Media's Mokin. It moved there from an ACASIS Thunderbolt 3 enclosure on November 13.",
     path=[MINI, UPLINK, DOCK, ("wire", "40 Gb/s USB4", "tb"), ("node", "Mokin enclosure", "ASMedia 246x", None), ("wire", "PCIe Gen4 x4", "tb"), ("node", "990 PRO 1 TB", "volume DATA", "me")],
     stats=[("3,831", "MB/s", "read, alone"), ("3,660", "MB/s", "write, alone"), ("113k", "IOPS", "random 4k read"), ("41", "°C", "idle")],
     body=[
@@ -195,7 +195,7 @@ D.append(dict(
             ("Drive link", "PCIe Gen4, 4 lanes, 16 GT/s, the drive's full link"),
             ("Enclosure", "Mokin USB4 enclosure, fanless. Until November 13 an ACASIS TBU405Pro (Thunderbolt 3), now a spare."),
             ("Enclosure chip", 'ASMedia 246x <span class="mono">(device 0x2463)</span>'),
-            ("Enclosure link", "40 Gb/s USB4, on the Wavlink's front 30 W port"),
+            ("Enclosure link", "40 Gb/s USB4, on one of the Wavlink's 15 W Thunderbolt ports, next to Media"),
             ("Volume", "DATA (APFS, not encrypted), formerly SAMSUNG SSD. 124 GB used, 876 GB free."),
             ("History", "Came over from the MacBook Pro."),
         ])),
@@ -205,7 +205,7 @@ D.append(dict(
             ("Sustained write", "Nov 13, 3 minutes nonstop", 3674, 0, "tb"),
             ("ACASIS, behind the dock", "Nov 11, 8 GB, alone", 2930, 3170, "tb"),
         ], 3845),
-            '<p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 113k read and 48k write operations per second, the same as in the ACASIS. That is more than twice the internal SSD (47k and 20k) in the same test.</p>'),
+            '<p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 113k read and 48k write operations per second, the same as in the ACASIS. That is more than twice the internal SSD (47k and 20k) in the same test. A retest that evening, after the move to the 15 W port, gave 3,490 MB/s write and 3,624 read. Media, which did not move, dropped by the same 5%, so that is run-to-run spread, not the port.</p>'),
         sec("Heat", '<p>The Mokin has no fan. Its thermal pad presses the drive against the aluminum case, which works as the heatsink, so the case feels warm in use. The 3-minute sustained write rewrote a 64 GB file, 661 GB in all, at a steady 3,674 MB/s. The drive went from 31 to 42 °C, far below where it would slow down.</p>'),
         sec("Thunderbolt 3 against USB4", table(["Standard", "Speed", "In this setup"], [
             ("Thunderbolt 3 (2015)", "40 Gb/s", "The ACASIS enclosure DATA used until November 13"),

@@ -98,9 +98,9 @@
         <text x="460" y="176" class="t1">Thunderbolt ×3</text>
         <text x="460" y="196" class="t2">40 Gb/s each</text>
         <text x="460" y="214" class="t2">(TB5 ports, host is TB4)</text>
-        <text x="460" y="240" class="t2">Port 2 is the front 30W</text>
-        <text x="460" y="258" class="t2">USB-C port</text>
-        <text x="460" y="290" class="t2">Port 3: USB enclosure,</text>
+        <text x="460" y="240" class="t2">Both Mokins: 15W ports</text>
+        <text x="460" y="258" class="t2"> </text>
+        <text x="460" y="290" class="t2">Front 30W port: Scratch,</text>
         <text x="460" y="308" class="t2">carried by the USB hub</text>
 
         <rect x="446" y="470" width="192" height="230" rx="8" class="sub"/>
@@ -117,11 +117,11 @@
 
         <rect x="760" y="226" width="385" height="62" rx="8" class="node"/>
         <text x="774" y="252" class="t1">Samsung 990 PRO 1TB · DATA</text>
-        <text x="774" y="272" class="t2">Mokin, ASMedia 246x · Gen4 x4 · front 30W port</text>
+        <text x="774" y="272" class="t2">Mokin, ASMedia 246x · Gen4 x4 · 15W port</text>
 
         <rect x="760" y="302" width="385" height="62" rx="8" class="node"/>
         <text x="774" y="328" class="t1">Scratch Disk · 512GB SSD</text>
-        <text x="774" y="348" class="t2">Ugreen USB enclosure · Realtek RTL9210 · on a TB port</text>
+        <text x="774" y="348" class="t2">Ugreen USB enclosure · Realtek RTL9210 · front 30W port</text>
 
         <!-- right column: usb -->
         <rect x="760" y="478" width="385" height="62" rx="8" class="node"/>

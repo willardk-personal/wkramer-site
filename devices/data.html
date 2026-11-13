@@ -10,7 +10,7 @@
 <div class="hero">
 <div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Storage / <b>40 Gb/s · Gen4 x4</b></div>
 <h1>DATA <em>Samsung 990 PRO 1 TB</em></h1>
-<p class="lede">The working drive. A Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure, on the dock's front port. It moved there from an ACASIS Thunderbolt 3 enclosure on November 13.</p>
+<p class="lede">The working drive. A Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure, on a dock port next to Media's Mokin. It moved there from an ACASIS Thunderbolt 3 enclosure on November 13.</p>
 <div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R4</span><i></i></div><a class="hop" href="wavlink-dock.html"><b>Wavlink dock</b><span>WL-UTD58</span></a><div class="wire b-tb"><span>40 Gb/s USB4</span><i></i></div><div class="hop"><b>Mokin enclosure</b><span>ASMedia 246x</span></div><div class="wire b-tb"><span>PCIe Gen4 x4</span><i></i></div><div class="hop me"><b>990 PRO 1 TB</b><span>volume DATA</span></div></div>
 <div class="stats"><div class="stat"><b>3,831<small>MB/s</small></b><span>read, alone</span></div><div class="stat"><b>3,660<small>MB/s</small></b><span>write, alone</span></div><div class="stat"><b>113k<small>IOPS</small></b><span>random 4k read</span></div><div class="stat"><b>41<small>°C</small></b><span>idle</span></div></div>
 </div></div></div>
@@ -21,7 +21,7 @@
 <tr><td>Drive link</td><td>PCIe Gen4, 4 lanes, 16 GT/s, the drive's full link</td></tr>
 <tr><td>Enclosure</td><td>Mokin USB4 enclosure, fanless. Until November 13 an ACASIS TBU405Pro (Thunderbolt 3), now a spare.</td></tr>
 <tr><td>Enclosure chip</td><td>ASMedia 246x <span class="mono">(device 0x2463)</span></td></tr>
-<tr><td>Enclosure link</td><td>40 Gb/s USB4, on the Wavlink's front 30 W port</td></tr>
+<tr><td>Enclosure link</td><td>40 Gb/s USB4, on one of the Wavlink's 15 W Thunderbolt ports, next to Media</td></tr>
 <tr><td>Volume</td><td>DATA (APFS, not encrypted), formerly SAMSUNG SSD. 124 GB used, 876 GB free.</td></tr>
 <tr><td>History</td><td>Came over from the MacBook Pro.</td></tr>
 </tbody></table></div>
@@ -31,7 +31,7 @@
 <div class="bar b-tb"><div class="lab">Mokin, behind the dock<small>Nov 13, all drives at once</small></div><div class="t w"><i style="width:41.1%"></i><span>1,929 <em>MB/s write</em></span></div><div class="t r"><i style="width:35.3%"></i><span>1,657 <em>MB/s read</em></span></div></div>
 <div class="bar b-tb"><div class="lab">Sustained write<small>Nov 13, 3 minutes nonstop</small></div><div class="t w"><i style="width:78.4%"></i><span>3,674 <em>MB/s write</em></span></div></div>
 <div class="bar b-tb"><div class="lab">ACASIS, behind the dock<small>Nov 11, 8 GB, alone</small></div><div class="t w"><i style="width:62.5%"></i><span>2,930 <em>MB/s write</em></span></div><div class="t r"><i style="width:67.6%"></i><span>3,170 <em>MB/s read</em></span></div></div></div>
-<p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 113k read and 48k write operations per second, the same as in the ACASIS. That is more than twice the internal SSD (47k and 20k) in the same test.</p>
+<p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 113k read and 48k write operations per second, the same as in the ACASIS. That is more than twice the internal SSD (47k and 20k) in the same test. A retest that evening, after the move to the 15 W port, gave 3,490 MB/s write and 3,624 read. Media, which did not move, dropped by the same 5%, so that is run-to-run spread, not the port.</p>
 </section>
 <section><h2>Heat</h2>
 <p>The Mokin has no fan. Its thermal pad presses the drive against the aluminum case, which works as the heatsink, so the case feels warm in use. The 3-minute sustained write rewrote a 64 GB file, 661 GB in all, at a steady 3,674 MB/s. The drive went from 31 to 42 °C, far below where it would slow down.</p>
