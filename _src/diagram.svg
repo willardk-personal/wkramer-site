@@ -6,9 +6,9 @@
         <text x="108" y="200" class="lbl c-dp">DisplayPort</text>
         <text x="108" y="216" class="lbl2">4 lanes · HBR3</text>
 
-        <line x1="272" y1="260" x2="272" y2="148" class="ln l-hdmi"/>
-        <text x="283" y="200" class="lbl c-hdmi">HDMI</text>
-        <text x="283" y="216" class="lbl2">144Hz</text>
+        <line x1="272" y1="260" x2="272" y2="148" class="ln l-dp"/>
+        <text x="283" y="200" class="lbl c-dp">DisplayPort</text>
+        <text x="283" y="216" class="lbl2">4 lanes · HBR3</text>
 
         <line x1="300" y1="330" x2="430" y2="330" class="ln l-tb"/>
         <text x="365" y="318" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
@@ -47,21 +47,21 @@
         <text x="28" y="76" class="t2">Main · 24in 1440p IPS</text>
         <text x="28" y="94" class="t2">2560×1440 @ 180Hz</text>
         <text x="28" y="112" class="t2">HiDPI, 5K backing, VRR</text>
-        <text x="28" y="132" class="tm">Cable Matters USB-C→DP</text>
+        <text x="28" y="132" class="tm">USB-C→DP cable</text>
 
         <rect x="190" y="30" width="165" height="118" rx="8" class="node"/>
         <text x="203" y="56" class="t1">KTC H24T7 #2</text>
         <text x="203" y="76" class="t2">Second · 24in 1440p IPS</text>
-        <text x="203" y="94" class="t2">2560×1440 @ 144Hz</text>
-        <text x="203" y="112" class="t2">HiDPI, 5K backing</text>
-        <text x="203" y="132" class="tm">HDMI cable</text>
+        <text x="203" y="94" class="t2">2560×1440 @ 180Hz</text>
+        <text x="203" y="112" class="t2">HiDPI, 5K backing, VRR</text>
+        <text x="203" y="132" class="tm">USB-C→DP cable</text>
 
         <!-- mac mini -->
         <rect x="30" y="260" width="270" height="220" rx="14" class="node mini"/>
         <text x="97" y="278" class="tag" text-anchor="middle">TB R1</text>
-        <text x="272" y="278" class="tag" text-anchor="middle">HDMI</text>
-        <text x="290" y="334" class="tag" text-anchor="end">TB R4</text>
-        <text x="290" y="414" class="tag" text-anchor="end">TB R2</text>
+        <text x="272" y="278" class="tag" text-anchor="middle">TB R4</text>
+        <text x="290" y="334" class="tag" text-anchor="end">TB R2</text>
+        <text x="290" y="414" class="tag" text-anchor="end">HDMI</text>
         <text x="48" y="320" class="t-big">Mac mini</text>
         <text x="48" y="342" class="t2">M6 · Mac18,5 · 16GB</text>
         <text x="48" y="384" class="t2">Internal 512GB SSD</text>

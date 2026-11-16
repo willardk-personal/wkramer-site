@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KTC H24T7 #2 · Mac mini setup</title><meta name="description" content="A second 24-inch 1440p KTC, at 144 Hz on the mini&#x27;s HDMI port.">
+<title>KTC H24T7 #2 · Mac mini setup</title><meta name="description" content="A second 24-inch 1440p KTC, at 180 Hz with VRR on DisplayPort from the mini&#x27;s port R4.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../site.css">
-</head><body class="b-hdmi">
+</head><body class="b-dp">
 <div class="mast one"><div class="wrap">
 <nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html" aria-current="page">Mac mini setup</a><a href="../macbook-pro.html">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a><a href="../articles.html">Articles</a></nav>
 <div class="hero">
-<div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Displays / <b>HDMI · 144 Hz</b></div>
+<div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Displays / <b>DisplayPort · 180 Hz</b></div>
 <h1>KTC H24T7 #2 <em>second display</em></h1>
-<p class="lede">The second display, the same model as the main one. A 24-inch 1440p Fast IPS panel at 144 Hz, the most its HDMI input takes, on the mini's HDMI port.</p>
-<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-hdmi"><span>HDMI</span><i></i></div><div class="hop me"><b>KTC H24T7</b><span>1440p · 144 Hz</span></div></div>
-<div class="stats"><div class="stat"><b>144<small>Hz</small></b><span>refresh, HDMI max</span></div><div class="stat"><b>2560×1440<small></small></b><span>panel</span></div><div class="stat"><b>400<small>nits</small></b><span>HDR400</span></div><div class="stat"><b>~95<small>%</small></b><span>DCI-P3</span></div></div>
+<p class="lede">The second display, the same model as the main one. A 24-inch 1440p Fast IPS panel at 180 Hz with VRR, on DisplayPort end to end from the mini's port R4. It was on HDMI at 144 Hz until November 16.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-dp"><span>R4 · USB-C to DP</span><i></i></div><div class="hop"><b>USB-C to DP cable</b><span>4 lanes · HBR3</span></div><div class="wire b-dp"><span>DisplayPort</span><i></i></div><div class="hop me"><b>KTC H24T7</b><span>1440p · 180 Hz · VRR</span></div></div>
+<div class="stats"><div class="stat"><b>180<small>Hz</small></b><span>refresh, with VRR</span></div><div class="stat"><b>2560×1440<small></small></b><span>panel</span></div><div class="stat"><b>400<small>nits</small></b><span>HDR400</span></div><div class="stat"><b>~95<small>%</small></b><span>DCI-P3</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
 <section><h2>The panel</h2>
@@ -20,16 +20,18 @@
 </section>
 <section><h2>How it is connected</h2>
 <div class="scroll"><table class="spec"><tbody>
-<tr><td>Port</td><td>Mac mini HDMI</td></tr>
-<tr><td>Running at</td><td>Looks like 2560×1440 in HiDPI (5120×2880 backing) at 144 Hz, no VRR</td></tr>
-<tr><td>Colour</td><td>RGB Full, 8-bit, with the H24T7 colour profile</td></tr>
+<tr><td>Port</td><td>Mac mini Thunderbolt port R4</td></tr>
+<tr><td>Cable</td><td>USB-C to DisplayPort</td></tr>
+<tr><td>Signal</td><td>DisplayPort alt mode, 4 lanes at HBR3, no compression (no DSC)</td></tr>
+<tr><td>Running at</td><td>Looks like 2560×1440 in HiDPI (5120×2880 backing) at 180 Hz, VRR 50 to 180 Hz</td></tr>
+<tr><td>Colour</td><td>RGB Full, 10-bit, with its own H24T7 colour profile</td></tr>
 <tr><td>Role</td><td>Second display</td></tr>
 </tbody></table></div>
 </section>
 <section><h2>Things to know</h2>
-<ul class="notes"><li>The monitor's HDMI input tops out at 144 Hz. 180 Hz and VRR need DisplayPort, which would mean a USB-C to DisplayPort cable on the free port R2.</li><li>Over HDMI macOS first picked YCbCr Limited with a generic profile, so it looked washed out next to the main display. Setting it to RGB Full with the H24T7 profile in BetterDisplay made the two match.</li><li>HDMI keeps it off the Thunderbolt ports, which leaves port R2 free for a drive.</li></ul>
+<ul class="notes"><li>Until November 16 it ran on the mini's HDMI port, which held it to 144 Hz with no VRR (the monitor's HDMI maximum). A USB-C to DisplayPort cable on its own Thunderbolt port brings it level with the main display: 180 Hz, VRR and 10-bit colour.</li><li>On HDMI macOS picked YCbCr Limited with a generic profile and it needed a manual fix in BetterDisplay. On DisplayPort it came up RGB Full with its own profile, so the two match without tweaks.</li><li>Its HDMI input is now free for a MacBook, over a USB-C to HDMI cable at 144 Hz. That is plenty for work.</li><li>The move uses the last free Thunderbolt port on the mini: R1 and R4 drive the monitors and R2 the dock.</li></ul>
 </section>
-<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 15, 2026.</p>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 16, 2026.</p>
 <div class="pager"><a href="ktc-h24t7.html">&larr; KTC H24T7</a><a href="../mac-mini.html">All devices</a><a href="dell-s2425hs.html">Dell S2425HS &rarr;</a></div>
 </main>
 <footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
