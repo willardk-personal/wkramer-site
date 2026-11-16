@@ -10,7 +10,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
 
 def page(path, title, desc, bus, hero, main, one=True, cur="mac-mini.html"):
     p = "../" if "/" in path else ""
-    links = [("index.html", "About"), ("mac-mini.html", "Mac mini setup"), ("macbook-pro.html", "Mac Work Book Pro"), ("dev-env.html", "Dev environment")]
+    links = [("index.html", "About"), ("mac-mini.html", "Mac mini setup"), ("macbook-pro.html", "Mac Work Book Pro"), ("dev-env.html", "Dev environment"), ("articles.html", "Articles")]
     nav = (f'<nav><a class="brand" href="{p}index.html">Willard Kramer</a>'
            + "".join(f'<a href="{p}{h}"{' aria-current="page"' if h == cur else ""}>{t}</a>' for h, t in links) + "</nav>")
     out = f'''<!doctype html>

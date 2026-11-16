@@ -1,0 +1,958 @@
+<title>From Amiga to M6</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a five-chapter story (1987 board -> 2026 die -> boards -> Macs -> iPad), hash-routed views under a sticky tab bar; diagrams are interactive "tap a part" maps with a detail panel. */
+:root {
+  --bg: #eef2f6;
+  --surface: #ffffff;
+  --fg: #142030;
+  --muted: #566577;
+  --line: #d3dbe4;
+  --accent: #0055aa;      /* Workbench 1.3 blue */
+  --accent-2: #c86a00;    /* Workbench orange, darkened for light ground */
+  --accent-soft: #e2ecf8;
+  --good: #1f7a4a;
+  /* fixed-world diagram tokens (same in both themes) */
+  --pcb: #1d5c3c;
+  --pcb-dark: #154530;
+  --silk: #e9f2ea;
+  --chip: #1b1d20;
+  --chip-text: #eceff2;
+  --pin: #b9c0c7;
+  --metal: #8d96a0;
+  --gold: #c9a24a;
+  --hl: #ff9933;
+  --die: #1c2129;
+  --font-display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d131b; --surface: #151e29; --fg: #e5ecf4; --muted: #95a4b6; --line: #273443;
+    --accent: #6aa8ee; --accent-2: #ff9a3c; --accent-soft: #17263a; --good: #4cc488;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d131b; --surface: #151e29; --fg: #e5ecf4; --muted: #95a4b6; --line: #273443;
+  --accent: #6aa8ee; --accent-2: #ff9a3c; --accent-soft: #17263a; --good: #4cc488;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--surface);
+}
+.gutter {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1100px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.5rem, 3.2vw, 2.1rem); font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+.mono { font-family: var(--font-mono); }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-2); font-weight: 500;
+}
+.lede { font-size: 1.08rem; color: var(--muted); max-width: 68ch; }
+
+/* header + tabs */
+header.top { background: var(--surface); border-bottom: 1px solid var(--line); }
+header.top .wrap { padding-block: 28px 18px; display: grid; gap: 8px; }
+header.top p { color: var(--muted); max-width: 70ch; }
+nav.tabs {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+nav.tabs .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+nav.tabs .wrap::-webkit-scrollbar { display: none; }
+nav.tabs a {
+  flex: 0 0 auto; display: grid; gap: 0; padding: 10px 14px 9px; text-decoration: none;
+  color: var(--muted); border-bottom: 3px solid transparent; font-family: var(--font-display); font-weight: 600;
+  font-size: 0.98rem; line-height: 1.2;
+}
+nav.tabs a small { font-family: var(--font-mono); font-weight: 400; font-size: 0.7rem; letter-spacing: 0.06em; }
+nav.tabs a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--accent); }
+nav.tabs a:hover { color: var(--fg); }
+
+main .wrap { padding-block: 32px 56px; display: grid; gap: 40px; }
+.view { display: grid; gap: 40px; }
+.intro { display: grid; gap: 12px; }
+.block { display: grid; gap: 14px; min-width: 0; }
+.block > p, .block > ul { max-width: 72ch; }
+.note { font-size: 0.86rem; color: var(--muted); }
+
+/* diagram + panel */
+.explorer { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+@media (max-width: 900px) { .explorer { grid-template-columns: minmax(0, 1fr); } }
+.diagram-scroll { overflow-x: auto; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); padding: 10px; }
+.diagram-scroll svg { display: block; width: 100%; min-width: 640px; height: auto; }
+.panel {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px;
+  display: grid; gap: 10px; min-width: 0; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 70px);
+}
+@media (max-width: 900px) { .panel { position: static; } }
+.panel .eyebrow { color: var(--muted); }
+.panel h3 { font-size: 1.3rem; }
+.panel .part-no { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-2); }
+.panel .map { border-top: 1px dashed var(--line); padding-top: 10px; display: grid; gap: 4px; }
+.panel .map b { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.chips-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips-list button {
+  font: 500 0.8rem var(--font-mono); padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--fg); cursor: pointer;
+}
+.chips-list button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+
+/* svg parts */
+.part { cursor: pointer; }
+.part .body { transition: stroke 120ms; }
+.part:hover .body, .part:focus-visible .body { stroke: var(--hl); stroke-width: 2; }
+.part.active .body { stroke: var(--hl); stroke-width: 3.5; }
+.part:focus { outline: none; }
+svg text { pointer-events: none; }
+
+/* spec strip */
+.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.specs div { background: var(--surface); padding: 12px 14px; display: grid; gap: 2px; }
+.specs dt { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.specs dd { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 1.12rem; font-variant-numeric: tabular-nums; }
+
+/* tables */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; font-variant-numeric: tabular-nums; }
+.tbl.wide table { min-width: 720px; }
+.tbl.mid table { min-width: 560px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+tr:last-child td { border-bottom: 0; }
+thead th { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; background: var(--accent-soft); white-space: nowrap; }
+tbody th { font-weight: 600; color: var(--muted); font-size: 0.86rem; white-space: nowrap; }
+td.win { color: var(--good); font-weight: 600; }
+td .sub { display: block; color: var(--muted); font-size: 0.82rem; }
+.tag {
+  display: inline-block; font: 500 0.7rem var(--font-mono); letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 1px 7px; border-radius: 4px; border: 1px solid currentColor; color: var(--good); vertical-align: 1px;
+}
+.tag.warn { color: var(--accent-2); }
+
+.verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.verdict div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.verdict h3 { font-size: 1.05rem; }
+.verdict p { color: var(--muted); font-size: 0.94rem; }
+
+.scale { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.scale div { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; display: grid; gap: 2px; }
+.scale b { font-family: var(--font-display); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.scale span { color: var(--muted); font-size: 0.9rem; }
+
+.sources { font-size: 0.86rem; color: var(--muted); display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 16px; }
+.sources ul { margin: 0; padding-left: 18px; columns: 2 280px; column-gap: 28px; }
+.sources li { break-inside: avoid; margin-bottom: 3px; }
+.next { justify-self: start; font-family: var(--font-display); font-weight: 600; text-decoration: none; padding: 9px 16px; border: 1px solid var(--accent); border-radius: 8px; }
+.next:hover { background: var(--accent-soft); }
+footer .wrap { padding-block: 0 40px; color: var(--muted); font-size: 0.82rem; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="top gutter">
+  <div class="wrap">
+    <span class="eyebrow">1987 → 2026</span>
+    <h1>From Amiga to M6</h1>
+    <p>In 1987 the Amiga 2000 spread its computer across a board of separate chips, and its Bridgeboard added a whole second computer on a card. Apple's M6 puts those same jobs on one piece of silicon. This guide starts with the Amiga board, opens up the M6, and ends with side-by-side comparisons of the M6 and M5 Macs and the iPad Pro.</p>
+  </div>
+</header>
+
+<nav class="tabs gutter" aria-label="Chapters">
+  <div class="wrap">
+    <a href="#amiga"><small>1987</small>Amiga 2000</a>
+    <a href="#m6"><small>2026</small>Inside the M6</a>
+    <a href="#boards"><small>Chip vs board</small>Mac mini &amp; MacBook Pro</a>
+    <a href="#macs"><small>Compare</small>Air · Pro M6 · Pro M5 Pro</a>
+    <a href="#ipad"><small>Compare</small>iPad Pro vs MacBook Air</a>
+  </div>
+</nav>
+
+<main class="gutter">
+<div class="wrap">
+
+<!-- ============ AMIGA ============ -->
+<section class="view" data-view="amiga">
+  <div class="intro">
+    <span class="eyebrow">Commodore Amiga 2000 · Rev 6 motherboard · A2088 Bridgeboard</span>
+    <h2>One job per chip, and a PC on a card</h2>
+    <p class="lede">The Amiga 2000 ran a Motorola 68000 CPU alongside a set of custom chips designed by Jay Miner's team, each with one job: memory and DMA, video, sound and disk, glue logic, I/O. Add an A2088 Bridgeboard and the same case held a second computer, a complete IBM PC/XT. Tap a part on the board to see what it did and which part of the M6 does that job today.</p>
+  </div>
+
+  <div class="explorer">
+    <div class="diagram-scroll">
+      <svg id="a2000" viewBox="0 0 1500 1300" role="group" aria-label="Amiga 2000 Rev 6 motherboard layout"></svg>
+    </div>
+    <aside class="panel" id="a2000-panel" aria-live="polite"></aside>
+  </div>
+  <p class="note">Top view, rear edge at the top and the keyboard side at the bottom. Chip positions are traced from a photo of a Rev 6.3 board in the Big Book of Amiga Hardware; sizes are approximate. The power supply and drive bays sit above the right half of the board. The video slot's position is read from the photo; no reference we found states it.</p>
+
+  <dl class="specs">
+    <div><dt>CPU</dt><dd>68000 · 7.16 MHz</dd></div>
+    <div><dt>Chip RAM</dt><dd>1 MB (Rev 6)</dd></div>
+    <div><dt>Slots</dt><dd>5 Zorro II · 4 ISA · CPU · video</dd></div>
+    <div><dt>Bays</dt><dd>2 × 3.5" · 1 × 5.25"</dd></div>
+    <div><dt>Firmware</dt><dd>Kickstart 1.3</dd></div>
+    <div><dt>Bridgeboard</dt><dd>8088 · 4.77 MHz</dd></div>
+    <div><dt>US launch</dt><dd>1987 · $1,495</dd></div>
+  </dl>
+  <p class="note">The CPU runs at 7.16 MHz on NTSC machines and 7.09 MHz on PAL machines. Earlier boards had 512 KB of chip RAM plus 512 KB of other RAM.</p>
+
+  <div class="block">
+    <h3>Chip RAM: unified memory in 1987</h3>
+    <p>The CPU and every custom chip shared one pool called chip RAM. Agnus, silkscreened "FAT LADY" on the A2000 board, decided who got each memory cycle. Display fetches came first, then the Blitter, and the 68000 used the cycles that were left. A flag called BLITHOG could even let the Blitter lock the CPU out. The M6 works on the same idea at a much larger scale: its CPU, GPU and Neural Engine share one 16 GB pool through one memory controller.</p>
+  </div>
+
+  <div class="block">
+    <h3>The A2088 Bridgeboard: a second computer</h3>
+    <div class="diagram-scroll">
+      <svg id="a2088" viewBox="0 0 960 400" role="img" aria-label="A2088 Bridgeboard block diagram"></svg>
+    </div>
+    <p>The A2088 was an IBM PC/XT on one card: an Intel 8088 at 4.77 MHz, 512 KB of its own RAM, an XT-compatible BIOS and a socket for an 8087 math coprocessor. It plugged into a PC (ISA) slot and the Zorro slot lined up with it, so it sat on both computers' buses at once. The A2000 board has two of those lined-up pairs.</p>
+    <p>The two computers talked through about 128 KB of shared memory, and each could interrupt the other. Commodore's <b>Janus</b> library handled the link. The PC's CGA or monochrome screen appeared in a window on the Amiga desktop, the PC used the Amiga's keyboard and mouse, and the PC side could store files on the Amiga's drives. Later Bridgeboards moved up to a 286 (A2286) and a 386SX (A2386SX).</p>
+    <div class="scale">
+      <div><b>1987: a second CPU</b><span>Running PC software meant adding a whole PC: its own CPU, RAM and BIOS, sharing a slice of memory with the Amiga.</span></div>
+      <div><b>2026: software</b><span>A Mac runs x86 apps through Rosetta 2 and Windows on Arm in a virtual machine, on the same M6 chip.</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>The chip roster</h3>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th>Chip</th><th>Part</th><th>Job</th></tr></thead>
+        <tbody>
+          <tr><td><b>Motorola 68000</b></td><td class="mono">DIP-64</td><td>CPU, about 68,000 transistors</td></tr>
+          <tr><td><b>Fat Agnus</b></td><td class="mono">MOS 8372A · PLCC-84</td><td>Chip RAM and DMA arbiter, video timing, Blitter, Copper</td></tr>
+          <tr><td><b>Denise</b></td><td class="mono">MOS 8362 · DIP-48</td><td>Video: bitplanes, palette, 8 sprites, mouse input</td></tr>
+          <tr><td><b>Paula</b></td><td class="mono">MOS 8364 · DIP-48</td><td>4-channel sound, floppy data, serial port, interrupts</td></tr>
+          <tr><td><b>Gary</b></td><td class="mono">MOS 5719 · DIP-48</td><td>Glue logic: address decoding, bus control, floppy motor</td></tr>
+          <tr><td><b>Buster</b></td><td class="mono">DIP-48</td><td>Zorro II expansion bus controller (A2000 only)</td></tr>
+          <tr><td><b>CIA × 2</b></td><td class="mono">MOS 8520A · DIP-40</td><td>Timers, keyboard, parallel port, joystick buttons, floppy and serial control</td></tr>
+          <tr><td><b>Kickstart ROM</b></td><td class="mono">256 KB · DIP-40</td><td>Firmware: boot code, Exec kernel, graphics and DOS libraries</td></tr>
+          <tr><td><b>Chip RAM</b></td><td class="mono">8 × 256K×4 DRAM</td><td>1 MB shared by the CPU and every custom chip</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Later Rev 6.4 boards shipped with the 8375 Agnus and the 8373 Super Denise from the ECS chipset.</p>
+  </div>
+
+  <div class="block">
+    <h3>What came next</h3>
+    <p>The <b>ECS</b> chipset (1990) brought a Super Agnus that could address 2 MB of chip RAM and a Super Denise with sharper productivity screen modes. <b>AGA</b> (1992, in the A1200, A4000 and CD32) replaced Agnus with the 32-bit <b>Alice</b> and Denise with <b>Lisa</b>, with a palette of 16.8 million colors. Paula never changed: the A4000 still used the same four sound channels as the 1985 Amiga 1000.</p>
+  </div>
+
+  <a class="next" href="#m6">Next: inside the M6 →</a>
+
+  <div class="sources">
+    <b>Sources</b>
+    <ul>
+      <li><a href="https://bigbookofamigahardware.com/bboah/product.aspx?id=17">Big Book of Amiga Hardware: A2000 (Rev 6.3 and 6.4 board photos)</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Amiga_2000">Wikipedia: Amiga 2000</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Original_Chip_Set">Wikipedia: Original Chip Set</a></li>
+      <li><a href="https://amiga.resource.cx/exp/a2088t">Amiga Hardware Database: A2088</a></li>
+      <li><a href="https://www.amiga-stuff.com/hardware/a2088.html">amiga-stuff.com: A2088</a></li>
+      <li><a href="https://dfarq.homeip.net/amiga-bridgeboard-the-pc-compatibility-option/">Dave Farquhar: Amiga Bridgeboard</a></li>
+      <li><a href="https://forum.amiga.org/index.php?topic=38602.0">Amiga.org: identifying A2000 board revisions</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="view" data-view="m6" hidden>
+  <div class="intro">
+    <span class="eyebrow">Apple M6 · 2 nm · announced Aug 25, 2026</span>
+    <h2>Every chip, one die</h2>
+    <p class="lede">The M6 is Apple's first 2 nm chip. It debuted in the Mac mini and now also powers the 14-inch MacBook Pro. CPU, GPU, Neural Engine, memory controllers, caches, media and display engines, Thunderbolt and the Secure Enclave all share one die, and the memory sits in the same package. Tap a block to see what it does and which Amiga 2000 chip did that job in 1987.</p>
+  </div>
+
+  <div class="explorer">
+    <div class="diagram-scroll">
+      <svg id="m6die" viewBox="0 0 640 560" role="group" aria-label="Apple M6 die block diagram"></svg>
+    </div>
+    <aside class="panel" id="m6-panel" aria-live="polite"></aside>
+  </div>
+  <p class="note">This is a schematic drawn after a third-party annotated die photo. Block positions and sizes are approximate, and the unlabeled I/O region is grouped as one block.</p>
+
+  <div class="block">
+    <h3>Cores and caches, as macOS reports them</h3>
+    <p>These figures come from <span class="mono">sysctl hw.perflevel*</span> on a Mac mini M6 (Mac18,5).</p>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th>Cluster</th><th>Cores</th><th>Job</th><th>L1 per core (instr / data)</th><th>Shared L2</th></tr></thead>
+        <tbody>
+          <tr><td><b>Super</b></td><td>2</td><td>Single-threaded speed</td><td class="mono">192 KB / 128 KB</td><td class="mono">20 MB</td></tr>
+          <tr><td><b>Performance</b></td><td>4</td><td>Joins the super cores on multi-threaded work</td><td class="mono">128 KB / 64 KB</td><td class="mono">20 MB</td></tr>
+          <tr><td><b>Efficiency</b></td><td>6</td><td>Background tasks</td><td class="mono">160 KB / 96 KB</td><td class="mono">8 MB</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The super and performance clusters report the same 20 MB L2, and the die annotation shows one cache shared by both. The annotation labels it 10 MB; this page uses the figure macOS reports.</p>
+  </div>
+
+  <div class="block">
+    <h3>Amiga chip → M6 block</h3>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th>Amiga 2000</th><th>Job in 1987</th><th>M6 today</th></tr></thead>
+        <tbody>
+          <tr><td><b>68000</b></td><td>CPU</td><td>2 super + 4 performance + 6 efficiency cores</td></tr>
+          <tr><td><b>Agnus</b></td><td>Memory and DMA arbiter, Blitter, Copper</td><td>Memory controllers, 16 MB System Level Cache, GPU shared logic</td></tr>
+          <tr><td><b>Denise</b></td><td>Video output and sprites</td><td>Display engines</td></tr>
+          <tr><td><b>Paula</b></td><td>Sound, floppy, serial, interrupts</td><td>I/O and interrupt controllers</td></tr>
+          <tr><td><b>CIA × 2</b></td><td>Timers, keyboard, ports</td><td>Timers and I/O controllers</td></tr>
+          <tr><td><b>Gary</b></td><td>Glue logic</td><td>The on-die fabric that connects every block</td></tr>
+          <tr><td><b>Kickstart ROM</b></td><td>Boot firmware</td><td>On-die boot ROM</td></tr>
+          <tr><td><b>Buster</b></td><td>Zorro II bus controller</td><td>Fabric and Thunderbolt/PCIe controllers</td></tr>
+          <tr><td><b>Chip RAM</b></td><td>1 MB shared pool</td><td>16 GB unified memory in the M6 package</td></tr>
+          <tr><td><b>A2088 Bridgeboard</b></td><td>A second computer: an 8088 PC on a card</td><td>Software: Rosetta 2 and virtual machines</td></tr>
+          <tr><td><i>Nothing</i></td><td></td><td>Dual 16-core Neural Engine, AMX matrix units, 12-core GPU with ray tracing</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Scale</h3>
+    <div class="scale">
+      <div><b>~68,000 → ~46 billion</b><span>Transistors: 68000 vs M6. The M6 figure comes from one third-party report; Apple hasn't confirmed it.</span></div>
+      <div><b>1 MB → 16 GB</b><span>Shared memory: 16,384 times as much</span></div>
+      <div><b>1 → 12</b><span>CPU cores. Apple doesn't publish the M6's clock speed.</span></div>
+      <div><b>0 → 2</b><span>Neural Engines, each with 16 cores</span></div>
+    </div>
+  </div>
+
+  <a class="next" href="#boards">Next: same chip, different boards →</a>
+
+  <div class="sources">
+    <b>Sources</b>
+    <ul>
+      <li><a href="https://www.apple.com/newsroom/2026/08/apple-introduces-m6-and-m5-ultra-for-a-big-leap-in-performance-and-ai-compute/">Apple Newsroom: M6 and M5 Ultra</a></li>
+      <li><a href="https://www.apple.com/macbook-pro/specs/">Apple: MacBook Pro tech specs</a></li>
+      <li><a href="https://appleinsider.com/inside/apple-silicon/vs/m6-vs-m4-how-two-years-and-two-chip-generations-change-apple-silicon">AppleInsider: M6 vs M4</a></li>
+      <li><a href="https://xenospectrum.com/en/apple-silicon-chip-architecture/">Xenospectrum: M6 on 2 nm</a></li>
+      <li><a href="https://kantan.news/news/apple-m6-processor-design-analyzed-high-performance-in-2-nanometer-architecture">Kantan News: M6 die analysis</a></li>
+      <li>macOS <span class="mono">sysctl</span> and <span class="mono">system_profiler</span> on a Mac mini M6</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ BOARDS ============ -->
+<section class="view" data-view="boards" hidden>
+  <div class="intro">
+    <span class="eyebrow">Mac mini M6 · MacBook Pro 14" M6</span>
+    <h2>Same chip, different boards</h2>
+    <p class="lede">The Mac mini and the 14-inch MacBook Pro use the same M6 package, so their CPU, GPU, memory, Wi-Fi chip and Thunderbolt ports match. The chip decides what's possible. Each logic board decides which of those features reach a port and adds the few parts the chip doesn't include.</p>
+  </div>
+
+  <div class="block">
+    <h3>Fixed by the chip</h3>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th>Part</th><th>Mac mini M6</th><th>MacBook Pro 14" M6</th></tr></thead>
+        <tbody>
+          <tr><td><b>CPU / GPU</b></td><td>12-core / 12-core</td><td>12-core / 12-core</td></tr>
+          <tr><td><b>Neural Engine</b></td><td>Dual 16-core</td><td>Dual 16-core</td></tr>
+          <tr><td><b>Memory</b></td><td>16 GB at 153 GB/s; 24 or 32 GB at 170 GB/s</td><td>Same options</td></tr>
+          <tr><td><b>Thunderbolt</b></td><td>3 × TB4, 40 Gb/s</td><td>3 × TB4, 40 Gb/s</td></tr>
+          <tr><td><b>SSD controller</b></td><td>On the chip; flash chips on the board</td><td>Same</td></tr>
+          <tr><td><b>Media engine</b></td><td>H.264, HEVC, ProRes, ProRes RAW, AV1 decode</td><td>Same</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Separate chips on the board</h3>
+    <p>These parts sit outside the M6. Each one was confirmed on a Mac mini M6 with <span class="mono">system_profiler</span> and <span class="mono">ioreg</span>.</p>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th>Part</th><th>What the Mac reports</th><th>Job</th></tr></thead>
+        <tbody>
+          <tr><td><b>Apple N1</b> <span class="tag">confirmed</span></td><td class="mono">core80211 … N1_b</td><td>Wi-Fi 7, Bluetooth 6, Thread. The MacBook Air M5 and iPad Pro M5 use it too.</td></tr>
+          <tr><td><b>Realtek 8125</b> <span class="tag">confirmed</span></td><td class="mono">PCI 10ec:8125, 2.5GbE</td><td>Ethernet, connected to the M6 over PCIe (Mac mini only)</td></tr>
+          <tr><td><b>USB-C port managers ×3</b> <span class="tag">confirmed</span></td><td class="mono">AppleHPM ×3</td><td>One per Thunderbolt port: negotiates power and switches the port between Thunderbolt, USB and DisplayPort</td></tr>
+          <tr><td><b>NAND flash</b> <span class="tag">confirmed</span></td><td class="mono">APPLE SSD AP0512Z</td><td>Raw storage. It doesn't appear as its own PCIe device because its controller is inside the M6.</td></tr>
+          <tr><td><b>Audio and power</b> <span class="tag warn">not checked</span></td><td></td><td>Audio codec and power-management chips</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>How each board routes the chip</h3>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th></th><th>Mac mini</th><th>MacBook Pro 14"</th></tr></thead>
+        <tbody>
+          <tr><th>Display engines</th><td>All go to ports: <b>3 external displays</b></td><td>One drives the built-in 120 Hz screen: <b>2 external</b></td></tr>
+          <tr><th>Power</th><td>Built-in supply, 155 W max</td><td>72.4 Wh battery, MagSafe 3, 70 W adapter</td></tr>
+          <tr><th>Extra ports</th><td>2.5GbE, HDMI, 2 front USB-C 10 Gb/s, headphone jack</td><td>HDMI, SDXC, headphone jack</td></tr>
+          <tr><th>Built in</th><td>Speaker</td><td>Display, keyboard, trackpad, Touch ID, 6 speakers, webcam, fan</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The front USB-C ports on the Mac mini run at 10 Gb/s because the M6 has only three Thunderbolt controllers, and all three go to the rear ports.</p>
+  </div>
+
+  <div class="block">
+    <h3>Thunderbolt goes by chip tier, not generation</h3>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th>Chip</th><th>Thunderbolt</th><th>Memory bandwidth</th><th>External displays</th></tr></thead>
+        <tbody>
+          <tr><td><b>M5</b> (MacBook Air)</td><td>2 × TB4, 40 Gb/s</td><td class="mono">153 GB/s</td><td>2</td></tr>
+          <tr><td><b>M6</b> (Mac mini, MacBook Pro)</td><td>3 × TB4, 40 Gb/s</td><td class="mono">153–170 GB/s</td><td>3 mini · 2 MacBook Pro</td></tr>
+          <tr><td><b>M5 Pro</b></td><td class="win">3 × TB5, 120 Gb/s</td><td class="mono">307 GB/s</td><td>3</td></tr>
+          <tr><td><b>M5 Max</b></td><td class="win">3 × TB5, 120 Gb/s</td><td class="mono">460–614 GB/s</td><td>4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>A newer base chip still sits below an older Pro chip on I/O. On a desk with a Thunderbolt 5 dock, the M6's TB4 port holds the dock to 40 Gb/s. Two NVMe drives behind it top out at about 4 GB/s combined, where a TB5 Mac would let each run at full speed.</p>
+  </div>
+
+  <a class="next" href="#macs">Next: MacBook Air vs Pro M6 vs Pro M5 Pro →</a>
+
+  <div class="sources">
+    <b>Sources</b>
+    <ul>
+      <li><a href="https://www.apple.com/macbook-pro/specs/">Apple: MacBook Pro tech specs</a></li>
+      <li><a href="https://www.apple.com/macbook-air/specs/">Apple: MacBook Air tech specs</a></li>
+      <li>macOS <span class="mono">system_profiler</span> and <span class="mono">ioreg</span> on a Mac mini M6</li>
+      <li>fio throughput tests behind a TB5 dock on a Mac mini M6, Nov 2026</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ MACS ============ -->
+<section class="view" data-view="macs" hidden>
+  <div class="intro">
+    <span class="eyebrow">Prices as of Nov 16, 2026 · US</span>
+    <h2>MacBook Air vs MacBook Pro M6 vs MacBook Pro M5 Pro</h2>
+    <p class="lede">The Air is light, silent and the cheapest. The M6 Pro is the best value Pro, with a better screen and ports and the longest battery life. The M5 Pro is for heavy sustained work. Apple also released an OLED touchscreen M5 Pro on Oct 28, 2026, so it gets its own column.</p>
+  </div>
+
+  <div class="block">
+    <h3>Price</h3>
+    <div class="tbl wide">
+      <table>
+        <thead><tr><th></th><th>Air 13" M5</th><th>Pro 14" M6</th><th>Pro 14" M5 Pro</th><th>Pro 14" M5 Pro OLED</th></tr></thead>
+        <tbody>
+          <tr><th>Base config</th><td>16 GB / 512 GB</td><td>16 GB / 1 TB</td><td>24 GB / 1 TB</td><td>24 GB / 1 TB</td></tr>
+          <tr><th>Apple list</th><td class="win">$1,299</td><td>$1,999</td><td>$2,499</td><td>$2,899</td></tr>
+          <tr><th>Best deal found</th><td>~$1,100 Amazon</td><td>None (shipped Nov 6)</td><td>None for 14"; 16" is $2,749 at Amazon (list $2,999)</td><td>None</td></tr>
+          <tr><th>Released</th><td>Mar 2026</td><td>Nov 6, 2026</td><td>Spring 2026</td><td>Nov 6, 2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">All list prices include Apple's June 25, 2026 increase. The M6 with 32 GB is $2,399. Amazon's Black Friday week starts Nov 19.</p>
+  </div>
+
+  <div class="block">
+    <h3>Chip</h3>
+    <div class="tbl wide">
+      <table>
+        <thead><tr><th></th><th>Air M5</th><th>Pro M6</th><th>Pro M5 Pro (base)</th></tr></thead>
+        <tbody>
+          <tr><th>CPU</th><td>10-core: 4 super, 6 efficiency</td><td>12-core: 2 super, 4 performance, 6 efficiency</td><td class="win">15-core: 5 super, 10 performance</td></tr>
+          <tr><th>GPU</th><td>8-core</td><td>12-core</td><td class="win">16-core<span class="sub">20-core with the 18-core CPU</span></td></tr>
+          <tr><th>Neural Engine</th><td>16-core</td><td class="win">Dual 16-core</td><td>16-core</td></tr>
+          <tr><th>Memory</th><td>16 GB (up to 32)</td><td>16 GB (up to 32)</td><td class="win">24 GB (up to 48; 64 with 18-core)</td></tr>
+          <tr><th>Bandwidth</th><td class="mono">153 GB/s</td><td class="mono">153–170 GB/s</td><td class="mono win">307 GB/s</td></tr>
+          <tr><th>Cooling</th><td>Fanless</td><td>Fan</td><td>Fans</td></tr>
+          <tr><th>Geekbench 6</th><td class="mono">~4,025 / ~16,100</td><td class="mono">~4,750 / ~21,200<span class="sub">Engadget: 4,458 / 19,077</span></td><td class="mono">~4,300 / ~25,900<span class="sub">weaker source; 18-core: 29,359</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Geekbench figures are single-core / multi-core. The M6 has the fastest single core and feels quickest day to day. The M5 Pro wins at long exports, big builds, 3D and local AI.</p>
+  </div>
+
+  <div class="block">
+    <h3>Display</h3>
+    <div class="tbl wide">
+      <table>
+        <thead><tr><th></th><th>Air</th><th>Pro M6 / M5 Pro</th><th>Pro M5 Pro OLED</th></tr></thead>
+        <tbody>
+          <tr><th>Panel</th><td>IPS LCD</td><td>Mini-LED Liquid Retina XDR</td><td class="win">Tandem OLED, touchscreen</td></tr>
+          <tr><th>Size / resolution</th><td>13.6", 2560×1664, 224 ppi</td><td>14.2", 3024×1964, 254 ppi</td><td>14.2", slimmer bezels</td></tr>
+          <tr><th>SDR</th><td>500 nits (~459 measured)</td><td>Up to 1,000 nits outdoors</td><td>~600 typical, ~1,025 with the light sensor</td></tr>
+          <tr><th>HDR peak</th><td>None</td><td>1,600 nits</td><td class="win">~2,000 nits (2,084 measured)</td></tr>
+          <tr><th>Refresh</th><td>60 Hz</td><td>ProMotion 120 Hz</td><td>ProMotion 120 Hz</td></tr>
+          <tr><th>Notes</th><td></td><td>Nano-texture option</td><td>Dynamic Island; 240 Hz PWM flicker</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Size, ports, battery</h3>
+    <div class="tbl wide">
+      <table>
+        <thead><tr><th></th><th>Air</th><th>Pro M6</th><th>Pro M5 Pro</th><th>Pro M5 Pro OLED</th></tr></thead>
+        <tbody>
+          <tr><th>Weight</th><td class="win">2.7 lb</td><td>3.4 lb</td><td>3.5 lb</td><td>3.0 lb</td></tr>
+          <tr><th>Thickness</th><td class="win">11.3 mm</td><td>15.5 mm</td><td>15.5 mm</td><td>15 mm</td></tr>
+          <tr><th>Thunderbolt</th><td>2 × TB4</td><td>3 × TB4</td><td class="win">3 × TB5</td><td class="win">3 × TB5</td></tr>
+          <tr><th>Other ports</th><td>MagSafe 3, headphone</td><td>MagSafe 3, HDMI, SDXC, headphone</td><td>Same as M6</td><td>Same as M6</td></tr>
+          <tr><th>External displays</th><td>2</td><td>2</td><td class="win">3</td><td class="win">3</td></tr>
+          <tr><th>Battery</th><td>53.8 Wh</td><td>72.4 Wh</td><td>72.4 Wh</td><td>72.6 Wh</td></tr>
+          <tr><th>Apple rating</th><td>18 h video / 15 h web</td><td class="win">24 h / 16 h</td><td>22 h / 14 h</td><td>Not found</td></tr>
+          <tr><th>Tested</th><td>16 h 11 m Wi-Fi (Notebookcheck)</td><td class="win">19 h 05 m (Tom's Hardware)</td><td>~16 h 45 m (weaker source)</td><td>Better than mini-LED (Notebookcheck)</td></tr>
+          <tr><th>Charger</th><td>40 W</td><td>70 W</td><td>70 W</td><td>70–96 W</td></tr>
+          <tr><th>Speakers</th><td>4</td><td>6 + force-cancelling woofers</td><td>Same as M6</td><td>Upgraded woofers</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">All four have Wi-Fi 7 and Bluetooth 6 (Apple N1) and a 12 MP Center Stage camera. None has Face ID.</p>
+  </div>
+
+  <div class="block">
+    <h3>Which to buy</h3>
+    <div class="verdict">
+      <div><span class="eyebrow">Air M5</span><h3>Travel companion</h3><p>Email, web, light coding and remote sessions to a desktop Mac. It's silent, the lightest of the three and about $1,100 on sale. The 60 Hz 500-nit screen and two ports are its limits.</p></div>
+      <div><span class="eyebrow">Pro M6</span><h3>The sweet spot</h3><p>For $700 more than the Air's list price you get a 120 Hz XDR screen, HDMI and SD, a third port, a fan, 1 TB of storage, the longest battery life and the fastest single core. Engadget gave it 9/10.</p></div>
+      <div><span class="eyebrow">Pro M5 Pro</span><h3>Sustained heavy work</h3><p>Long 4K or ProRes exports, big builds, local AI that needs 48–64 GB, three displays, Thunderbolt 5 storage. If you're spending this much, the $2,899 OLED version is lighter and has a far better screen, but its fans are louder and its screen flickers.</p></div>
+    </div>
+  </div>
+
+  <a class="next" href="#ipad">Next: iPad Pro vs MacBook Air →</a>
+
+  <div class="sources">
+    <b>Sources</b>
+    <ul>
+      <li><a href="https://www.apple.com/macbook-pro/specs/">Apple: MacBook Pro tech specs</a></li>
+      <li><a href="https://www.apple.com/macbook-air/specs/">Apple: MacBook Air tech specs</a></li>
+      <li><a href="https://9to5mac.com/2026/10/27/apple-unveils-new-14-inch-macbook-pro-powered-by-m6/">9to5Mac: M6 MacBook Pro</a></li>
+      <li><a href="https://9to5mac.com/2026/06/25/apple-price-increases-mac-ipad/">9to5Mac: June 2026 price increases</a></li>
+      <li><a href="https://www.engadget.com/2307614/apple-macbook-pro-m6-review/">Engadget: M6 MacBook Pro review</a></li>
+      <li><a href="https://www.tomshardware.com/laptops/macbooks/apple-macbook-pro-14-inch-m6-review">Tom's Hardware: M6 MacBook Pro review</a></li>
+      <li><a href="https://www.notebookcheck.net/Amazing-OLED-panel-Apple-MacBook-Pro-14-PROLED-XDR-Review.1438048.0.html">Notebookcheck: MacBook Pro 14 PROLED review</a></li>
+      <li><a href="https://www.cultofmac.com/buying-guides/oled-vs-regular-macbook-pro-comparison">Cult of Mac: OLED vs regular MacBook Pro</a></li>
+      <li><a href="https://lapzenlab.com/review/apple-macbook-pro-m5-pro-15-core-2026-review">Lapzenlab: M5 Pro 15-core review</a></li>
+      <li><a href="https://www.notebookcheck.net/MacBook-Air-13-M5-Vs-M4-battery-life-New-MacBook-suffers-from-6-shorter-endurance-on-max-brightness.1245763.0.html">Notebookcheck: MacBook Air M5 battery</a></li>
+      <li><a href="https://www.aol.com/articles/review-m5-macbook-air-incredible-090000798.html">AOL: MacBook Air M5 review</a></li>
+      <li><a href="https://www.macrumors.com/guide/macbook-pro-air-deals/">MacRumors: MacBook deals</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ IPAD ============ -->
+<section class="view" data-view="ipad" hidden>
+  <div class="intro">
+    <span class="eyebrow">Prices as of Nov 16, 2026 · US</span>
+    <h2>iPad Pro 13" M5 vs MacBook Air 13" M5</h2>
+    <p class="lede">The iPad Pro has the much better screen, cameras and portability. The MacBook Air is faster at sustained work, has more memory, better ports and twice the battery life, and it costs about $900 less once the iPad has a keyboard and pencil. Compared: iPad Pro 512 GB Wi-Fi and MacBook Air 10-core CPU, 8-core GPU, 16 GB, 512 GB.</p>
+  </div>
+
+  <div class="block">
+    <h3>Price</h3>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th></th><th>iPad Pro 13" 512 GB Wi-Fi</th><th>MacBook Air 13" 16/512</th></tr></thead>
+        <tbody>
+          <tr><th>Apple list</th><td>$1,699</td><td class="win">$1,299</td></tr>
+          <tr><th>Best deal found</th><td>~$1,550 Amazon</td><td class="win">~$1,100 Amazon</td></tr>
+          <tr><th>Keyboard</th><td>Magic Keyboard 13" $349</td><td>Built in</td></tr>
+          <tr><th>Pencil</th><td>Apple Pencil Pro $129</td><td>Not supported</td></tr>
+          <tr><th>As a laptop (list)</th><td>~$2,177</td><td class="win">$1,299</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Accessory prices are from MacRumors' guide; it doesn't say whether they changed in June. The 1 TB iPad Pro (~$1,499 on sale, list $2,099) is the only configuration with the full 10-core CPU, 16 GB and a nano-texture option.</p>
+  </div>
+
+  <div class="block">
+    <h3>Chip</h3>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th></th><th>iPad Pro</th><th>MacBook Air</th></tr></thead>
+        <tbody>
+          <tr><th>CPU</th><td>9-core: 3 super, 6 efficiency</td><td class="win">10-core: 4 super, 6 efficiency</td></tr>
+          <tr><th>GPU</th><td class="win">10-core</td><td>8-core</td></tr>
+          <tr><th>Memory</th><td>12 GB, fixed</td><td class="win">16 GB (up to 32)</td></tr>
+          <tr><th>Bandwidth</th><td class="mono">153 GB/s</td><td class="mono">153 GB/s</td></tr>
+          <tr><th>Geekbench 6</th><td class="mono">~4,130 / ~15,400</td><td class="mono">~4,025 / ~16,100</td></tr>
+          <tr><th>Cooling</th><td>Fanless</td><td>Fanless, larger chassis</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Display, build, cameras</h3>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th></th><th>iPad Pro</th><th>MacBook Air</th></tr></thead>
+        <tbody>
+          <tr><th>Panel</th><td class="win">Tandem OLED, touch and Pencil</td><td>IPS LCD</td></tr>
+          <tr><th>Resolution</th><td class="win">2752×2064, 264 ppi</td><td>2560×1664, 224 ppi</td></tr>
+          <tr><th>Brightness</th><td class="win">1,000 SDR / 1,600 HDR</td><td>500 nits</td></tr>
+          <tr><th>Refresh</th><td class="win">10–120 Hz ProMotion</td><td>60 Hz</td></tr>
+          <tr><th>Weight</th><td class="win">1.28 lb; ~2.7–2.8 lb with keyboard (estimate)</td><td>2.7 lb</td></tr>
+          <tr><th>Thickness</th><td class="win">5.1 mm</td><td>11.3 mm</td></tr>
+          <tr><th>Rear camera</th><td class="win">12 MP, 4K60, ProRes, LiDAR</td><td>None</td></tr>
+          <tr><th>Front camera</th><td>12 MP Center Stage, landscape</td><td>12 MP Center Stage, Desk View</td></tr>
+          <tr><th>Unlock</th><td>Face ID</td><td>Touch ID</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Ports and battery</h3>
+    <div class="tbl mid">
+      <table>
+        <thead><tr><th></th><th>iPad Pro</th><th>MacBook Air</th></tr></thead>
+        <tbody>
+          <tr><th>Ports</th><td>1 × Thunderbolt / USB4</td><td class="win">2 × TB4, MagSafe 3, headphone</td></tr>
+          <tr><th>External displays</th><td>1 (6K60 or 5K120)</td><td class="win">2</td></tr>
+          <tr><th>Cellular</th><td class="win">+$200 option (C1X 5G)</td><td>None</td></tr>
+          <tr><th>Battery</th><td>38.99 Wh</td><td class="win">53.8 Wh</td></tr>
+          <tr><th>Apple rating</th><td>10 h</td><td class="win">15 h web / 18 h video</td></tr>
+          <tr><th>Tested</th><td>~15 h browsing, ~9 h video (PhoneArena)</td><td class="win">16 h 11 m Wi-Fi; 18 h 24 m video</td></tr>
+          <tr><th>Charger</th><td>20 W</td><td class="win">40 W</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Which to buy</h3>
+    <div class="verdict">
+      <div><span class="eyebrow">MacBook Air</span><h3>Typing, coding, office work</h3><p>About $900 cheaper as a laptop, twice the battery life, two ports plus MagSafe, 16 GB of RAM, two external displays and full macOS apps.</p></div>
+      <div><span class="eyebrow">iPad Pro</span><h3>Drawing, HDR video, couch</h3><p>Pencil work, HDR video, an ultralight slate, cameras or cellular, and remote sessions into a desktop Mac from the couch or the road.</p></div>
+    </div>
+  </div>
+
+  <div class="sources">
+    <b>Sources</b>
+    <ul>
+      <li><a href="https://www.apple.com/ipad-pro/specs/">Apple: iPad Pro tech specs</a></li>
+      <li><a href="https://www.apple.com/macbook-air/specs/">Apple: MacBook Air tech specs</a></li>
+      <li><a href="https://www.apple.com/shop/buy-ipad/ipad-pro">Apple Store: iPad Pro</a></li>
+      <li><a href="https://9to5mac.com/2026/06/25/apple-price-increases-mac-ipad/">9to5Mac: June 2026 price increases</a></li>
+      <li><a href="https://www.macrumors.com/roundup/ipad-pro/">MacRumors: iPad Pro guide</a></li>
+      <li><a href="https://9to5toys.com/2026/11/13/best-deal-in-months-hits-m5-ipad-pro-at-nearly-300-off/">9to5Toys: M5 iPad Pro deal</a></li>
+      <li><a href="https://www.phonearena.com/reviews/Apple-iPad-Pro-13-inch-M5-review-A-fantastic-overkill_id7762">PhoneArena: iPad Pro 13 M5 review</a></li>
+      <li><a href="https://www.notebookcheck.net/MacBook-Air-13-M5-Vs-M4-battery-life-New-MacBook-suffers-from-6-shorter-endurance-on-max-brightness.1245763.0.html">Notebookcheck: MacBook Air M5 battery</a></li>
+      <li><a href="https://www.macworld.com/article/3086162/13-inch-macbook-air-m5-review.html">Macworld: MacBook Air M5 review</a></li>
+    </ul>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer class="gutter"><div class="wrap">Compiled Nov 16, 2026. Prices change daily; check the store before buying.</div></footer>
+
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function txt(parent, x, y, s, cls, extra) {
+    var t = el("text", Object.assign({ x: x, y: y, "text-anchor": "middle", "dominant-baseline": "middle" }, extra || {}), parent);
+    t.setAttribute("class", cls || "");
+    t.textContent = s;
+    return t;
+  }
+
+  /* ---------------- Amiga 2000 Rev 6 (coords traced from a 1494x1294 photo of a Rev 6.3 board) ---------------- */
+  var mono = "IBM Plex Mono, monospace", disp = "Chakra Petch, sans-serif";
+  var zorroInfo = { name: "Zorro II slots", part: "5 × 100-pin, AutoConfig", job: "The Amiga's own expansion bus, numbered 1 to 5 on the board. Cards configured themselves at boot (AutoConfig): hard drive controllers like the A2091, RAM boards, network and graphics cards. Slots 4 and 5 line up with PC slots, which is where a Bridgeboard goes.", m6: "Thunderbolt 4, which carries PCIe to external devices" };
+  var isaInfo = { name: "PC (ISA) slots", part: "2 × 16-bit + 2 × 8-bit", job: "IBM PC expansion slots that sat unused until a Bridgeboard brought a PC CPU to drive them. The two 16-bit slots line up with Zorro slots 5 and 4; the two 8-bit slots on the left take ordinary PC cards for the Bridgeboard's PC.", m6: "Nothing. PC compatibility is software now (Rosetta 2, virtual machines)." };
+  var A = {
+    agnus:  { kind: "plcc", x: 870,  y: 660, w: 125, h: 130, label: "AGNUS", sub: "FAT LADY", name: "Fat Agnus", part: "MOS 8372A · PLCC-84 · silkscreened \"FAT LADY\"", job: "The traffic controller. It owns chip RAM and hands each memory cycle to the display, the Blitter, the disk, sound or the CPU (DMA). It also generates video timing and contains the Blitter (block copies, lines, fills) and the Copper, a tiny co-processor timed to the video beam. Commodore's engineers printed its nickname on the board.", m6: "Memory controllers, the 16 MB System Level Cache and the GPU's shared logic" },
+    cpu:    { kind: "dipv", x: 725,  y: 830, w: 85,  h: 285, label: "MC68000", sub: "CPU", name: "Motorola 68000", part: "MC68000 · DIP-64", job: "The CPU: a 16/32-bit processor at 7.16 MHz (NTSC) or 7.09 MHz (PAL), with about 68,000 transistors. It shares chip RAM with the custom chips and gets the cycles they don't need. An accelerator in the CPU slot next to it could take over.", m6: "12 CPU cores: 2 super, 4 performance, 6 efficiency" },
+    gary:   { kind: "diph", x: 820,  y: 445, w: 215, h: 55,  label: "GARY", sub: "5719", name: "Gary", part: "MOS 5719 · DIP-48", job: "Glue logic: address decoding, bus control and floppy motor and stepping. It replaced a handful of separate logic chips from earlier designs.", m6: "The on-die fabric that connects every block" },
+    paula:  { kind: "diph", x: 1155, y: 460, w: 215, h: 60,  label: "PAULA", sub: "8364", name: "Paula", part: "MOS 8364 · DIP-48", job: "Four 8-bit DMA sound channels (two left, two right), the floppy data path, the serial port and the interrupt controller. Paula stayed the same from the 1985 Amiga 1000 to the 1992 A4000.", m6: "I/O and interrupt controllers" },
+    denise: { kind: "diph", x: 1155, y: 555, w: 215, h: 60,  label: "DENISE", sub: "8362", name: "Denise", part: "MOS 8362 · DIP-48 (8373 Super Denise on later boards)", job: "Video output: up to six bitplanes, a 4,096-color palette, 8 hardware sprites and dual playfields. It also reads the mouse. It sits close to the rear RGB port.", m6: "Display engines" },
+    cia1:   { kind: "dipv", x: 995,  y: 185, w: 65,  h: 185, label: "CIA", sub: "8520A", name: "CIA chips", part: "2 × MOS 8520A · DIP-40", job: "Two Complex Interface Adapters next to the rear ports. Between them they handle timers, the keyboard, the parallel port, the joystick fire buttons and the floppy and serial control lines.", m6: "Timers and I/O controllers" },
+    cia2:   { kind: "dipv", x: 1125, y: 190, w: 70,  h: 180, label: "CIA", sub: "8520A", name: "CIA chips" },
+    buster: { kind: "dipv", x: 410,  y: 210, w: 60,  h: 210, label: "BUSTER", sub: "", name: "Buster", part: "Bus controller · DIP-48 (A2000 only)", job: "Runs the Zorro II expansion bus: it arbitrates between the CPU and cards that want to take over the bus (DMA from a hard drive controller, for example). It sits beside the slots it serves.", m6: "The fabric and the Thunderbolt/PCIe controllers" },
+    rom:    { kind: "dipv", x: 920,  y: 860, w: 65,  h: 175, label: "KICKSTART", sub: "ROM", name: "Kickstart ROM", part: "256 KB mask ROM · DIP-40", job: "Firmware: boot code, the Exec multitasking kernel, and the graphics, Intuition and DOS libraries. A2000s shipped with Kickstart 1.2 or 1.3; later machines got 2.04.", m6: "On-die boot ROM, then macOS from the SSD" },
+    ram:    { kind: "ram8", x: 1120, y: 815, w: 255, h: 230, label: "CHIP RAM", name: "Chip RAM", part: "1 MB · 8 × 256K×4 DRAM", job: "1 MB shared by the CPU and every custom chip, with Agnus deciding who gets each cycle. Rev 6 boards made all of it chip RAM; earlier A2000s had 512 KB chip RAM plus 512 KB of slower memory.", m6: "16 GB of unified memory in the M6 package" },
+    cpuslot:{ kind: "slot", x: 635,  y: 720, w: 37,  h: 430, label: "CPU SLOT", name: "CPU slot", part: "86-pin, next to the 68000", job: "An accelerator card here (an A2630 with a 68030, for example) took over from the 68000 and could add fast memory.", m6: "Nothing. The CPU is fixed in the chip." },
+    video:  { kind: "slot", x: 690,  y: 440, w: 36,  h: 200, label: "VIDEO", fill: "#e6e0cf", ink: "#1b1d20", name: "Video slot", part: "Internal video slot · short white edge connector between the CPU slot and Gary", job: "Gives a card every signal on the rear RGB port plus 12-bit digital RGB and the genlock clock inputs. Genlocks, flicker fixers and NewTek's Video Toaster used it. This position is read from the Rev 6.3 board photo: it's the only unidentified card slot left once the PC, Zorro and CPU slots are placed. No manual or reference we found states it outright.", m6: "The display engines, which drive HDMI and DisplayPort directly" },
+    floppy: { kind: "hdr",  x: 1395, y: 150, w: 50,  h: 380, label: "DRIVE HEADERS", name: "Internal drive headers", part: "Pin headers on the right edge", job: "Cables to the internal 3.5-inch floppy drives (880 KB each) in the bays above the right side of the board.", m6: "The SSD controller on the M6, with flash chips on the board" },
+    ports:  { kind: "ports", x: 548, y: 26,  w: 905, h: 74,  label: "REAR PORTS", name: "Rear ports", part: "Parallel, serial, RGB video, external floppy, stereo audio, composite video", job: "The I/O panel at the back. The CIAs, Paula and Denise sit just behind it, wired to the ports they drive.", m6: "Three Thunderbolt 4 ports plus HDMI, all from the M6's I/O blocks" },
+    front:  { kind: "front", x: 930, y: 1182, w: 365, h: 82, label: "", name: "Keyboard and joystick ports", part: "Keyboard connector + 2 mouse/joystick ports", job: "The front edge of the board: the keyboard plugs in at the front of the case, and the two mouse/joystick ports sit beside it.", m6: "USB and Bluetooth, through the N1 chip and the Thunderbolt/USB controllers" },
+    clock:  { kind: "battery", x: 795, y: 1150, w: 58, h: 66, label: "", name: "Battery-backed clock", part: "Rechargeable battery + real-time clock", job: "Keeps the date and time while the machine is off. These old batteries tend to leak and damage the board.", m6: "The always-on power domain of the M6" },
+    bridge: { kind: "bridge", x: 145, y: 160, w: 60, h: 995, label: "", name: "A2088 Bridgeboard", part: "Plugs into a PC slot and Zorro slot 5 at once", job: "A complete IBM PC/XT on one card: 8088 at 4.77 MHz, 512 KB RAM, XT BIOS, optional 8087. It sat in a lined-up PC + Zorro slot pair and shared about 128 KB of memory with the Amiga through Commodore's Janus library. The PC's screen showed in an Amiga window.", m6: "Software: Rosetta 2 for x86 apps, and virtual machines for Windows on Arm" }
+  };
+  A.cia2 = Object.assign({}, A.cia1, { x: 1125, y: 190, w: 70, h: 180 });
+  [155, 230, 300, 372, 440].forEach(function (x, i) {
+    A["z" + (5 - i)] = Object.assign({ kind: "slot", x: x, y: 670, w: 40, h: 480, label: "ZORRO " + (5 - i) }, zorroInfo);
+  });
+  [[20, 8], [90, 8], [160, 16], [225, 16]].forEach(function (s, i) {
+    A["isa" + i] = Object.assign({ kind: "isa", x: s[0], y: 170, w: 40, h: 300, bits: s[1], label: "ISA " + s[1] + "-BIT" }, isaInfo);
+  });
+
+  function drawA2000() {
+    var svg = document.getElementById("a2000");
+    el("path", { d: "M30 105 H545 V28 H1462 V1250 H30 Z", fill: "var(--pcb)", stroke: "#0f3322", "stroke-width": 2 }, svg);
+    /* silkscreen + traces */
+    var tr = el("g", { stroke: "var(--pcb-dark)", "stroke-width": 4, fill: "none" }, svg);
+    [[470,320,620,250],[620,250,995,250],[810,970,870,790],[995,725,1155,600],[1035,470,1155,490],[1060,280,1125,280],[672,900,725,900],[480,900,635,900],[985,950,1120,930],[1250,370,1250,460],[700,520,820,470]]
+      .forEach(function (l) { el("path", { d: "M" + l[0] + " " + l[1] + " L" + l[2] + " " + l[1] + " L" + l[2] + " " + l[3] }, tr); });
+    txt(svg, 290, 1205, "© COPYRIGHT COMMODORE 1988", "", { fill: "var(--silk)", "font-size": 22, "font-family": mono, opacity: 0.55 });
+    txt(svg, 1240, 1080, "A/W 312723 REV 6", "", { fill: "var(--silk)", "font-size": 18, "font-family": mono, opacity: 0.55 });
+    txt(svg, 290, 60, "REAR", "", { fill: "var(--muted)", "font-size": 22, "font-family": mono, "letter-spacing": "4" });
+    txt(svg, 520, 1285, "FRONT · keyboard side", "", { fill: "var(--muted)", "font-size": 22, "font-family": mono, "letter-spacing": "2" });
+    /* decorative logic chips */
+    [[520,770],[590,770],[520,900],[590,900],[520,1030],[590,1030],[420,440],[485,440],[420,540],[485,540],[750,470],[760,560],[920,540],[1130,690],[1195,690],[1260,690],[1325,690],[1045,880],[1045,980],[1230,190],[1290,190]].forEach(function (c) {
+      el("rect", { x: c[0], y: c[1], width: 36, height: 80, rx: 3, fill: "#25292d", opacity: 0.9 }, svg);
+    });
+    /* oscillator */
+    el("rect", { x: 812, y: 665, width: 38, height: 52, rx: 4, fill: "#d9dde2", stroke: "#8a9096" }, svg);
+
+    var order = ["isa0","isa1","isa2","isa3","z5","z4","z3","z2","z1","cpuslot","video","buster","gary","paula","denise","cia1","cia2","agnus","cpu","rom","ram","floppy","ports","front","clock","bridge"];
+    order.forEach(function (id) {
+      var p = A[id];
+      var g = el("g", { "class": "part", "data-id": id, tabindex: 0, role: "button", "aria-label": p.name }, svg);
+      var cx = p.x + p.w / 2, cy = p.y + p.h / 2;
+      if (p.kind === "diph" || p.kind === "dipv") {
+        var v = p.kind === "dipv";
+        var pinAttr = { stroke: "var(--pin)", "stroke-width": 7, "stroke-dasharray": "4 6" };
+        if (v) {
+          el("line", Object.assign({ x1: p.x - 4, y1: p.y + 6, x2: p.x - 4, y2: p.y + p.h - 6 }, pinAttr), g);
+          el("line", Object.assign({ x1: p.x + p.w + 4, y1: p.y + 6, x2: p.x + p.w + 4, y2: p.y + p.h - 6 }, pinAttr), g);
+        } else {
+          el("line", Object.assign({ x1: p.x + 6, y1: p.y - 4, x2: p.x + p.w - 6, y2: p.y - 4 }, pinAttr), g);
+          el("line", Object.assign({ x1: p.x + 6, y1: p.y + p.h + 4, x2: p.x + p.w - 6, y2: p.y + p.h + 4 }, pinAttr), g);
+        }
+        el("rect", { "class": "body", x: p.x, y: p.y, width: p.w, height: p.h, rx: 3, fill: "var(--chip)", stroke: "#000", "stroke-width": 2 }, g);
+        if (v) el("circle", { cx: cx, cy: p.y, r: 9, fill: "var(--pcb-dark)" }, g);
+        else el("circle", { cx: p.x, cy: cy, r: 9, fill: "var(--pcb-dark)" }, g);
+        if (v) {
+          var t = el("g", { transform: "rotate(-90 " + cx + " " + cy + ")" }, g);
+          txt(t, cx, cy - (p.sub ? 11 : 0), p.label, "", { fill: "var(--chip-text)", "font-size": p.w > 70 ? 28 : 22, "font-weight": 600, "font-family": disp, "letter-spacing": "2" });
+          if (p.sub) txt(t, cx, cy + 16, p.sub, "", { fill: "var(--pin)", "font-size": 17, "font-family": mono });
+        } else {
+          txt(g, cx, cy - 10, p.label, "", { fill: "var(--chip-text)", "font-size": 25, "font-weight": 600, "font-family": disp, "letter-spacing": "2" });
+          txt(g, cx, cy + 15, p.sub, "", { fill: "var(--pin)", "font-size": 17, "font-family": mono });
+        }
+      } else if (p.kind === "plcc") {
+        el("rect", { x: p.x - 6, y: p.y - 6, width: p.w + 12, height: p.h + 12, rx: 5, fill: "none", stroke: "var(--pin)", "stroke-width": 7, "stroke-dasharray": "3 4" }, g);
+        el("rect", { x: p.x - 13, y: p.y - 13, width: p.w + 26, height: p.h + 26, rx: 6, fill: "none", stroke: "#cfd6cf", "stroke-width": 2, opacity: 0.5 }, g);
+        el("rect", { "class": "body", x: p.x, y: p.y, width: p.w, height: p.h, rx: 4, fill: "var(--chip)", stroke: "#000", "stroke-width": 2 }, g);
+        el("circle", { cx: p.x + 18, cy: p.y + 18, r: 6, fill: "#40454b" }, g);
+        txt(g, cx, cy - 12, p.label, "", { fill: "var(--chip-text)", "font-size": 28, "font-weight": 700, "font-family": disp, "letter-spacing": "2" });
+        txt(g, cx, cy + 18, p.sub, "", { fill: "var(--hl)", "font-size": 17, "font-family": mono, "font-weight": 500 });
+      } else if (p.kind === "ram8") {
+        el("rect", { "class": "body", x: p.x, y: p.y, width: p.w, height: p.h, rx: 6, fill: "transparent", stroke: "var(--silk)", "stroke-width": 2, "stroke-dasharray": "6 6", "stroke-opacity": 0.5 }, g);
+        for (var r = 0; r < 2; r++) for (var c = 0; c < 4; c++) {
+          var rx = p.x + 18 + c * 62, ry = p.y + 14 + r * 108;
+          el("line", { x1: rx - 4, y1: ry + 6, x2: rx - 4, y2: ry + 84, stroke: "var(--pin)", "stroke-width": 6, "stroke-dasharray": "3 6" }, g);
+          el("line", { x1: rx + 38, y1: ry + 6, x2: rx + 38, y2: ry + 84, stroke: "var(--pin)", "stroke-width": 6, "stroke-dasharray": "3 6" }, g);
+          el("rect", { x: rx, y: ry, width: 34, height: 90, rx: 3, fill: "var(--chip)" }, g);
+        }
+        txt(g, cx, p.y + p.h + 22, "CHIP RAM · 1 MB", "", { fill: "var(--silk)", "font-size": 19, "font-family": mono });
+      } else if (p.kind === "slot" || p.kind === "isa") {
+        el("rect", { "class": "body", x: p.x, y: p.y, width: p.w, height: p.h, rx: 4, fill: p.fill || "#141619", stroke: "#000", "stroke-width": 2 }, g);
+        el("line", { x1: cx, y1: p.y + 10, x2: cx, y2: p.y + p.h - 10, stroke: "var(--gold)", "stroke-width": 12, "stroke-dasharray": "3 5" }, g);
+        if (p.kind === "isa") {
+          if (p.bits === 16) {
+            el("rect", { x: p.x, y: 478, width: p.w, height: 182, rx: 4, fill: "#141619", stroke: "#000", "stroke-width": 2 }, g);
+            el("line", { x1: cx, y1: 488, x2: cx, y2: 650, stroke: "var(--gold)", "stroke-width": 12, "stroke-dasharray": "3 5" }, g);
+          } else {
+            el("rect", { x: p.x, y: 478, width: p.w, height: 182, rx: 4, fill: "none", stroke: "var(--silk)", "stroke-width": 2, "stroke-dasharray": "5 5", opacity: 0.45 }, g);
+          }
+        }
+        var tg = el("g", { transform: "rotate(-90 " + cx + " " + cy + ")" }, g);
+        var lw = p.h < 260 ? 90 : 140;
+        el("rect", { x: cx - lw / 2, y: cy - 13, width: lw, height: 26, rx: 4, fill: p.fill || "#141619" }, tg);
+        txt(tg, cx, cy + 1, p.label, "", { fill: p.ink || "var(--chip-text)", "font-size": 16, "font-weight": 600, "font-family": mono, "letter-spacing": "1" });
+      } else if (p.kind === "hdr") {
+        [[150, 365], [375, 530]].forEach(function (h) {
+          el("rect", { "class": "body", x: p.x, y: h[0], width: p.w, height: h[1] - h[0], rx: 3, fill: "#141619", stroke: "#000", "stroke-width": 2 }, g);
+          el("line", { x1: p.x + 17, y1: h[0] + 10, x2: p.x + 17, y2: h[1] - 10, stroke: "var(--gold)", "stroke-width": 8, "stroke-dasharray": "4 6" }, g);
+          el("line", { x1: p.x + 33, y1: h[0] + 10, x2: p.x + 33, y2: h[1] - 10, stroke: "var(--gold)", "stroke-width": 8, "stroke-dasharray": "4 6" }, g);
+        });
+        var th = el("g", { transform: "rotate(-90 " + (p.x - 22) + " 340)" }, g);
+        txt(th, p.x - 22, 340, "FLOPPY HEADERS", "", { fill: "var(--silk)", "font-size": 17, "font-family": mono, "letter-spacing": "1", opacity: 0.8 });
+      } else if (p.kind === "ports") {
+        el("rect", { "class": "body", x: p.x, y: p.y, width: p.w, height: p.h, rx: 6, fill: "transparent", stroke: "transparent", "stroke-width": 2 }, g);
+        [[552, 190, "PARALLEL"], [892, 172, "RGB VIDEO"], [1080, 190, "SERIAL"], [1285, 165, "EXT DRIVE"]].forEach(function (d) {
+          el("rect", { x: d[0], y: 32, width: d[1], height: 62, rx: 6, fill: "var(--metal)", stroke: "#5d656e", "stroke-width": 2 }, g);
+          el("rect", { x: d[0] + 26, y: 46, width: d[1] - 52, height: 34, rx: 8, fill: "#4a5159" }, g);
+          txt(g, d[0] + d[1] / 2, 64, d[2], "", { fill: "#eef1f4", "font-size": 16, "font-weight": 600, "font-family": mono });
+        });
+        [[767, "#e8e8e8"], [817, "#c43b3b"], [867, "#e0c020"]].forEach(function (r) {
+          el("circle", { cx: r[0], cy: 62, r: 21, fill: "var(--metal)", stroke: "#5d656e", "stroke-width": 2 }, g);
+          el("circle", { cx: r[0], cy: 62, r: 10, fill: r[1] }, g);
+        });
+        txt(g, 817, 103, "AUDIO · VIDEO", "", { fill: "var(--silk)", "font-size": 14, "font-family": mono, opacity: 0.8 });
+      } else if (p.kind === "front") {
+        el("rect", { "class": "body", x: p.x, y: p.y, width: p.w, height: p.h, rx: 6, fill: "transparent", stroke: "transparent", "stroke-width": 2 }, g);
+        el("rect", { x: 935, y: 1188, width: 70, height: 72, rx: 5, fill: "var(--metal)", stroke: "#5d656e", "stroke-width": 2 }, g);
+        el("rect", { x: 1070, y: 1195, width: 92, height: 62, rx: 6, fill: "var(--metal)", stroke: "#5d656e", "stroke-width": 2 }, g);
+        el("rect", { x: 1200, y: 1195, width: 92, height: 62, rx: 6, fill: "var(--metal)", stroke: "#5d656e", "stroke-width": 2 }, g);
+        txt(g, 970, 1224, "KBD", "", { fill: "#16191c", "font-size": 16, "font-weight": 600, "font-family": mono });
+        txt(g, 1116, 1226, "JOY 1", "", { fill: "#16191c", "font-size": 16, "font-weight": 600, "font-family": mono });
+        txt(g, 1246, 1226, "JOY 2", "", { fill: "#16191c", "font-size": 16, "font-weight": 600, "font-family": mono });
+      } else if (p.kind === "battery") {
+        el("circle", { "class": "body", cx: cx, cy: cy, r: 30, fill: "#2f7d4a", stroke: "#123", "stroke-width": 2 }, g);
+        txt(g, cx, cy, "BATT", "", { fill: "#eef6ee", "font-size": 14, "font-weight": 600, "font-family": mono });
+      } else if (p.kind === "bridge") {
+        el("rect", { "class": "body", x: p.x, y: p.y, width: p.w, height: p.h, rx: 10, fill: "rgba(255,153,51,0.08)", stroke: "var(--hl)", "stroke-width": 4, "stroke-dasharray": "14 10" }, g);
+        el("rect", { x: 46, y: 1150, width: 300, height: 44, rx: 8, fill: "var(--hl)" }, g);
+        el("path", { d: "M175 1150 L175 1157", stroke: "var(--hl)", "stroke-width": 4 }, g);
+        txt(g, 196, 1173, "A2088 BRIDGEBOARD", "", { fill: "#1b1206", "font-size": 19, "font-weight": 700, "font-family": mono, "letter-spacing": "1" });
+      }
+    });
+  }
+
+  function drawA2088() {
+    var svg = document.getElementById("a2088");
+    el("rect", { x: 0, y: 0, width: 960, height: 400, fill: "var(--surface)" }, svg);
+    /* card */
+    el("rect", { x: 70, y: 40, width: 820, height: 270, rx: 8, fill: "var(--pcb)" }, svg);
+    /* bracket at the rear (left) */
+    el("rect", { x: 40, y: 22, width: 30, height: 330, rx: 3, fill: "var(--metal)" }, svg);
+    var mono2 = { "font-family": mono };
+    function block(x, y, w, h, title, sub, fill) {
+      el("rect", { x: x, y: y, width: w, height: h, rx: 5, fill: fill || "var(--chip)", stroke: "#000" }, svg);
+      txt(svg, x + w / 2, y + h / 2 - (sub ? 10 : 0), title, "", { fill: "var(--chip-text)", "font-size": 17, "font-weight": 600, "font-family": disp });
+      if (sub) txt(svg, x + w / 2, y + h / 2 + 13, sub, "", Object.assign({ fill: "var(--pin)", "font-size": 12.5 }, mono2));
+    }
+    block(110, 70, 170, 90, "Intel 8088", "4.77 MHz");
+    block(110, 180, 170, 80, "8087 socket", "optional FPU", "#33383e");
+    block(305, 70, 180, 90, "PC RAM", "512 KB");
+    block(305, 180, 180, 80, "XT BIOS", "ROM");
+    block(510, 70, 210, 190, "Shared RAM", "~128 KB · Janus", "#7a4a12");
+    block(745, 70, 125, 190, "Floppy", "FDC 9268");
+    /* edge connectors */
+    el("rect", { x: 110, y: 310, width: 300, height: 34, rx: 3, fill: "var(--gold)" }, svg);
+    el("rect", { x: 520, y: 310, width: 350, height: 34, rx: 3, fill: "var(--gold)" }, svg);
+    txt(svg, 260, 370, "ISA edge · PC bus (8088 side)", "", Object.assign({ fill: "var(--fg)", "font-size": 15 }, mono2));
+    txt(svg, 695, 370, "Zorro II edge · Amiga bus", "", Object.assign({ fill: "var(--fg)", "font-size": 15 }, mono2));
+    txt(svg, 55, 390, "rear", "", Object.assign({ fill: "var(--muted)", "font-size": 13 }, mono2));
+    /* arrows from shared RAM to both edges */
+    el("path", { d: "M560 262 L 300 306", stroke: "var(--hl)", "stroke-width": 3, fill: "none", "stroke-dasharray": "6 5" }, svg);
+    el("path", { d: "M670 262 L 690 306", stroke: "var(--hl)", "stroke-width": 3, fill: "none", "stroke-dasharray": "6 5" }, svg);
+    txt(svg, 480, 22, "A2088 Bridgeboard · a PC/XT on one card", "", { fill: "var(--fg)", "font-size": 17, "font-weight": 600, "font-family": disp });
+  }
+
+  /* ---------------- M6 die ---------------- */
+  var DC = { gpu: "#2f5fa8", gpuS: "#244a85", slc: "#5d6670", s: "#b23a3a", p: "#9a7a4e", e: "#2f8f4e", amx: "#6e5a3a", ane: "#a23ca0", mem: "#8a8a2e", io: "#6b3a43", l2: "#7a6545", el2: "#2a6e40" };
+  var M = {};
+  function blk(id, x, y, w, h, color, label, sub, info) {
+    M[id] = Object.assign({}, info || {}, { x: x, y: y, w: w, h: h, color: color, label: label, sub: sub || "" });
+  }
+  var gpuInfo = { name: "GPU cores", part: "12 cores · Metal 4", job: "Each core has a Neural Accelerator for AI work, plus hardware ray tracing and Dynamic Caching. Apple claims nearly 30% more GPU AI compute than the M5 and 50% higher geometry rates.", amiga: "The Blitter and Copper inside Agnus, and Denise's playfields" };
+  var gx = [70, 160, 250, 340, 430, 520];
+  gx.forEach(function (x, i) { blk("gpu" + (i + 1), x, 30, 86, 58, DC.gpu, "GPU " + (i + 1), "", gpuInfo); });
+  blk("gpu7", 70, 92, 86, 58, DC.gpu, "GPU 7", "", gpuInfo);
+  blk("gpu8", 160, 92, 86, 58, DC.gpu, "GPU 8", "", gpuInfo);
+  blk("gpushared", 250, 92, 176, 58, DC.gpuS, "GPU shared logic", "cache + control", { name: "GPU shared logic", part: "Cache and control", job: "Shared cache and scheduling for the 12 GPU cores. It feeds work to the cores and connects them to the System Level Cache.", amiga: "Agnus's Blitter and Copper control" });
+  blk("gpu9", 430, 92, 86, 58, DC.gpu, "GPU 9", "", gpuInfo);
+  blk("gpu10", 520, 92, 86, 58, DC.gpu, "GPU 10", "", gpuInfo);
+  blk("gpu11", 430, 154, 86, 58, DC.gpu, "GPU 11", "", gpuInfo);
+  blk("gpu12", 520, 154, 86, 58, DC.gpu, "GPU 12", "", gpuInfo);
+  blk("mem", 34, 6, 572, 20, DC.mem, "LPDDR memory interfaces", "", { name: "Memory interfaces", part: "LPDDR · 16 GB at 153 GB/s here", job: "The connection to the unified memory in the M6 package: 16 GB at 153 GB/s, or 24/32 GB at 170 GB/s. The CPU, GPU and Neural Engine all read and write the same pool.", amiga: "Chip RAM, the 1 MB pool Agnus shared out" });
+  blk("slc", 190, 156, 236, 74, DC.slc, "System Level Cache", "4 × 4 MB", { name: "System Level Cache", part: "4 × 4 MB = 16 MB (per the die annotation)", job: "A last-level cache in front of memory, shared by the CPU, GPU and Neural Engine. It cuts memory traffic and power.", amiga: "Agnus, which arbitrated every access to chip RAM" });
+  blk("p2", 34, 156, 72, 74, DC.p, "P-core", "", { name: "Performance cores", part: "4 cores · 128 KB / 64 KB L1", job: "Mid-tier cores that use less power than the super cores and join them on heavy multi-threaded work.", amiga: "The 68000 (the only CPU the Amiga had)" });
+  blk("amx", 110, 156, 76, 74, DC.amx, "S+P AMX", "matrix", { name: "AMX matrix unit (S + P)", part: "Matrix coprocessor", job: "Speeds up matrix math for machine learning and signal processing, used through Apple's Accelerate framework.", amiga: "Nothing comparable in 1987" });
+  blk("l2", 34, 234, 300, 64, DC.l2, "Shared S + P L2", "20 MB per macOS", { name: "Shared L2 cache (super + performance)", part: "20 MB per macOS · labeled 10 MB on the die annotation", job: "One L2 cache shared by the 2 super and 4 performance cores, so work can move between them without losing cached data.", amiga: "None. The 68000 had no cache at all." });
+  blk("s1", 34, 302, 104, 84, DC.s, "S-core 1", "", { name: "Super cores", part: "2 cores · 192 KB / 128 KB L1", job: "The fastest cores, for single-threaded work. Apple calls them the world's fastest CPU cores.", amiga: "The 68000 at 7.16 MHz" });
+  blk("s2", 142, 302, 104, 84, DC.s, "S-core 2", "", M.s1);
+  blk("p1", 250, 302, 84, 40, DC.p, "P-core", "", M.p2);
+  blk("p3", 250, 346, 84, 40, DC.p, "P-core", "", M.p2);
+  blk("p4", 338, 234, 88, 64, DC.p, "P-core", "", M.p2);
+  blk("ecl", 338, 302, 160, 120, DC.e, "E-cores ×6", "8 MB shared L2", { name: "Efficiency cluster", part: "6 cores · 160 KB / 96 KB L1 · 8 MB L2", job: "Six low-power cores for background tasks, with their own 8 MB L2 and their own AMX matrix unit.", amiga: "None. One CPU did everything." });
+  blk("ane", 34, 390, 212, 70, DC.ane, "Neural Engine ×2", "dual 16-core", { name: "Neural Engine", part: "Dual 16-core", job: "Two 16-core Neural Engines, with up to twice the peak compute of earlier generations. macOS can use both at once for on-device AI.", amiga: "Nothing. Nothing like it existed in 1987." });
+  blk("media", 250, 390, 84, 70, DC.io, "Media", "engine", { name: "Media engine", part: "H.264, HEVC, ProRes, ProRes RAW, AV1 decode", job: "Hardware video encode and decode, with one video encoder and one ProRes engine. It keeps 4K playback and exports off the CPU.", amiga: "Nothing. Video was Denise's bitplanes, with no compression." });
+  blk("io", 502, 216, 104, 244, DC.io, "I/O", "TB4 ×3 · display", { name: "I/O, display and security", part: "Thunderbolt 4 ×3, display engines, PCIe, Secure Enclave, SSD controller", job: "Three Thunderbolt 4 controllers, the display engines (3 external displays on the Mac mini), the PCIe links to the Wi-Fi and Ethernet chips, the SSD controller and the Secure Enclave. The die annotation leaves this region unlabeled.", amiga: "Paula, both CIAs, Gary and Denise" });
+  blk("fabric", 34, 464, 572, 40, DC.io, "Fabric, timers, interrupts, boot ROM", "", { name: "Fabric and system blocks", part: "Interconnect, timers, interrupt controller, boot ROM", job: "The on-die network that links every block, plus timers, the interrupt controller and the boot ROM that starts the Mac.", amiga: "Gary's glue logic, the CIA timers and the Kickstart ROM" });
+
+  function drawM6() {
+    var svg = document.getElementById("m6die");
+    el("rect", { x: 0, y: 0, width: 640, height: 560, rx: 10, fill: "var(--die)" }, svg);
+    el("rect", { x: 24, y: 0, width: 592, height: 514, rx: 4, fill: "#2a2f37" }, svg);
+    Object.keys(M).forEach(function (id) {
+      var b = M[id];
+      var g = el("g", { "class": "part", "data-id": id, tabindex: 0, role: "button", "aria-label": b.name + (b.label !== b.name ? " (" + b.label + ")" : "") }, svg);
+      el("rect", { "class": "body", x: b.x, y: b.y, width: b.w, height: b.h, rx: 3, fill: b.color, stroke: "#11151a", "stroke-width": 1 }, g);
+      var small = b.h < 30;
+      txt(g, b.x + b.w / 2, b.y + b.h / 2 - (b.sub && !small ? 7 : 0), b.label, "", { fill: "#f4f6f8", "font-size": small ? 10 : (b.w < 80 ? 11 : 13), "font-weight": 600, "font-family": "Chakra Petch, sans-serif" });
+      if (b.sub && !small) txt(g, b.x + b.w / 2, b.y + b.h / 2 + 9, b.sub, "", { fill: "#dfe4ea", "font-size": 9.5, "font-family": "IBM Plex Mono, monospace" });
+    });
+    txt(svg, 320, 538, "Apple M6 · schematic, not to scale", "", { fill: "#aab4bf", "font-size": 11, "font-family": "IBM Plex Mono, monospace" });
+  }
+
+  /* ---------------- panels ---------------- */
+  function bind(svgId, data, panelId, render, start) {
+    var svg = document.getElementById(svgId);
+    var panel = document.getElementById(panelId);
+    function select(id) {
+      svg.querySelectorAll(".part").forEach(function (n) {
+        var on = n.getAttribute("data-id") === id || (data[id] && data[n.getAttribute("data-id")] && data[n.getAttribute("data-id")].name === data[id].name);
+        n.classList.toggle("active", on);
+      });
+      panel.innerHTML = render(data[id]);
+    }
+    svg.addEventListener("click", function (e) {
+      var g = e.target.closest(".part"); if (g) select(g.getAttribute("data-id"));
+    });
+    svg.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      var g = e.target.closest(".part"); if (g) { e.preventDefault(); select(g.getAttribute("data-id")); }
+    });
+    select(start);
+  }
+  function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+
+  drawA2000();
+  drawA2088();
+  drawM6();
+  bind("a2000", A, "a2000-panel", function (p) {
+    return '<span class="eyebrow">Amiga 2000 · tap any part</span>' +
+      "<h3>" + esc(p.name) + "</h3>" +
+      '<div class="part-no">' + esc(p.part) + "</div>" +
+      "<p>" + esc(p.job) + "</p>" +
+      '<div class="map"><b>On the M6 today</b><span>' + esc(p.m6) + "</span></div>";
+  }, "agnus");
+  bind("m6die", M, "m6-panel", function (b) {
+    return '<span class="eyebrow">Apple M6 · tap any block</span>' +
+      "<h3>" + esc(b.name) + "</h3>" +
+      '<div class="part-no">' + esc(b.part) + "</div>" +
+      "<p>" + esc(b.job) + "</p>" +
+      '<div class="map"><b>In the Amiga 2000</b><span>' + esc(b.amiga) + "</span></div>";
+  }, "slc");
+
+  /* ---------------- routing ---------------- */
+  var views = ["amiga", "m6", "boards", "macs", "ipad"];
+  function route() {
+    var h = (location.hash || "").replace("#", "");
+    if (views.indexOf(h) < 0) h = "amiga";
+    document.querySelectorAll(".view").forEach(function (v) { v.hidden = v.getAttribute("data-view") !== h; });
+    document.querySelectorAll("nav.tabs a").forEach(function (a) {
+      if (a.getAttribute("href") === "#" + h) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+  }
+  window.addEventListener("hashchange", function () { route(); window.scrollTo(0, 0); });
+  route();
+})();
+</script>
