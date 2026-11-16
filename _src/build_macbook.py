@@ -113,7 +113,7 @@ D.append(dict(
             ('<a href="../devices/ktc-h24t7.html">KTC H24T7</a>', "Main", "2560×1440 at 144 Hz", "The monitor's HDMI maximum. The panel's 180 Hz and VRR need DisplayPort, which the Mac mini uses"),
             ('<a href="../devices/ktc-h24t7-hdmi.html">KTC H24T7 #2</a>', "Second", "2560×1440 at 144 Hz", "Same: the HDMI maximum"),
         ]),
-            '<p class="note-t">Read November 16, 2026. The two run side by side as an extended desktop.</p>',
+            '<p class="note-t">Read November 16, 2026. At home the MacBook runs with its lid closed: one KTC is the main display and the other extends the desktop.</p>',
             '<p class="note-t">Panel details for each monitor are on its Mac mini page.</p>'),
         sec("How they are connected", table(["Display", "Dock port", "Notes"], [
             ("KTC H24T7", "Dock USB-C", "USB-C to HDMI cable into the monitor\'s HDMI input"),
