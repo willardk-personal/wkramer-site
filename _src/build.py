@@ -328,6 +328,7 @@ D.append(dict(
             "Keep it on DisplayPort. Through an HDMI 1.4-class USB-C to HDMI cable it dropped to 75 Hz.",
             'Keep it off the <a href="wavlink-dock.html">Wavlink dock</a>. With this monitor on the dock, writes to the NVMe drives behind it capped near 1.5 GB/s. On the mini\'s own port they reach about 3 GB/s.',
             'A <a href="ktc-h24t7-hdmi.html">second H24T7</a> sits next to it, also on DisplayPort from its own Thunderbolt port. Both report the same identity to macOS, so tell them apart by port.',
+            'Its HDMI input carries the <a href="../macbook-pro.html">MacBook</a>, over a USB-C to HDMI cable from that machine\'s dock, at 144 Hz. Both computers stay plugged in; the monitor\'s input button switches between them, no KVM.',
         ])),
     ]))
 
@@ -351,7 +352,7 @@ D.append(dict(
         sec("Things to know", notes([
             "Until November 16 it ran on the mini's HDMI port, which held it to 144 Hz with no VRR (the monitor's HDMI maximum). A USB-C to DisplayPort cable on its own Thunderbolt port brings it level with the main display: 180 Hz, VRR and 10-bit colour.",
             "On HDMI macOS picked YCbCr Limited with a generic profile and it needed a manual fix in BetterDisplay. On DisplayPort it came up RGB Full with its own profile, so the two match without tweaks.",
-            "Its HDMI input is now free for a MacBook, over a USB-C to HDMI cable at 144 Hz. That is plenty for work.",
+            'Its HDMI input carries the <a href="../macbook-pro.html">MacBook</a>, over a USB-C to HDMI cable from that machine\'s dock, at 144 Hz. That is plenty for work. Both computers stay plugged in; the monitor\'s input button switches between them, no KVM.',
             "The move uses the last free Thunderbolt port on the mini: R1 and R4 drive the monitors and R2 the dock.",
         ])),
     ]))

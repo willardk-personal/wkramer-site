@@ -7,7 +7,7 @@ READ = "November 8, 2026"
 CUR = "macbook-pro.html"
 MB = ("node", "MacBook Pro", "Mac17,9 · M5 Pro", "../macbook-pro.html")
 DOCK = ("node", "Anker Prime dock", "Thunderbolt 5", "anker-dock.html")
-UP = ("wire", "80 Gb/s", "tb")
+UP = ("wire", "80–120 Gb/s", "tb")
 HUB3 = ("node", "Dock USB 3 hub", "one 10 Gb/s uplink", None)
 
 D = []
@@ -15,15 +15,15 @@ D = []
 # ---------------------------------------------------------------- Anker dock
 D.append(dict(
     slug="anker-dock", name="Anker Prime", em="Thunderbolt 5 dock", group="Dock", bus="tb", spd="80 Gb/s uplink",
-    card="Anker Prime 14-in-1 Thunderbolt 5 docking station. One cable carries power, both monitors, wired network, a backup drive and the camera.",
-    lede="One cable to the MacBook. An Anker Prime 14-in-1 Thunderbolt 5 docking station with its power supply built in, linked at the full 80 Gb/s.",
+    card="Anker Prime 14-in-1 Thunderbolt 5 docking station. One cable carries power, both monitors, wired network, a backup drive and the camera, at 80 Gb/s or 120 Gb/s with the monitors on.",
+    lede="One cable to the MacBook. An Anker Prime 14-in-1 Thunderbolt 5 docking station with its power supply built in, linked at 80 Gb/s, and at 120 Gb/s toward the dock while it drives both monitors.",
     path=[MB, UP, ("node", "Anker Prime dock", "USB4 v2 mode · fw 64.1", "me")],
-    stats=[("80", "Gb/s", "link to the MacBook"), ("14", "ports", "on the box"), ("140", "W", "charging, rated"), ("10", "Gb/s", "shared by all its USB")],
+    stats=[("80–120", "Gb/s", "link to the MacBook"), ("14", "ports", "on the box"), ("140", "W", "charging, rated"), ("10", "Gb/s", "shared by all its USB")],
     body=[
         sec("What it is", spec([
             ("Model", "Anker Prime TB5 Docking Station, 14-in-1 (A83B5)"),
             ("Firmware", "64.1"),
-            ("Link to the MacBook", "80 Gb/s in USB4 v2 mode, on the MacBook's Thunderbolt bus 0, receptacle 1"),
+            ("Link to the MacBook", "USB4 v2 mode on the MacBook's Thunderbolt bus 0, receptacle 1. 80 Gb/s with the monitors off; 120 Gb/s with both monitors on (November 16), Thunderbolt 5's bandwidth boost, which sends more lanes toward the dock for video."),
             ("Power", "Built-in power supply, no brick. Rated to charge the laptop at up to 140 W."),
             ("Size", "116 × 116 × 75 mm, about 1.1 kg"),
             ("USB 3 inside", 'Intel hub <span class="mono">8087:5787</span> feeding two VIA VL822 hubs'),
@@ -32,8 +32,8 @@ D.append(dict(
             '<p class="note-t">Rated figures come from Anker\'s published specifications. Everything else is what macOS reported.</p>'),
         sec("Its ports, and what is in them", table(["Port", "Where", "Rated", "In use"], [
             ("Thunderbolt 5 upstream", "back", "80 Gb/s, 120 Gb/s boost, 140 W", "The MacBook, at 80 Gb/s"),
-            ("Thunderbolt 5 downstream ×2", "back", "Up to 120 Gb/s", 'One carries the <a href="displays.html">KTC H24T7</a> display. The other is free. macOS lists displays under the graphics chip, so it shows both ports as empty.'),
-            ("HDMI 2.1 / DisplayPort 2.1", "back", "One at a time", 'The <a href="displays.html">Dell S2425HS</a>, over HDMI'),
+            ("Thunderbolt 5 downstream ×2", "back", "Up to 120 Gb/s", 'Video for the two <a href="displays.html">KTC H24T7</a> monitors, each over a USB-C to HDMI cable from the dock. macOS lists displays under the graphics chip, so it shows these ports as empty.'),
+            ("HDMI 2.1 / DisplayPort 2.1", "back", "One at a time", 'Unused since November 15, when the Dell S2425HS left the desk'),
             ("Ethernet", "back", "2.5 Gb/s", '<a href="network.html">Realtek RTL8156</a>, en8, 2500Base-T full duplex'),
             ("USB-A ×2", "back", "10 Gb/s each", '<a href="seagate-backup.html">Seagate hard drive</a> (5 Gb/s) and the Lenovo camera (480 Mb/s). macOS does not report which socket each uses.'),
             ("USB-C ×2, USB-A ×1", "front", "10 Gb/s each, 45 W across the two USB-C", "See the row above"),
@@ -103,23 +103,24 @@ D.append(dict(
 
 # ---------------------------------------------------------------- Displays
 D.append(dict(
-    slug="displays", name="Displays", em="KTC and Dell", group="Displays", bus="hdmi", spd="144 Hz + 100 Hz",
-    card="The same two monitors as the Mac mini: KTC H24T7 at 1440p and 144 Hz, Dell S2425HS at 1080p and 100 Hz.",
-    lede="Two monitors on the dock: the KTC on one of its Thunderbolt 5 ports and the Dell on its HDMI port. Both are shared with the Mac mini.",
-    path=[MB, UP, DOCK, ("wire", "TB5 port · HDMI", "hdmi"), ("node", "KTC H24T7 · Dell S2425HS", "KTC on Thunderbolt 5, Dell on HDMI", "me")],
-    stats=[("1440p", "144 Hz", "KTC H24T7, main"), ("1080p", "100 Hz", "Dell S2425HS")],
+    slug="displays", name="Displays", em="two KTCs", group="Displays", bus="hdmi", spd="144 Hz + 144 Hz",
+    card="The same two KTC H24T7 monitors as the Mac mini, both at 1440p and 144 Hz over USB-C to HDMI from the dock.",
+    lede="Two KTC H24T7 monitors, each on its own USB-C to HDMI cable from the dock. Both are shared with the Mac mini, which uses their DisplayPort inputs.",
+    path=[MB, UP, DOCK, ("wire", "USB-C → HDMI ×2", "hdmi"), ("node", "KTC H24T7 ×2", "1440p · 144 Hz each", "me")],
+    stats=[("1440p", "144 Hz", "KTC H24T7, main"), ("1440p", "144 Hz", "KTC H24T7 #2")],
     body=[
         sec("What the MacBook sees", table(["Display", "Role", "Running at", "Against its maximum"], [
-            ('<a href="../devices/ktc-h24t7.html">KTC H24T7</a>', "Main", "2560×1440 at 144 Hz", "Below the panel's 180 Hz, which the Mac mini reaches over DisplayPort"),
-            ('<a href="../devices/dell-s2425hs.html">Dell S2425HS</a>', "Second", "1920×1080 at 100 Hz", "The panel's maximum"),
+            ('<a href="../devices/ktc-h24t7.html">KTC H24T7</a>', "Main", "2560×1440 at 144 Hz", "The monitor's HDMI maximum. The panel's 180 Hz and VRR need DisplayPort, which the Mac mini uses"),
+            ('<a href="../devices/ktc-h24t7-hdmi.html">KTC H24T7 #2</a>', "Second", "2560×1440 at 144 Hz", "Same: the HDMI maximum"),
         ]),
+            '<p class="note-t">Read November 16, 2026. The two run side by side as an extended desktop.</p>',
             '<p class="note-t">Panel details for each monitor are on its Mac mini page.</p>'),
         sec("How they are connected", table(["Display", "Dock port", "Notes"], [
-            ("KTC H24T7", "Thunderbolt 5 downstream", "Leaves the dock\'s second Thunderbolt 5 port free"),
-            ("Dell S2425HS", "HDMI 2.1", "The dock\'s DisplayPort output stays unused, since the box says HDMI and DisplayPort cannot run together"),
+            ("KTC H24T7", "Dock USB-C", "USB-C to HDMI cable into the monitor\'s HDMI input"),
+            ("KTC H24T7 #2", "Dock USB-C", "USB-C to HDMI cable into the monitor\'s HDMI input"),
         ]),
-            '<p class="note-t">macOS lists displays under the graphics chip, not under Thunderbolt, so it shows the dock\'s Thunderbolt 5 ports as empty even with the KTC on one.</p>'),
-        sec("Sharing with the Mac mini", '<p>The Mac mini drives the same two monitors on their other inputs: the KTC over DisplayPort at 180 Hz and the Dell over HDMI at 100 Hz. Switching a monitor\'s input moves it from one computer to the other.</p>'),
+            '<p class="note-t">macOS lists displays under the graphics chip, not under Thunderbolt, so it shows the dock\'s ports as empty with both monitors on them. The read shows the video leaving the MacBook over the dock cable at HBR3, and the dock\'s own HDMI / DisplayPort output unused. The MacBook\'s own HDMI port is free too.</p>'),
+        sec("Sharing with the Mac mini", '<p>Both computers stay connected to both monitors all the time: the Mac mini on each monitor\'s DisplayPort input at 180 Hz with VRR, the MacBook on its HDMI input at 144 Hz. There is no KVM switch. Switching a monitor\'s input moves it from one computer to the other, and nothing has to be unplugged.</p><p>144 Hz is the KTC\'s HDMI limit. The MacBook is for work, not games, so it loses nothing that matters.</p>'),
     ]))
 
 # ---------------------------------------------------------------- Network
@@ -175,10 +176,10 @@ def line(x1, y1, x2, y2, cls, label="", lc="", lx=None, ly=None):
 
 R = 760
 svg = ['<svg viewBox="0 0 1160 640" role="img" aria-labelledby="mbT"><title id="mbT">Port map: one Thunderbolt 5 cable links the MacBook Pro to the Anker dock, which carries the displays, a backup hard drive, wired Ethernet, the card reader and the camera. The SanDisk backup SSD is on the MacBook\'s own port.</title>']
-svg += [line(280, 250, 430, 250, "l-tb", "80 Gb/s", "c-tb"), '<text x="355" y="272" class="lbl2" text-anchor="middle">USB4 v2 mode</text>',
+svg += [line(280, 250, 430, 250, "l-tb", "80–120 Gb/s", "c-tb"), '<text x="355" y="272" class="lbl2" text-anchor="middle">USB4 v2 mode</text>',
         line(155, 430, 155, 520, "l-u10", "10 Gb/s", "c-u10", 195, 482),
         line(280, 340, 332, 340, "l-free"), '<text x="338" y="344" class="lbl2">free</text>',
-        line(660, 79, R, 79, "l-dp", "TB5 port", "c-dp"), line(660, 149, R, 149, "l-hdmi", "HDMI", "c-hdmi"),
+        line(660, 79, R, 79, "l-hdmi", "USB-C→HDMI", "c-hdmi"), line(660, 149, R, 149, "l-hdmi", "USB-C→HDMI", "c-hdmi"),
         line(660, 257, R, 257, "l-u5", "5 Gb/s", "c-u5"), line(660, 327, R, 327, "l-u5", "5 Gb/s", "c-u5"),
         line(660, 397, R, 397, "l-u5", "5 Gb/s", "c-u5"), line(660, 527, R, 527, "l-u2", "480 Mb/s", "c-u2")]
 svg += ['<rect x="30" y="170" width="250" height="260" rx="14" class="node mini"/>',
@@ -188,12 +189,11 @@ svg += ['<rect x="30" y="170" width="250" height="260" rx="14" class="node mini"
         box(30, 520, 330, 76, "SanDisk SSD 1 TB · SANDISK TIMEMACHINE", "Time Machine · on the MacBook's own port", "moved off the dock"),
         '<rect x="430" y="30" width="230" height="580" rx="14" class="node dock"/>',
         '<text x="448" y="62" class="t-big" style="font-size:18px">Anker Prime dock</text><text x="448" y="84" class="t2">Thunderbolt 5 · 14-in-1</text>',
-        '<rect x="446" y="100" width="192" height="64" rx="8" class="sub"/><text x="460" y="126" class="t1">HDMI 2.1 | DP 2.1</text><text x="460" y="146" class="t2">one at a time</text>',
+        '<rect x="446" y="100" width="192" height="64" rx="8" class="sub"/><text x="460" y="126" class="t1">Video out</text><text x="460" y="146" class="t2">2× USB-C · HDMI port unused</text>',
         '<rect x="446" y="200" width="192" height="240" rx="8" class="sub"/><text x="460" y="226" class="t1">USB 3 hub · 10 Gb/s</text><text x="460" y="290" class="tm">Intel 8087:5787</text><text x="460" y="306" class="tm">→ VIA VL822 ×2</text><text x="460" y="356" class="t2">One uplink for every</text><text x="460" y="374" class="t2">USB port, Ethernet</text><text x="460" y="392" class="t2">and the card reader</text>',
         '<rect x="446" y="480" width="192" height="94" rx="8" class="sub"/><text x="460" y="506" class="t1">USB 2 side</text><text x="460" y="540" class="tm">Fresco 1d5c:5801</text><text x="460" y="556" class="tm">→ VIA 2822 ×2</text>',
-        '<text x="448" y="600" class="tm">1 TB5 downstream port free</text>',
-        box(R, 50, 385, 58, "KTC H24T7 · main display", "1440p at 144 Hz · on a dock Thunderbolt 5 port"),
-        box(R, 120, 385, 58, "Dell S2425HS", "1080p at 100 Hz · on the dock's HDMI port"),
+        box(R, 50, 385, 58, "KTC H24T7 · main display", "1440p at 144 Hz · USB-C to HDMI from the dock"),
+        box(R, 120, 385, 58, "KTC H24T7 #2", "1440p at 144 Hz · USB-C to HDMI from the dock"),
         box(R, 228, 385, 58, "Seagate Expansion 2 TB · MacBook Backup", "Time Machine · hard drive"),
         box(R, 298, 385, 58, "Realtek 2.5G LAN → home network", "RTL8156 · en8 · 2500Base-T · default route"),
         box(R, 368, 385, 58, "Card reader", "SD and TF · Genesys Logic · no card"),
@@ -202,7 +202,7 @@ HITS = [("anker-dock", "tb", 430, 30, 230, 64), ("sandisk-backup", "usb", 30, 52
         ("seagate-backup", "usb5", R, 228, 385, 58), ("network", "net", R, 298, 385, 58)]
 svg += [f'<a href="macbook/{s}.html" class="b-{b}" aria-label="{names[s]}"><rect class="hit" x="{x}" y="{y}" width="{w}" height="{h}" rx="8"/></a>' for s, b, x, y, w, h in HITS]
 svg.append("</svg>")
-KEYS = [("tb", "Thunderbolt 5, 80 Gb/s"), ("dp", "Display over Thunderbolt 5"), ("hdmi", "HDMI"), ("usb", "USB 10 Gb/s"), ("usb5", "USB 5 Gb/s"), ("usb2", "USB 2")]
+KEYS = [("tb", "Thunderbolt 5, 80–120 Gb/s"), ("hdmi", "HDMI"), ("usb", "USB 10 Gb/s"), ("usb5", "USB 5 Gb/s"), ("usb2", "USB 2")]
 fig = ('<figure class="wiring"><div class="dscroll">' + "".join(svg) + '</div><figcaption>'
        + "".join(f'<span class="key b-{b}"><i></i>{t}</span>' for b, t in KEYS)
        + '<span>macOS does not report which USB socket each device uses. Select a device to open its page.</span></figcaption></figure>')
@@ -228,9 +228,9 @@ hub = "\n".join([
     ])),
     sec("Every link, against its maximum", '<p class="note-t">The most each port allows, next to what macOS reports as negotiated.</p>',
         table(["Connection", "Chip", "Port maximum", "Negotiated", ""], [
-            ("MacBook → " + L("anker-dock", "Anker dock") + '<br><span class="sub">TB bus 0, receptacle 1</span>', "Anker TB5 dock, fw 64.1", "80 Gb/s (TB5, 120 Gb/s boost)", "80 Gb/s, USB4 v2 mode", OK),
-            (L("displays", "KTC H24T7") + ' · main display<br><span class="sub">Dock Thunderbolt 5 port</span>', "—", "—", "1440p at 144 Hz", '<span class="okk">✓</span>'),
-            (L("displays", "Dell S2425HS") + '<br><span class="sub">Dock HDMI port</span>', "—", "1080p at 100 Hz (panel max)", "1080p at 100 Hz", OK),
+            ("MacBook → " + L("anker-dock", "Anker dock") + '<br><span class="sub">TB bus 0, receptacle 1</span>', "Anker TB5 dock, fw 64.1", "80 Gb/s (TB5, 120 Gb/s boost)", "120 Gb/s with both monitors on, 80 Gb/s without · USB4 v2 mode", OK),
+            (L("displays", "KTC H24T7") + ' · main display<br><span class="sub">Dock USB-C, USB-C to HDMI cable</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
+            (L("displays", "KTC H24T7 #2") + '<br><span class="sub">Dock USB-C, USB-C to HDMI cable</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
             ('Anker → USB 3 hub<br><span class="sub">Inside the dock</span>', "Intel 8087:5787 → VIA VL822 ×2", "10 Gb/s", "10 Gb/s", OK),
             ("↳ " + L("seagate-backup", "Seagate Expansion 2 TB"), "Seagate ST2000LM007", "5 Gb/s", "5 Gb/s", OK),
             ("↳ " + L("network", "2.5G LAN adapter"), "Realtek RTL8156", "5 Gb/s", "5 Gb/s", OK),
@@ -239,7 +239,6 @@ hub = "\n".join([
             ("MacBook → " + L("sandisk-backup", "SanDisk SSD 1 TB") + '<br><span class="sub">Own MacBook port</span>', "SanDisk 0781:5504", "10 Gb/s", "10 Gb/s", OK),
             ("MacBook → " + L("network", "home network") + '<br><span class="sub">en8, through the dock</span>', "Realtek 2.5GbE", "2.5 Gb/s", "2500Base-T full duplex", OK),
             ('MacBook → Wi-Fi<br><span class="sub">en0</span>', "Wi-Fi 7", "—", "5 GHz ch 36, 80 MHz, 1080 Mb/s, −34 dBm", '<span class="sub">5 GHz</span>'),
-            ("Anker → second TB5 downstream", "—", "120 Gb/s", "No device", '<span class="sub">free</span>'),
         ])),
     sec("Drive speeds", '<p class="note-t">8 GiB sequential, three runs each, write includes sync, read after a cache purge, no backup running. November 7, 2026.</p>',
         bars([
@@ -259,9 +258,9 @@ hub = "\n".join([
     ], num=(2, 3, 4)), f'<p class="note-t">Measured {READ}. Details and earlier tests are on the ' + L("network", "network page") + '.</p>'),
     '<section><h2>Worth remembering</h2><div class="callouts">'
     '<div class="callout"><h3>The dock\'s USB is one 10 Gb/s lane</h3><p>Every USB socket, the Ethernet port and the card reader share it. Fast drives belong on the MacBook\'s own ports or the dock\'s Thunderbolt ports.</p></div>'
-    '<div class="callout"><h3>HDMI or DisplayPort, not both</h3><p>The dock\'s two video outputs cannot be used at the same time, so the Dell takes HDMI and the KTC runs from a Thunderbolt 5 port.</p></div>'
+    '<div class="callout"><h3>Two computers, no KVM</h3><p>Each monitor has both Macs plugged in at once: the Mac mini on DisplayPort, this MacBook on HDMI through USB-C to HDMI cables from the dock. The monitor\'s input button picks the computer.</p></div>'
     '<div class="callout attn"><h3>Video is king: a dock does video or fast drives</h3><p>On any dock, display traffic is reserved first and data gets what is left. This dock carries both monitors, so the fast drive sits on the MacBook\'s own port, where it measured quicker. The <a href="mac-mini.html">Mac mini</a> makes the opposite choice: its dock carries the SSDs and the monitors plug into the mini.</p></div>'
-    '<div class="callout"><h3>One free Thunderbolt 5 port</h3><p>The KTC uses one of the dock\'s two downstream ports. The other is empty, rated up to 120 Gb/s.</p></div>'
+    '<div class="callout"><h3>Video lifts the link to 120 Gb/s</h3><p>With both monitors on, the dock cable runs at 120 Gb/s, Thunderbolt 5\'s boost mode that gives more lanes to the direction video travels. With the monitors switched to the Mac mini it drops back to 80 Gb/s.</p></div>'
     '<div class="callout"><h3>What moved to the Mac mini</h3><p>The Wavlink dock and the Samsung 990 PRO both live on the <a href="mac-mini.html">Mac mini</a> now. The ACASIS enclosure that held the 990 PRO is a spare.</p></div>'
     '</div></section>',
     sec("Next to the Mac mini", table(["", "Mac Work Book Pro", "Home Mac mini"], [
@@ -270,15 +269,15 @@ hub = "\n".join([
         ("GPU", "20 cores", "12 cores"),
         ("Memory", "48 GB", "16 GB"),
         ("Internal SSD", "1 TB", "512 GB"),
-        ("Thunderbolt", "Thunderbolt 5, 80 Gb/s in use", "Thunderbolt 4, 40 Gb/s"),
+        ("Thunderbolt", "Thunderbolt 5, 80 Gb/s, 120 Gb/s with the monitors on", "Thunderbolt 4, 40 Gb/s"),
         ("Dock", "Anker Prime, Thunderbolt 5", "Wavlink WL-UTD58, Thunderbolt 5 at 40 Gb/s"),
     ]), '<p class="note-t">"Performance" is the lower of two tiers on the M5 Pro but the middle of three on the M6.</p>'),
 ])
-hero = (f'<div class="eyebrow">Read {READ} · Mac17,9</div>\n'
+hero = (f'<div class="eyebrow">Read {READ}, displays November 16 · Mac17,9</div>\n'
         '<h1>Mac Work Book <em>Pro*</em></h1>\n'
-        '<p class="lede">An Apple M5 Pro MacBook Pro with 48 GB of memory at the home desk. One Thunderbolt 5 cable to an Anker dock carries power, the wired network, a backup drive and the camera.</p>\n'
+        '<p class="lede">An Apple M5 Pro MacBook Pro with 48 GB of memory at the home desk. One Thunderbolt 5 cable to an Anker dock carries power, both monitors, the wired network, a backup drive and the camera.</p>\n'
         '<p class="lede" style="font-size:14px">* I wish I owned this. Alas, it\'s on loan from work.</p>\n'
-        + stats([("80", "Gb/s", "dock link"), ("48", "GB", "memory"), ("2", "backups", "Time Machine disks"), ("144 + 100", "Hz", "two displays"), ("1.98", "Gb/s", "wired upload")]))
+        + stats([("80–120", "Gb/s", "dock link"), ("48", "GB", "memory"), ("2", "backups", "Time Machine disks"), ("144 + 144", "Hz", "two displays"), ("1.98", "Gb/s", "wired upload")]))
 page("macbook-pro.html", "Mac Work Book Pro",
      "An Apple M5 Pro MacBook Pro on an Anker Thunderbolt 5 dock: what is plugged into what, a page for each device, and measured speeds.",
      "usb", hero, hub, one=False, cur=CUR)
