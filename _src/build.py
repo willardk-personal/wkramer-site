@@ -3,7 +3,7 @@
 import pathlib, html
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-CHECKED = "November 16, 2026"
+CHECKED = "November 20, 2026"
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">')
 
@@ -422,10 +422,10 @@ D.append(dict(
 # ---------------------------------------------------------------- Home network
 D.append(dict(
     slug="home-network", name="Home network", em="wired 2.5 Gb", group="Network", bus="net", spd="2.5 Gb/s Ethernet",
-    card="The mini's built-in 2.5 Gb Ethernet into an ACASIS 2.5 Gb switch. 2.15 Gb/s down and 2.10 Gb/s up in the last test.",
+    card="The mini's built-in 2.5 Gb Ethernet into an ACASIS 2.5 Gb switch. 2.30 Gb/s down and 2.31 Gb/s up in the last test.",
     lede="How the mini reaches the internet. Its built-in 2.5 Gb Ethernet port runs to an ACASIS 2.5 Gb Ethernet switch, and from there to the router.",
     path=[MINI, ("wire", "en0 · 2500Base-T", "net"), ("node", "ACASIS 2.5GbE switch", "Ethernet hub for the desk", "me"), ("wire", "Ethernet", "net"), ("node", "Router", "internet", None)],
-    stats=[("2.15", "Gb/s", "down"), ("2.10", "Gb/s", "up"), ("9.4", "ms", "idle latency"), ("0.68", "ms", "ping to the router")],
+    stats=[("2.30", "Gb/s", "down"), ("2.31", "Gb/s", "up"), ("11.0", "ms", "idle latency"), ("0.68", "ms", "ping to the router")],
     body=[
         sec("The link", spec([
             ("Mac port", "Built-in 2.5 Gb Ethernet, interface en0"),
@@ -447,16 +447,18 @@ D.append(dict(
             ]),
             '<p>Both directions land at about 85% of the 2.5 Gb/s link, so the cable, the switch and the internet line all keep up with each other. Latency stays low while the line is full, which is what the High responsiveness rating means.</p>'),
         sec("All tests", table(["Date", "Interface", "Down", "Up", "Idle latency"], [
+            ("Nov 20, 2026", "en0 · wired", "2.30 Gb/s", "2.31 Gb/s", "11.0 ms"),
             ("Nov 16, 2026", "en0 · wired", "2.15 Gb/s", "2.10 Gb/s", "9.4 ms"),
             ("Nov 15, 2026", "en0 · wired", "2.15 Gb/s", "2.09 Gb/s", "9.9 ms"),
             ("Nov 11, 2026", "en0 · wired", "2.13 Gb/s", "2.12 Gb/s", "10.8 ms"),
             ("Nov 7, 2026", "en0 · wired", "2.15 Gb/s", "2.12 Gb/s", "15 ms"),
             ("Oct 17, 2026", "en0 · wired", "2.29 Gb/s", "2.18 Gb/s", "—"),
+            ("Nov 20, 2026", "en1 · Wi-Fi 7, 6 GHz", "743 Mb/s", "937 Mb/s", "13.3 ms"),
             ("Nov 16, 2026", "en1 · Wi-Fi 7, 5 GHz", "254 Mb/s", "266 Mb/s", "14.7 ms"),
             ("Nov 15, 2026", "en1 · Wi-Fi 7, 5 GHz", "179 Mb/s", "270 Mb/s", "15.5 ms"),
             ("Nov 7, 2026", "en1 · Wi-Fi 7, 5 GHz", "226 Mb/s", "238 Mb/s", "17 ms"),
         ], num=(2, 3, 4)),
-            '<p class="note-t">Wired has held at 2.1 to 2.3 Gb/s across five tests. Wi-Fi manages about a tenth of that: three runs on November 16 gave 220 to 258 Mb/s down and 252 to 289 Mb/s up. Router ping on November 16: 0.68 ms average, no loss.</p>'),
+            '<p class="note-t">Wired has held at 2.1 to 2.3 Gb/s across six tests. On 5 GHz Wi-Fi managed about a tenth of that: three runs on November 16 gave 220 to 258 Mb/s down and 252 to 289 Mb/s up. On 6 GHz (channel 37, 160 MHz) on November 20 it reached 743 down and 937 up, about a third of wired. Router ping on November 16: 0.68 ms average, no loss.</p>'),
         sec("Things to know", notes([
             "The mini also has Wi-Fi 7 (en1) connected, but the wired port is the default route.",
             'A second 2.5 Gb port sits unused on the dock: the <a href="lan-adapter.html">Realtek LAN adapter</a>.',
@@ -501,7 +503,7 @@ hub = "\n".join([
     sec("The machine", spec([
         ("Model", "Mac mini (Mac18,5), 2026"),
         ("Chip", "Apple M6: 12-core CPU (2 Super, 4 Performance, 6 Efficiency), 12-core GPU"),
-        ("Memory and storage", "16 GB, 512 GB internal SSD (252 GB used)"),
+        ("Memory and storage", "16 GB, 512 GB internal SSD (275 GB used)"),
         ("Software", "macOS 27.2.1"),
         ("Back ports", "3 Thunderbolt 4 (R1 and R4 monitors, R2 dock), HDMI (free), 2.5 Gb Ethernet"),
         ("Front ports", "2 USB-C at 10 Gb/s (one drive, one free), headphone jack"),
@@ -525,33 +527,33 @@ hub = "\n".join([
             ("Wavlink → " + L("blu-ray", "Blu-ray burner"), "Initio bridge", "USB 2", "480 Mb/s", OK),
             ("Mac mini → " + L("home-network", "home network") + '<br><span class="sub">en0, into the ACASIS 2.5GbE switch</span>', "Built-in 2.5GbE", "2.5 Gb/s", "2500Base-T full duplex", OK),
         ])),
-    sec("Drive speeds", '<p class="note-t">fio, 8 GB direct I/O, November 16, 2026, after both monitors moved to DisplayPort and the dock to R2. First each drive alone, then all of them at once.</p>',
+    sec("Drive speeds", '<p class="note-t">fio, 8 GB direct I/O, November 20, 2026. First each drive alone, then all of them at once.</p>',
         bars([
-            ("Internal SSD", "alone", 5990, 6391, "usb2"),
-            ("DATA · 990 PRO", "alone", 3671, 3835, "tb"),
-            ("Media · P310", "alone", 2988, 3816, "tb"),
-            ("SSD BACKUP · SN350", "alone, read-only", None, 868, "usb"),
-            ("Scratch Disk", "alone", 759, 681, "usb"),
+            ("Internal SSD", "alone", 5781, 6473, "usb2"),
+            ("DATA · 990 PRO", "alone", 3672, 3835, "tb"),
+            ("Media · P310", "alone", 2995, 3816, "tb"),
+            ("SSD BACKUP · SN350", "alone, read-only", None, 866, "usb"),
+            ("Scratch Disk", "alone", 737, 674, "usb"),
         ]),
         bars([
-            ("DATA · 990 PRO", "all at once", 1809, 1686, "tb"),
-            ("Media · P310", "all at once", 1469, 1677, "tb"),
-            ("Scratch Disk", "all at once", 760, 693, "usb"),
-            ("Dock drives combined", "DATA + Media + Scratch", 4037, 4056, "tb"),
+            ("DATA · 990 PRO", "all at once", 1822, 1684, "tb"),
+            ("Media · P310", "all at once", 1477, 1677, "tb"),
+            ("Scratch Disk", "all at once", 756, 697, "usb"),
+            ("Dock drives combined", "DATA + Media + Scratch", 4055, 4059, "tb"),
         ], 6640),
-        '<p class="note-t">Both charts share one scale. The three drives behind the dock hit its 40 Gb/s ceiling together, at about 4 GB/s. No errors, peak 60 °C (the P310). Within a few percent of the November 13 and 15 runs, so moving the monitors changed nothing for the drives. SSD BACKUP reads 868 MB/s once Time Machine is idle; it is left out of the all-at-once chart because a backup had just finished and its first read after one is slow.</p>'),
+        '<p class="note-t">Both charts share one scale. The three drives behind the dock hit its 40 Gb/s ceiling together, at about 4 GB/s. No errors, peak 62 °C (the P310). Within about 3% of the November 16 run. SSD BACKUP read 864 to 868 MB/s (the bar is the average); its first read after the 6:25 PM backup gave only 562, the same slow-first-pass effect seen before, so it is left out of the all-at-once chart.</p>'),
     sec("Storage", table(["Volume", "Drive", "Used", "Size", "Temp"], [
-        ("Macintosh HD", "Apple 512 GB internal", "264 GB", "494 GB", "35 °C"),
-        (L("media", "Media"), "Crucial P310 2 TB, Mokin enclosure", "934 GB", "2.0 TB", "53 °C"),
-        (L("data", "DATA"), "Samsung 990 PRO 1 TB, Mokin enclosure", "127 GB", "1.0 TB", "44 °C"),
-        (L("ssd-backup", "SSD BACKUP"), "WD Green SN350 2 TB, UGREEN enclosure", "1.29 TB", "2.0 TB", "—"),
-        (L("scratch-disk", "Scratch Disk"), "512 GB SSD, Ugreen enclosure", "68 GB", "512 GB", "—"),
-        (L("backup-hdd", "Backup"), "WD Elements 4 TB hard drive", "2.8 TB", "4.0 TB", "—"),
-    ], num=(2, 3, 4)), '<p class="note-t">Idle temperatures, November 16, before the load tests (Backup size from November 15). USB enclosures do not pass the drive\'s temperature through. Every volume passed a file system check the same day.</p>'),
+        ("Macintosh HD", "Apple 512 GB internal", "275 GB", "494 GB", "35 °C"),
+        (L("media", "Media"), "Crucial P310 2 TB, Mokin enclosure", "934 GB", "2.0 TB", "55 °C"),
+        (L("data", "DATA"), "Samsung 990 PRO 1 TB, Mokin enclosure", "101 GB", "1.0 TB", "45 °C"),
+        (L("ssd-backup", "SSD BACKUP"), "WD Green SN350 2 TB, UGREEN enclosure", "1.31 TB", "2.0 TB", "—"),
+        (L("scratch-disk", "Scratch Disk"), "512 GB SSD, Ugreen enclosure", "69 GB", "512 GB", "—"),
+        (L("backup-hdd", "Backup"), "WD Elements 4 TB hard drive", "2.7 TB", "4.0 TB", "—"),
+    ], num=(2, 3, 4)), '<p class="note-t">Idle temperatures and used space, November 20, before the load tests. USB enclosures do not pass the drive\'s temperature through. Every volume last passed a file system check on November 16.</p>'),
     sec("Network", table(["Interface", "Link", "Down", "Up", "Idle ping"], [
-        ("en0 · wired", "2.5GbE via the ACASIS switch, carries the traffic", "2.15 Gb/s", "2.10 Gb/s", "9.4 ms"),
-        ("en1 · Wi-Fi 7", "5 GHz, 80 MHz, 864 Mb/s link", "254 Mb/s", "266 Mb/s", "14.7 ms"),
-    ], num=(2, 3, 4)), '<p class="note-t">Both measured November 16, 2026. Full details are on the ' + L("home-network", "home network page") + '. The internet line is fine at about 2.1 Gb/s each way. Wi-Fi is the bottleneck at roughly a tenth of wired speed, so the mini stays on the cable.</p>'),
+        ("en0 · wired", "2.5GbE via the ACASIS switch, carries the traffic", "2.30 Gb/s", "2.31 Gb/s", "11.0 ms"),
+        ("en1 · Wi-Fi 7", "6 GHz, 160 MHz, 2161 Mb/s link", "743 Mb/s", "937 Mb/s", "13.3 ms"),
+    ], num=(2, 3, 4)), '<p class="note-t">Both measured November 20, 2026. Full details are on the ' + L("home-network", "home network page") + '. The internet line is fine at about 2.3 Gb/s each way. Wi-Fi moved from 5 GHz to 6 GHz and roughly tripled, but it is still about a third of wired speed, so the mini stays on the cable.</p>'),
     '<section><h2>Worth remembering</h2><div class="callouts">'
     '<div class="callout attn"><h3>Eject before unplugging</h3><p>Unsafe shutdowns on record: P310 52, 990 PRO 68, internal 11. All drives report no data errors.</p></div>'
     '<div class="callout attn"><h3>Video is king: a dock does video or fast drives</h3><p>Display traffic is reserved first on the Thunderbolt link. With a monitor on this dock, drive writes fell from about 3 GB/s to 1.5 GB/s. So the dock carries the SSDs and both monitors plug into the mini. The <a href="macbook-pro.html">MacBook</a> makes the opposite choice.</p></div>'
@@ -566,12 +568,13 @@ hub = "\n".join([
         ("Internal SSD", "512 GB", "1 TB"),
         ("Thunderbolt", "Thunderbolt 4, 40 Gb/s", "Thunderbolt 5, up to 80 Gb/s"),
     ]), '<p class="note-t">The MacBook Pro is no longer cabled to the mini. It runs from its own dock. See the <a href="macbook-pro.html">MacBook Pro page</a>.</p>'),
+    sec("Desk layout PDFs", '<p class="note-t">Printable layouts of both desks, read from macOS on November 20, 2026: a port diagram, every negotiated link, storage, measured speeds and notes.</p>', '<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>Mac mini desk layout</b><span>Two monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with five drives, and today\'s fio and network tests.</span><span class="go">Open PDF &rarr;</span></a><a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on its Anker Thunderbolt 5 dock, with both monitors, the backups and the network.</span><span class="go">Open PDF &rarr;</span></a></div>'),
     '<section><h2>Earlier snapshots</h2><p class="note-t">How the desk looked on October 19, 2026, before the Wavlink dock and the KTC monitor: the <a href="mac-mini-m6-scan.html">full scan</a> and the <a href="mac-mini-map.html">chip and dock map</a>.</p></section>',
 ])
 hero = (f'<div class="eyebrow">Checked {CHECKED} · Mac18,5</div>\n'
         '<h1>Mac mini <em>desk setup</em></h1>\n'
         '<p class="lede">My play toy: an Apple M6 Mac mini, what is plugged into it, the chip inside each device, and the speed every link actually runs at.</p>\n'
-        + stats([("40", "Gb/s", "dock uplink"), ("~4.0", "GB/s", "drives behind the dock, combined"), ("6", "drives", "10 TB in all"), ("180 + 180", "Hz", "two displays"), ("0", "errors", "in the Nov 16 load tests")]))
+        + stats([("40", "Gb/s", "dock uplink"), ("~4.0", "GB/s", "drives behind the dock, combined"), ("6", "drives", "10 TB in all"), ("180 + 180", "Hz", "two displays"), ("0", "errors", "in the Nov 20 load tests")]))
 page("mac-mini.html", "Mac mini setup",
      "An Apple M6 Mac mini with a Thunderbolt 5 dock, six drives and two monitors: what is plugged into what, a page for each device, and measured speeds.",
      "tb", hero, hub, one=False)

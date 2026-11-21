@@ -4,6 +4,7 @@
 from build import page, table, spec, bars, path, stats, sec, notes
 
 READ = "November 8, 2026"
+READ20 = "November 20, 2026"
 CUR = "macbook-pro.html"
 MB = ("node", "MacBook Pro", "Mac17,9 · M5 Pro", "../macbook-pro.html")
 DOCK = ("node", "Anker Prime dock", "Thunderbolt 5", "anker-dock.html")
@@ -23,7 +24,7 @@ D.append(dict(
         sec("What it is", spec([
             ("Model", "Anker Prime TB5 Docking Station, 14-in-1 (A83B5)"),
             ("Firmware", "64.1"),
-            ("Link to the MacBook", "USB4 v2 mode on the MacBook's Thunderbolt bus 0, receptacle 1. 80 Gb/s with the monitors off; 120 Gb/s with both monitors on (November 16), Thunderbolt 5's bandwidth boost, which sends more lanes toward the dock for video."),
+            ("Link to the MacBook", "USB4 v2 mode on the MacBook's Thunderbolt bus 2, receptacle 3 (November 20). 80 Gb/s with the monitors off; 120 Gb/s with both monitors on (November 16; on November 20 it read 80 Gb/s with them on), Thunderbolt 5's bandwidth boost, which sends more lanes toward the dock for video."),
             ("Power", "Built-in power supply, no brick. Rated to charge the laptop at up to 140 W."),
             ("Size", "116 × 116 × 75 mm, about 1.1 kg"),
             ("USB 3 inside", 'Intel hub <span class="mono">8087:5787</span> feeding two VIA VL822 hubs'),
@@ -32,7 +33,8 @@ D.append(dict(
             '<p class="note-t">Rated figures come from Anker\'s published specifications. Everything else is what macOS reported.</p>'),
         sec("Its ports, and what is in them", table(["Port", "Where", "Rated", "In use"], [
             ("Thunderbolt 5 upstream", "back", "80 Gb/s, 120 Gb/s boost, 140 W", "The MacBook, at 80 Gb/s"),
-            ("Thunderbolt 5 downstream ×2", "back", "Up to 120 Gb/s", 'Video for the two <a href="displays.html">KTC H24T7</a> monitors, each over a USB-C to HDMI cable from the dock. macOS lists displays under the graphics chip, so it shows these ports as empty.'),
+            ("USB-C ×2 (video)", "—", "—", 'Video for the two <a href="displays.html">KTC H24T7</a> monitors, each over a USB-C to HDMI cable from the dock. macOS does not say which two ports.'),
+            ("Thunderbolt 5 downstream ×2", "back", "Up to 120 Gb/s", "No Thunderbolt device. macOS lists three downstream ports; the box labels two."),
             ("HDMI 2.1 / DisplayPort 2.1", "back", "One at a time", 'Unused since November 15, when the Dell S2425HS left the desk'),
             ("Ethernet", "back", "2.5 Gb/s", '<a href="network.html">Realtek RTL8156</a>, en8, 2500Base-T full duplex'),
             ("USB-A ×2", "back", "10 Gb/s each", '<a href="seagate-backup.html">Seagate hard drive</a> (5 Gb/s) and the Lenovo camera (480 Mb/s). macOS does not report which socket each uses.'),
@@ -52,13 +54,13 @@ D.append(dict(
     card="SanDisk SSD 1 TB on the MacBook's own port. The portable Time Machine disk, faster since it left the dock.",
     lede="The backup that travels. A SanDisk 1 TB portable SSD used by Time Machine, plugged straight into the MacBook instead of the dock.",
     path=[MB, ("wire", "own port · 10 Gb/s", "usb"), ("node", "SanDisk SSD 1 TB", "SANDISK TIMEMACHINE", "me")],
-    stats=[("845", "MB/s", "write"), ("813", "MB/s", "read"), ("366", "GiB", "used of 931"), ("10", "Gb/s", "USB link")],
+    stats=[("845", "MB/s", "write"), ("813", "MB/s", "read"), ("477", "GiB", "used of 931"), ("10", "Gb/s", "USB link")],
     body=[
         sec("The drive", spec([
             ("Drive", 'SanDisk SSD 1 TB, portable <span class="mono">(0781:5504)</span>'),
             ("Link", "USB 10 Gb/s, the most the drive offers"),
-            ("Where", "One of the MacBook's own ports (receptacle 2 or 3; macOS does not say which)"),
-            ("Volume", "SANDISK TIMEMACHINE. 366 GiB used of 931 GiB."),
+            ("Where", "One of the MacBook's own ports (receptacle 1 or 2; macOS does not say which)"),
+            ("Volume", "SANDISK TIMEMACHINE. 477 GiB used of 931 GiB (November 20)."),
             ("Job", "Time Machine destination, chosen because it is small and tough enough to travel. Latest backup November 8, 2026 at 4:43 PM."),
         ])),
         sec("Dock against the MacBook's own port", bars([
@@ -84,14 +86,14 @@ D.append(dict(
     card="Seagate Expansion 2 TB portable hard drive on the dock. The second Time Machine disk.",
     lede="The second backup. A Seagate Expansion 2 TB portable hard drive on the dock's USB hub, used only by Time Machine.",
     path=[MB, UP, DOCK, ("wire", "USB hub · 5 Gb/s", "usb5"), ("node", "Seagate Expansion 2 TB", "MacBook Backup", "me")],
-    stats=[("701", "GiB", "used of 1.8 TiB"), ("5", "Gb/s", "USB link"), ("5,400", "rpm", "drive inside")],
+    stats=[("780", "GiB", "used of 1.8 TiB"), ("5", "Gb/s", "USB link"), ("5,400", "rpm", "drive inside")],
     body=[
         sec("The drive", spec([
             ("Drive", "Seagate Expansion 2 TB portable hard drive"),
             ("Disk inside", 'Seagate <span class="mono">ST2000LM007</span>: 2.5-inch, 7 mm, 5,400 rpm, two 1 TB shingled (SMR) platters, 128 MB cache'),
             ("Rated speed", "Up to 140 MB/s"),
             ("Link", "USB 5 Gb/s, on one of the dock's USB sockets"),
-            ("Volume", "MacBook Backup. 701 GiB used of 1.8 TiB."),
+            ("Volume", "MacBook Backup. 780 GiB used of 1.8 TiB (November 20)."),
             ("Job", "Time Machine destination that stays at the desk."),
         ]),
             '<p class="note-t">Disk details are Seagate\'s published figures for the ST2000LM007. Its speed has not been measured here.</p>'),
@@ -221,14 +223,14 @@ hub = "\n".join([
     sec("The machine", spec([
         ("Model", "MacBook Pro (Mac17,9)"),
         ("Chip", "Apple M5 Pro: 18-core CPU (6 Super, 12 Performance), 20-core GPU"),
-        ("Memory and storage", "48 GB, 1 TB internal SSD (AP1024Z), 336 of 926 GiB used"),
+        ("Memory and storage", "48 GB, 1 TB internal SSD (AP1024Z), 364 of 926 GiB used"),
         ("Thunderbolt", "3 Thunderbolt 5 ports, up to 120 Gb/s. One holds the dock, one the SanDisk SSD, one is free."),
         ("Power", "Charged through the dock's cable"),
         ("Wireless", "Wi-Fi 7"),
     ])),
     sec("Every link, against its maximum", '<p class="note-t">The most each port allows, next to what macOS reports as negotiated.</p>',
         table(["Connection", "Chip", "Port maximum", "Negotiated", ""], [
-            ("MacBook → " + L("anker-dock", "Anker dock") + '<br><span class="sub">TB bus 0, receptacle 1</span>', "Anker TB5 dock, fw 64.1", "80 Gb/s (TB5, 120 Gb/s boost)", "120 Gb/s with both monitors on, 80 Gb/s without · USB4 v2 mode", OK),
+            ("MacBook → " + L("anker-dock", "Anker dock") + '<br><span class="sub">TB bus 2, receptacle 3</span>', "Anker TB5 dock, fw 64.1", "80 Gb/s (TB5, 120 Gb/s boost)", "80 Gb/s on November 20 with both monitors on (120 Gb/s boost seen November 16) · USB4 v2 mode", OK),
             (L("displays", "KTC H24T7") + ' · main display<br><span class="sub">Dock USB-C, USB-C to HDMI cable</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
             (L("displays", "KTC H24T7 #2") + '<br><span class="sub">Dock USB-C, USB-C to HDMI cable</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
             ('Anker → USB 3 hub<br><span class="sub">Inside the dock</span>', "Intel 8087:5787 → VIA VL822 ×2", "10 Gb/s", "10 Gb/s", OK),
@@ -238,7 +240,7 @@ hub = "\n".join([
             ('Anker → Lenovo camera<br><span class="sub">USB 2 hub chain</span>', "Fresco 1d5c:5801 → VIA 2822 ×2", "USB 2", "480 Mb/s", OK),
             ("MacBook → " + L("sandisk-backup", "SanDisk SSD 1 TB") + '<br><span class="sub">Own MacBook port</span>', "SanDisk 0781:5504", "10 Gb/s", "10 Gb/s", OK),
             ("MacBook → " + L("network", "home network") + '<br><span class="sub">en8, through the dock</span>', "Realtek 2.5GbE", "2.5 Gb/s", "2500Base-T full duplex", OK),
-            ('MacBook → Wi-Fi<br><span class="sub">en0</span>', "Wi-Fi 7", "—", "5 GHz ch 36, 80 MHz, 1080 Mb/s, −34 dBm", '<span class="sub">5 GHz</span>'),
+            ('MacBook → Wi-Fi<br><span class="sub">en0</span>', "Wi-Fi 7", "—", "6 GHz ch 37, 160 MHz, 2161 Mb/s, −39 dBm", '<span class="sub">6 GHz</span>'),
         ])),
     sec("Drive speeds", '<p class="note-t">8 GiB sequential, three runs each, write includes sync, read after a cache purge, no backup running. November 7, 2026.</p>',
         bars([
@@ -248,14 +250,14 @@ hub = "\n".join([
         ]),
         '<p class="note-t">The SanDisk is faster on its own port in both directions. The 990 PRO has since moved to the Mac mini, where the drive is called <a href="devices/data.html">DATA</a> and now sits in a Mokin USB4 enclosure.</p>'),
     sec("Storage", table(["Volume", "Drive", "Used", "Size"], [
-        ("Macintosh HD", "Apple 1 TB internal (AP1024Z)", "336 GiB", "926 GiB"),
-        (L("sandisk-backup", "SANDISK TIMEMACHINE"), "SanDisk SSD 1 TB, own MacBook port, Time Machine", "366 GiB", "931 GiB"),
-        (L("seagate-backup", "MacBook Backup"), "Seagate Expansion 2 TB hard drive, on the dock, Time Machine", "701 GiB", "1.8 TiB"),
-    ], num=(2, 3)), '<p class="note-t">Latest Time Machine backup: November 8, 2026 at 4:43 PM.</p>'),
+        ("Macintosh HD", "Apple 1 TB internal (AP1024Z)", "364 GiB", "926 GiB"),
+        (L("sandisk-backup", "SANDISK TIMEMACHINE"), "SanDisk SSD 1 TB, own MacBook port, Time Machine", "477 GiB", "931 GiB"),
+        (L("seagate-backup", "MacBook Backup"), "Seagate Expansion 2 TB hard drive, on the dock, Time Machine", "780 GiB", "1.8 TiB"),
+    ], num=(2, 3)), '<p class="note-t">Used space read November 20, 2026.</p>'),
     sec("Network", table(["Interface", "Link", "Down", "Up", "Idle ping"], [
         ("en8 · wired", "2.5GbE through the dock, default route", "1.47 Gb/s", "1.98 Gb/s", "10.9 ms"),
-        ("en0 · Wi-Fi 7", "5 GHz, 80 MHz", "161.8 Mb/s", "214.6 Mb/s", "14.3 ms"),
-    ], num=(2, 3, 4)), f'<p class="note-t">Measured {READ}. Details and earlier tests are on the ' + L("network", "network page") + '.</p>'),
+        ("en0 · Wi-Fi 7", "5 GHz, 80 MHz on Nov 8; now 6 GHz, 160 MHz", "161.8 Mb/s", "214.6 Mb/s", "14.3 ms"),
+    ], num=(2, 3, 4)), f'<p class="note-t">Measured {READ}; not re-run since the Wi-Fi moved to 6 GHz. Details and earlier tests are on the ' + L("network", "network page") + '.</p>'),
     '<section><h2>Worth remembering</h2><div class="callouts">'
     '<div class="callout"><h3>The dock\'s USB is one 10 Gb/s lane</h3><p>Every USB socket, the Ethernet port and the card reader share it. Fast drives belong on the MacBook\'s own ports or the dock\'s Thunderbolt ports.</p></div>'
     '<div class="callout"><h3>Two computers, no KVM</h3><p>Each monitor has both Macs plugged in at once: the Mac mini on DisplayPort, this MacBook on HDMI through USB-C to HDMI cables from the dock. The monitor\'s input button picks the computer.</p></div>'
@@ -263,6 +265,7 @@ hub = "\n".join([
     '<div class="callout"><h3>Video lifts the link to 120 Gb/s</h3><p>With both monitors on, the dock cable runs at 120 Gb/s, Thunderbolt 5\'s boost mode that gives more lanes to the direction video travels. With the monitors switched to the Mac mini it drops back to 80 Gb/s.</p></div>'
     '<div class="callout"><h3>What moved to the Mac mini</h3><p>The Wavlink dock and the Samsung 990 PRO both live on the <a href="mac-mini.html">Mac mini</a> now. The ACASIS enclosure that held the 990 PRO is a spare.</p></div>'
     '</div></section>',
+    sec("Desk layout PDFs", '<p class="note-t">Printable layouts of both desks, read from macOS on November 20, 2026: a port diagram, every negotiated link, storage, measured speeds and notes.</p>', '<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>Mac mini desk layout</b><span>Two monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with five drives, and today\'s fio and network tests.</span><span class="go">Open PDF &rarr;</span></a><a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on its Anker Thunderbolt 5 dock, with both monitors, the backups and the network.</span><span class="go">Open PDF &rarr;</span></a></div>'),
     sec("Next to the Mac mini", table(["", "Mac Work Book Pro", "Home Mac mini"], [
         ("Chip", "Apple M5 Pro", "Apple M6"),
         ("CPU", "18 cores: 6 Super, 12 Performance", "12 cores: 2 Super, 4 Performance, 6 Efficiency"),
@@ -273,7 +276,7 @@ hub = "\n".join([
         ("Dock", "Anker Prime, Thunderbolt 5", "Wavlink WL-UTD58, Thunderbolt 5 at 40 Gb/s"),
     ]), '<p class="note-t">"Performance" is the lower of two tiers on the M5 Pro but the middle of three on the M6.</p>'),
 ])
-hero = (f'<div class="eyebrow">Read {READ}, displays November 16 · Mac17,9</div>\n'
+hero = (f'<div class="eyebrow">Read {READ20} · Mac17,9</div>\n'
         '<h1>Mac Work Book <em>Pro*</em></h1>\n'
         '<p class="lede">An Apple M5 Pro MacBook Pro with 48 GB of memory at the home desk. One Thunderbolt 5 cable to an Anker dock carries power, both monitors, the wired network, a backup drive and the camera.</p>\n'
         '<p class="lede" style="font-size:14px">* I wish I owned this. Alas, it\'s on loan from work.</p>\n'
