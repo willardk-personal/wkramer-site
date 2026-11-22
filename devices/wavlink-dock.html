@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Wavlink WL-UTD58 · Mac mini setup</title><meta name="description" content="Self-powered Thunderbolt 5 dock. Carries three SSDs, the Time Machine disk, a LAN adapter and the Blu-ray burner on one cable.">
+<title>Wavlink WL-UTD58 · Mac mini setup</title><meta name="description" content="Self-powered Thunderbolt 5 dock. Carries the main display, two SSDs, the Time Machine disk, a LAN adapter and the Blu-ray burner on one cable.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../site.css">
@@ -10,9 +10,9 @@
 <div class="hero">
 <div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Dock / <b>40 Gb/s uplink</b></div>
 <h1>Wavlink WL-UTD58 <em>Thunderbolt 5 dock</em></h1>
-<p class="lede">The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R2, with both drive enclosures on its 15 W Thunderbolt ports and the front 30 W one charging and syncing an iPad mini or iPhone.</p>
+<p class="lede">The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R2, with the main display and Media's drive enclosure on two of its Thunderbolt ports, and the front 30 W one charging and syncing an iPad mini or iPhone.</p>
 <div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R2</span><i></i></div><div class="hop me"><b>Wavlink WL-UTD58</b><span>USB4 v2 mode · fw 64.64</span></div></div>
-<div class="stats"><div class="stat"><b>40<small>Gb/s</small></b><span>link to the mini</span></div><div class="stat"><b>3 / 3<small></small></b><span>Thunderbolt ports in use</span></div><div class="stat"><b>~4.0<small>GB/s</small></b><span>combined drive ceiling</span></div><div class="stat"><b>7<small></small></b><span>devices behind it</span></div></div>
+<div class="stats"><div class="stat"><b>40<small>Gb/s</small></b><span>link to the mini</span></div><div class="stat"><b>1.5<small>GB/s</small></b><span>write ceiling, beside video</span></div><div class="stat"><b>3.6<small>GB/s</small></b><span>Media read</span></div><div class="stat"><b>7<small></small></b><span>devices it serves</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
 <section><h2>What it is</h2>
@@ -31,8 +31,8 @@
 </section>
 <section><h2>What is plugged into it</h2>
 <div class="scroll"><table class=""><thead><tr><th>Dock port</th><th>Device</th><th>Link</th><th>Carried by</th></tr></thead><tbody>
-<tr><td>Thunderbolt (15 W)</td><td><a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure</td><td>40 Gb/s USB4</td><td>Thunderbolt</td></tr>
-<tr><td>Thunderbolt (15 W)</td><td><a href="data.html">DATA</a> · Samsung 990 PRO in a second Mokin enclosure</td><td>40 Gb/s USB4</td><td>Thunderbolt</td></tr>
+<tr><td>Thunderbolt</td><td><a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure</td><td>40 Gb/s USB4</td><td>Thunderbolt</td></tr>
+<tr><td>Thunderbolt</td><td><a href="ktc-h24t7.html">KTC H24T7</a> · main display, USB-C to DP cable</td><td>DisplayPort, 4 lanes HBR3</td><td>Thunderbolt, tunneled</td></tr>
 <tr><td>Thunderbolt (front, 30 W)</td><td>iPad mini or iPhone · charging at the full 30 W (15 V / 2 A USB-C PD)</td><td>10 Gb/s USB 3, over USB4</td><td>USB 3 hub, tunneled</td></tr>
 <tr><td>USB-A (orange)</td><td><a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure</td><td>10 Gb/s USB</td><td>USB 3 hub, two hubs down</td></tr>
 <tr><td>USB 3 hub</td><td><a href="backup-hdd.html">Backup</a> · WD Elements 4 TB</td><td>5 Gb/s</td><td>USB 3 hub</td></tr>
@@ -42,14 +42,12 @@
 <p class="note-t">The dock's four USB-A ports are rated 10 Gb/s each, but everything USB shares one 10 Gb/s link inside the dock: the Scratch Disk, the Backup drive, the LAN adapter and the card reader. The front 30 W port is the only 30 W port, so it is the charging spot for the iPad mini or iPhone. With an 80 Gb/s cable the iPad links at 10 Gb/s, its top speed, and its data joins that same shared USB link. The iPad reports a USB-C PD charger offering 5 V / 3 A, 9 V / 3 A and 15 V / 2 A, and it picks 15 V / 2 A, the full 30 W.</p>
 </section>
 <section><h2>One shared uplink</h2>
-<p>Everything behind the dock shares the single 40 Gb/s link to the mini. Run alone, each NVMe drive reads about 3.8 GB/s. Run together, they split a ceiling of about 4 GB/s.</p>
-<div class="bars"><div class="bar b-tb"><div class="lab">DATA alone<small>990 PRO</small></div><div class="t w"><i style="width:74.2%"></i><span>3,672 <em>MB/s write</em></span></div><div class="t r"><i style="width:77.5%"></i><span>3,835 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">Media alone<small>P310</small></div><div class="t w"><i style="width:60.5%"></i><span>2,995 <em>MB/s write</em></span></div><div class="t r"><i style="width:77.1%"></i><span>3,816 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">DATA, all at once<small>990 PRO</small></div><div class="t w"><i style="width:36.8%"></i><span>1,822 <em>MB/s write</em></span></div><div class="t r"><i style="width:34.0%"></i><span>1,684 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">Media, all at once<small>P310</small></div><div class="t w"><i style="width:29.8%"></i><span>1,477 <em>MB/s write</em></span></div><div class="t r"><i style="width:33.9%"></i><span>1,677 <em>MB/s read</em></span></div></div>
-<div class="bar b-usb"><div class="lab">Scratch, all at once<small>USB 10 Gb/s</small></div><div class="t w"><i style="width:15.3%"></i><span>756 <em>MB/s write</em></span></div><div class="t r"><i style="width:14.1%"></i><span>697 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">Dock total<small>three drives together</small></div><div class="t w"><i style="width:81.9%"></i><span>4,055 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>4,059 <em>MB/s read</em></span></div></div></div>
-<p class="note-t">fio, 8 GB direct I/O, November 20, 2026. No errors, peak drive temperature 62 °C (the P310). The total has held near 4 GB/s in every run: 4159 MB/s write and 4058 read on November 13, just after DATA moved to its Mokin enclosure, and 3990 and 4070 on November 11, with DATA still in the ACASIS. A two-drive run on November 7 gave the same ceiling: 3770 MB/s write and 3870 read combined, within 0.3% over three passes.</p>
+<p>Everything behind the dock shares the single 40 Gb/s link to the mini. Since November 22 that includes the main display. Video travels outbound, the same direction as drive writes, and is reserved first: Media's writes fell from about 3 to 1.5 GB/s, while its reads lost about 5%.</p>
+<div class="bars"><div class="bar b-tb"><div class="lab">Media, beside the display<small>Nov 22, alone</small></div><div class="t w"><i style="width:30.2%"></i><span>1,481 <em>MB/s write</em></span></div><div class="t r"><i style="width:73.6%"></i><span>3,608 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Media, beside the display<small>Nov 22, DATA busy on its own port</small></div><div class="t w"><i style="width:30.3%"></i><span>1,486 <em>MB/s write</em></span></div><div class="t r"><i style="width:73.4%"></i><span>3,596 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Media, no display on the dock<small>Nov 22, before the swap</small></div><div class="t w"><i style="width:61.0%"></i><span>2,989 <em>MB/s write</em></span></div><div class="t r"><i style="width:77.9%"></i><span>3,818 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Two NVMe drives on the dock<small>Nov 22, before the swap, total</small></div><div class="t w"><i style="width:81.7%"></i><span>4,006 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>4,020 <em>MB/s read</em></span></div></div></div>
+<p class="note-t">fio, 8 GB direct I/O, median of three, November 22, 2026. No errors. With no display on it, the dock has topped out near 4 GB/s in every run: 4006 MB/s write and 4020 read just before the swap, 4055 and 4059 on November 20 with the Scratch Disk added, and 3770 and 3870 on November 7.</p>
 </section>
 <section><h2>Why the dock is here</h2>
 <p>The mini runs one bus-powered NVMe enclosure reliably, not two. On October 19 I tried every arrangement of the two enclosures on the mini's own ports:</p>
@@ -58,12 +56,12 @@
 <tr><td>ACASIS first, Mokin second</td><td>ACASIS came up at 40 Gb/s. The Mokin's drive failed to attach, mounted unwritable, then dropped.</td></tr>
 <tr><td>Mokin alone</td><td>Stable at 40 Gb/s.</td></tr>
 </tbody></table></div>
-<p>Whichever enclosure connected second lost. Each port supplies about 15 W of bus power, and that is the likely cause, though the logs cannot prove it: no PCIe or NVMe errors, and the overcurrent counters stayed at 0. A dock with its own power supply fixes it. Both enclosures now run behind the Wavlink at 40 Gb/s with no drops. Since November 13 both NVMe drives are in Mokin enclosures.</p>
+<p>Whichever enclosure connected second lost. Each port supplies about 15 W of bus power, and that is the likely cause, though the logs cannot prove it: no PCIe or NVMe errors, and the overcurrent counters stayed at 0. A dock with its own power supply fixes it: both enclosures ran behind the Wavlink at 40 Gb/s with no drops until November 22. Now DATA is the one enclosure the mini powers, and Media stays on the dock's power.</p>
 </section>
-<section><h2>Keep monitors off it</h2>
-<p>DisplayPort video reserves outbound Thunderbolt bandwidth, the same direction drive writes use. With the KTC monitor (1440p at 180 Hz) on the dock, writes to the NVMe drives capped near 1.5 GB/s. With the monitor on the mini's own port, they reach about 3 GB/s. Reads were barely affected. Both monitors now plug into the mini directly.</p>
+<section><h2>Why a monitor is on it</h2>
+<p>It frees one of the mini's three Thunderbolt ports. DATA took that port and now runs at full speed whatever the dock is doing, so the two NVMe drives together went from about 4.0 GB/s each way to 5.1 write and 7.5 read. The cost is Media's write speed, which matters little for a streaming library. The main screen also goes dark if the dock disconnects.</p>
 </section>
-<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 20, 2026.</p>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 22, 2026.</p>
 <div class="pager"><a href="home-network.html">&larr; Home network</a><a href="../mac-mini.html">All devices</a><a href="media.html">Media &rarr;</a></div>
 </main>
 <footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>

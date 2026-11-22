@@ -8,27 +8,27 @@
 <div class="mast"><div class="wrap">
 <nav><a class="brand" href="index.html">Willard Kramer</a><a href="index.html">About</a><a href="mac-mini.html" aria-current="page">Mac mini setup</a><a href="macbook-pro.html">Mac Work Book Pro</a><a href="dev-env.html">Dev environment</a><a href="articles.html">Articles</a></nav>
 <div class="hero">
-<div class="eyebrow">Checked November 20, 2026 · Mac18,5</div>
+<div class="eyebrow">Checked November 22, 2026 · Mac18,5</div>
 <h1>Mac mini <em>desk setup</em></h1>
 <p class="lede">My play toy: an Apple M6 Mac mini, what is plugged into it, the chip inside each device, and the speed every link actually runs at.</p>
-<div class="stats"><div class="stat"><b>40<small>Gb/s</small></b><span>dock uplink</span></div><div class="stat"><b>~4.0<small>GB/s</small></b><span>drives behind the dock, combined</span></div><div class="stat"><b>6<small>drives</small></b><span>10 TB in all</span></div><div class="stat"><b>180 + 180<small>Hz</small></b><span>two displays</span></div><div class="stat"><b>0<small>errors</small></b><span>in the Nov 20 load tests</span></div></div>
+<div class="stats"><div class="stat"><b>40<small>Gb/s</small></b><span>dock uplink</span></div><div class="stat"><b>5.1 / 7.5<small>GB/s</small></b><span>two NVMe drives at once, write / read</span></div><div class="stat"><b>6<small>drives</small></b><span>10 TB in all</span></div><div class="stat"><b>180 + 180<small>Hz</small></b><span>two displays</span></div><div class="stat"><b>0<small>errors</small></b><span>in the Nov 22 drive tests</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
 <section><h2>What is plugged into what</h2><figure class="wiring"><div class="dscroll"><svg viewBox="0 0 1160 830" role="img" aria-labelledby="dgT">
-        <title id="dgT">Port map: the Mac mini drives two displays, the home network, the SSD BACKUP drive on a front USB-C port, and the Wavlink dock, which carries three SSDs, the Time Machine hard drive, a LAN adapter and a Blu-ray burner.</title>
+        <title id="dgT">Port map: the Mac mini drives a second display, the DATA drive, the home network, the SSD BACKUP drive on a front USB-C port, and the Wavlink dock, which carries the main display, two SSDs, the Time Machine hard drive, a LAN adapter and a Blu-ray burner.</title>
 
         <!-- links -->
         <line x1="97" y1="260" x2="97" y2="148" class="ln l-dp"/>
         <text x="108" y="200" class="lbl c-dp">DisplayPort</text>
         <text x="108" y="216" class="lbl2">4 lanes · HBR3</text>
 
-        <line x1="272" y1="260" x2="272" y2="148" class="ln l-dp"/>
-        <text x="283" y="200" class="lbl c-dp">DisplayPort</text>
-        <text x="283" y="216" class="lbl2">4 lanes · HBR3</text>
+        <line x1="272" y1="260" x2="272" y2="148" class="ln l-tb"/>
+        <text x="283" y="200" class="lbl c-tb">40 Gb/s</text>
+        <text x="283" y="216" class="lbl2">USB4</text>
 
         <line x1="300" y1="330" x2="430" y2="330" class="ln l-tb"/>
         <text x="365" y="318" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
-        <text x="365" y="350" class="lbl2" text-anchor="middle">USB4 v2 mode</text>
+        <text x="365" y="350" class="lbl2" text-anchor="middle">USB4 v2 + video</text>
 
         <line x1="300" y1="410" x2="352" y2="410" class="ln l-free"/>
         <text x="358" y="414" class="lbl2">free</text>
@@ -43,8 +43,9 @@
 
         <line x1="638" y1="181" x2="760" y2="181" class="ln l-tb"/>
         <text x="699" y="172" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
-        <line x1="638" y1="257" x2="760" y2="257" class="ln l-tb"/>
-        <text x="699" y="248" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
+        <line x1="638" y1="257" x2="760" y2="257" class="ln l-dp"/>
+        <text x="699" y="248" class="lbl c-dp" text-anchor="middle">DP video</text>
+        <text x="699" y="276" class="lbl2" text-anchor="middle">HBR3 ×4</text>
         <line x1="638" y1="333" x2="760" y2="333" class="ln l-u10"/>
         <text x="699" y="324" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
         <text x="699" y="352" class="lbl2" text-anchor="middle">front 30W</text>
@@ -57,20 +58,20 @@
         <line x1="638" y1="737" x2="760" y2="737" class="ln l-u10"/>
         <text x="699" y="728" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
 
-        <!-- displays -->
+        <!-- top: left display on R1, DATA on R4 -->
         <rect x="15" y="30" width="165" height="118" rx="8" class="node"/>
-        <text x="28" y="56" class="t1">KTC H24T7</text>
-        <text x="28" y="76" class="t2">Main · 24in 1440p IPS</text>
-        <text x="28" y="94" class="t2">2560×1440 @ 180Hz</text>
-        <text x="28" y="112" class="t2">HiDPI, 5K backing, VRR</text>
+        <text x="28" y="56" class="t1">KTC H24T7 #2</text>
+        <text x="28" y="76" class="t2">Second (left) · 1440p</text>
+        <text x="28" y="94" class="t2">180Hz, VRR</text>
+        <text x="28" y="112" class="t2">Looks like 2048×1152</text>
         <text x="28" y="132" class="tm">USB-C→DP cable</text>
 
         <rect x="190" y="30" width="165" height="118" rx="8" class="node"/>
-        <text x="203" y="56" class="t1">KTC H24T7 #2</text>
-        <text x="203" y="76" class="t2">Second · 24in 1440p IPS</text>
-        <text x="203" y="94" class="t2">2560×1440 @ 180Hz</text>
-        <text x="203" y="112" class="t2">HiDPI, 5K backing, VRR</text>
-        <text x="203" y="132" class="tm">USB-C→DP cable</text>
+        <text x="203" y="56" class="t1">DATA · 990 PRO</text>
+        <text x="203" y="76" class="t2">Samsung 1TB · Gen4 x4</text>
+        <text x="203" y="94" class="t2">Mokin, ASMedia 246x</text>
+        <text x="203" y="112" class="t2">Straight into the mini</text>
+        <text x="203" y="132" class="tm">powered by the mini</text>
 
         <!-- mac mini -->
         <rect x="30" y="260" width="270" height="220" rx="14" class="node mini"/>
@@ -95,7 +96,7 @@
 
         <rect x="190" y="560" width="165" height="110" rx="8" class="node"/>
         <text x="203" y="586" class="t1">Wireless</text>
-        <text x="203" y="606" class="t2">Wi-Fi 7 · 5GHz · 80MHz</text>
+        <text x="203" y="606" class="t2">Wi-Fi 7 · 6GHz · 160MHz</text>
         <text x="203" y="624" class="t2">MX Keys S keyboard</text>
         <text x="203" y="642" class="t2">MX Anywhere 3S mouse</text>
 
@@ -117,8 +118,8 @@
         <text x="460" y="176" class="t1">Thunderbolt ×3</text>
         <text x="460" y="196" class="t2">40 Gb/s each</text>
         <text x="460" y="214" class="t2">(TB5 ports, host is TB4)</text>
-        <text x="460" y="240" class="t2">Both Mokins: 15W ports</text>
-        <text x="460" y="258" class="t2"> </text>
+        <text x="460" y="240" class="t2">Media and the main KTC</text>
+        <text x="460" y="258" class="t2">Video caps writes: ~1.5 GB/s</text>
         <text x="460" y="290" class="t2">Front 30W port: iPad mini</text>
         <text x="460" y="308" class="t2">or iPhone, 30W charge + sync</text>
 
@@ -135,8 +136,8 @@
         <text x="774" y="196" class="t2">Plex and Apple TV source · Mokin, ASMedia 246x · Gen4 x4</text>
 
         <rect x="760" y="226" width="385" height="62" rx="8" class="node"/>
-        <text x="774" y="252" class="t1">Samsung 990 PRO 1TB · DATA</text>
-        <text x="774" y="272" class="t2">Mokin, ASMedia 246x · Gen4 x4 · 15W port</text>
+        <text x="774" y="252" class="t1">KTC H24T7 · main (right)</text>
+        <text x="774" y="272" class="t2">1440p @ 180Hz, VRR · looks like 2048×1152 · USB-C to DP cable</text>
 
         <rect x="760" y="302" width="385" height="62" rx="8" class="node"/>
         <text x="774" y="328" class="t1">iPad mini / iPhone</text>
@@ -158,10 +159,10 @@
         <rect x="760" y="630" width="385" height="62" rx="8" class="node"/>
         <text x="774" y="656" class="t1">Blu-ray / DVD burner</text>
         <text x="774" y="676" class="t2">Matshita UJ260 · Initio slim-drive bridge</text>
-      <a href="devices/ktc-h24t7.html" class="b-dp" aria-label="KTC H24T7"><rect class="hit" x="15" y="30" width="165" height="118" rx="8"/></a><a href="devices/ktc-h24t7-hdmi.html" class="b-dp" aria-label="KTC H24T7 #2"><rect class="hit" x="190" y="30" width="165" height="118" rx="8"/></a><a href="devices/ssd-backup.html" class="b-usb" aria-label="SSD BACKUP"><rect class="hit" x="15" y="700" width="340" height="106" rx="8"/></a><a href="devices/wavlink-dock.html" class="b-tb" aria-label="Wavlink WL-UTD58"><rect class="hit" x="430" y="40" width="230" height="100" rx="8"/></a><a href="devices/media.html" class="b-tb" aria-label="Media"><rect class="hit" x="760" y="150" width="385" height="62" rx="8"/></a><a href="devices/data.html" class="b-tb" aria-label="DATA"><rect class="hit" x="760" y="226" width="385" height="62" rx="8"/></a><a href="devices/scratch-disk.html" class="b-usb" aria-label="Scratch Disk"><rect class="hit" x="760" y="706" width="385" height="62" rx="8"/></a><a href="devices/backup-hdd.html" class="b-usb5" aria-label="Backup"><rect class="hit" x="760" y="478" width="385" height="62" rx="8"/></a><a href="devices/lan-adapter.html" class="b-net" aria-label="Realtek 2.5G LAN"><rect class="hit" x="760" y="554" width="385" height="62" rx="8"/></a><a href="devices/blu-ray.html" class="b-usb2" aria-label="Blu-ray burner"><rect class="hit" x="760" y="630" width="385" height="62" rx="8"/></a><a href="devices/home-network.html" class="b-net" aria-label="Home network"><rect class="hit" x="15" y="560" width="165" height="110" rx="8"/></a></svg></div><figcaption><span class="key b-tb"><i></i>Thunderbolt / USB4 40 Gb/s</span><span class="key b-dp"><i></i>DisplayPort</span><span class="key b-usb"><i></i>USB 10 Gb/s</span><span class="key b-usb5"><i></i>USB 5 Gb/s</span><span class="key b-usb2"><i></i>USB 2</span><span class="key b-net"><i></i>Ethernet</span><span>R1, R2 and R4 are the numbers macOS gives the mini's Thunderbolt ports. Select a device to open its page.</span></figcaption></figure></section>
-<section><h2>The devices</h2><p class="note-t">Each one has its own page: what it is, the chip inside, the path its signal takes from the mini, and what it measured.</p><div class="grp">Dock</div><div class="grid"><a class="card b-tb" href="devices/wavlink-dock.html"><span class="spd">40 Gb/s uplink</span><b>Wavlink WL-UTD58</b><span>Self-powered Thunderbolt 5 dock. Carries three SSDs, the Time Machine disk, a LAN adapter and the Blu-ray burner on one cable.</span><span class="go">Details &rarr;</span></a></div>
+      <a href="devices/ktc-h24t7.html" class="b-dp" aria-label="KTC H24T7"><rect class="hit" x="760" y="226" width="385" height="62" rx="8"/></a><a href="devices/ktc-h24t7-hdmi.html" class="b-dp" aria-label="KTC H24T7 #2"><rect class="hit" x="15" y="30" width="165" height="118" rx="8"/></a><a href="devices/ssd-backup.html" class="b-usb" aria-label="SSD BACKUP"><rect class="hit" x="15" y="700" width="340" height="106" rx="8"/></a><a href="devices/wavlink-dock.html" class="b-tb" aria-label="Wavlink WL-UTD58"><rect class="hit" x="430" y="40" width="230" height="100" rx="8"/></a><a href="devices/media.html" class="b-tb" aria-label="Media"><rect class="hit" x="760" y="150" width="385" height="62" rx="8"/></a><a href="devices/data.html" class="b-tb" aria-label="DATA"><rect class="hit" x="190" y="30" width="165" height="118" rx="8"/></a><a href="devices/scratch-disk.html" class="b-usb" aria-label="Scratch Disk"><rect class="hit" x="760" y="706" width="385" height="62" rx="8"/></a><a href="devices/backup-hdd.html" class="b-usb5" aria-label="Backup"><rect class="hit" x="760" y="478" width="385" height="62" rx="8"/></a><a href="devices/lan-adapter.html" class="b-net" aria-label="Realtek 2.5G LAN"><rect class="hit" x="760" y="554" width="385" height="62" rx="8"/></a><a href="devices/blu-ray.html" class="b-usb2" aria-label="Blu-ray burner"><rect class="hit" x="760" y="630" width="385" height="62" rx="8"/></a><a href="devices/home-network.html" class="b-net" aria-label="Home network"><rect class="hit" x="15" y="560" width="165" height="110" rx="8"/></a></svg></div><figcaption><span class="key b-tb"><i></i>Thunderbolt / USB4 40 Gb/s</span><span class="key b-dp"><i></i>DisplayPort</span><span class="key b-usb"><i></i>USB 10 Gb/s</span><span class="key b-usb5"><i></i>USB 5 Gb/s</span><span class="key b-usb2"><i></i>USB 2</span><span class="key b-net"><i></i>Ethernet</span><span>R1, R2 and R4 are the numbers macOS gives the mini's Thunderbolt ports. Select a device to open its page.</span></figcaption></figure></section>
+<section><h2>The devices</h2><p class="note-t">Each one has its own page: what it is, the chip inside, the path its signal takes from the mini, and what it measured.</p><div class="grp">Dock</div><div class="grid"><a class="card b-tb" href="devices/wavlink-dock.html"><span class="spd">40 Gb/s uplink</span><b>Wavlink WL-UTD58</b><span>Self-powered Thunderbolt 5 dock. Carries the main display, two SSDs, the Time Machine disk, a LAN adapter and the Blu-ray burner on one cable.</span><span class="go">Details &rarr;</span></a></div>
 <div class="grp">Storage</div><div class="grid"><a class="card b-tb" href="devices/media.html"><span class="spd">40 Gb/s · Gen4 x4</span><b>Media</b><span>Crucial P310 2 TB in a fanless Mokin USB4 enclosure. The Plex and Apple TV streaming source.</span><span class="go">Details &rarr;</span></a><a class="card b-tb" href="devices/data.html"><span class="spd">40 Gb/s · Gen4 x4</span><b>DATA</b><span>Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure. The fastest drive here for small random work.</span><span class="go">Details &rarr;</span></a><a class="card b-usb" href="devices/scratch-disk.html"><span class="spd">10 Gb/s USB</span><b>Scratch Disk</b><span>512 GB SSD in a Ugreen USB enclosure. Temp files and working space, kept off the internal drive.</span><span class="go">Details &rarr;</span></a><a class="card b-usb" href="devices/ssd-backup.html"><span class="spd">10 Gb/s USB</span><b>SSD BACKUP</b><span>WD Green SN350 2 TB in a UGREEN USB enclosure on the mini's front port. Time Machine copy of Media.</span><span class="go">Details &rarr;</span></a><a class="card b-usb5" href="devices/backup-hdd.html"><span class="spd">5 Gb/s USB</span><b>Backup</b><span>WD Elements 4 TB hard drive. The main Time Machine disk.</span><span class="go">Details &rarr;</span></a></div>
-<div class="grp">Displays</div><div class="grid"><a class="card b-dp" href="devices/ktc-h24t7.html"><span class="spd">DisplayPort · 180 Hz</span><b>KTC H24T7</b><span>24-inch 1440p Fast IPS at 180 Hz with VRR, on DisplayPort straight from the mini.</span><span class="go">Details &rarr;</span></a><a class="card b-dp" href="devices/ktc-h24t7-hdmi.html"><span class="spd">DisplayPort · 180 Hz</span><b>KTC H24T7 #2</b><span>A second 24-inch 1440p KTC, at 180 Hz with VRR on DisplayPort from the mini's port R4.</span><span class="go">Details &rarr;</span></a><a class="card b-hdmi" href="devices/dell-s2425hs.html"><span class="spd">Not connected</span><b>Dell S2425HS</b><span>24-inch 1080p IPS at 100 Hz. Unplugged from the mini on November 15, 2026, replaced by a second KTC.</span><span class="go">Details &rarr;</span></a></div>
+<div class="grp">Displays</div><div class="grid"><a class="card b-dp" href="devices/ktc-h24t7.html"><span class="spd">DisplayPort · 180 Hz</span><b>KTC H24T7</b><span>24-inch 1440p Fast IPS at 180 Hz with VRR, on DisplayPort through the Wavlink dock.</span><span class="go">Details &rarr;</span></a><a class="card b-dp" href="devices/ktc-h24t7-hdmi.html"><span class="spd">DisplayPort · 180 Hz</span><b>KTC H24T7 #2</b><span>A second 24-inch 1440p KTC, at 180 Hz with VRR on DisplayPort from the mini's port R1.</span><span class="go">Details &rarr;</span></a><a class="card b-hdmi" href="devices/dell-s2425hs.html"><span class="spd">Not connected</span><b>Dell S2425HS</b><span>24-inch 1080p IPS at 100 Hz. Unplugged from the mini on November 15, 2026, replaced by a second KTC.</span><span class="go">Details &rarr;</span></a></div>
 <div class="grp">Network</div><div class="grid"><a class="card b-net" href="devices/home-network.html"><span class="spd">2.5 Gb/s Ethernet</span><b>Home network</b><span>The mini's built-in 2.5 Gb Ethernet into an ACASIS 2.5 Gb switch. 2.30 Gb/s down and 2.31 Gb/s up in the last test.</span><span class="go">Details &rarr;</span></a></div>
 <div class="grp">Other</div><div class="grid"><a class="card b-net" href="devices/lan-adapter.html"><span class="spd">5 Gb/s USB · idle</span><b>Realtek 2.5G LAN</b><span>Realtek RTL8156 2.5 Gb Ethernet on the dock's USB hub. Present but not in use.</span><span class="go">Details &rarr;</span></a><a class="card b-usb2" href="devices/blu-ray.html"><span class="spd">480 Mb/s USB 2</span><b>Blu-ray burner</b><span>Matshita BD-MLT UJ260 slim Blu-ray and DVD burner on the dock's USB 2 side.</span><span class="go">Details &rarr;</span></a></div>
 </section>
@@ -169,24 +170,24 @@
 <div class="scroll"><table class="spec"><tbody>
 <tr><td>Model</td><td>Mac mini (Mac18,5), 2026</td></tr>
 <tr><td>Chip</td><td>Apple M6: 12-core CPU (2 Super, 4 Performance, 6 Efficiency), 12-core GPU</td></tr>
-<tr><td>Memory and storage</td><td>16 GB, 512 GB internal SSD (275 GB used)</td></tr>
+<tr><td>Memory and storage</td><td>16 GB, 512 GB internal SSD (283 GB used)</td></tr>
 <tr><td>Software</td><td>macOS 27.2.1</td></tr>
-<tr><td>Back ports</td><td>3 Thunderbolt 4 (R1 and R4 monitors, R2 dock), HDMI (free), 2.5 Gb Ethernet</td></tr>
+<tr><td>Back ports</td><td>3 Thunderbolt 4 (R1 second monitor, R2 dock with the main monitor, R4 DATA), HDMI (free), 2.5 Gb Ethernet</td></tr>
 <tr><td>Front ports</td><td>2 USB-C at 10 Gb/s (one drive, one free), headphone jack</td></tr>
 <tr><td>Wireless</td><td>Wi-Fi 7, Bluetooth 6. MX Keys S keyboard and MX Anywhere 3S mouse over Bluetooth.</td></tr>
 </tbody></table></div>
 </section>
 <section><h2>Every link, against its maximum</h2>
-<p class="note-t">The most each port allows, next to what macOS reports as negotiated. Every connection runs at its top speed.</p>
+<p class="note-t">The most each port allows, next to what macOS reports as negotiated on November 22 (the iPad, last seen November 14). Every link negotiates its maximum. The main display does take part of the dock link, so writes behind it top out near 1.5 GB/s.</p>
 <div class="scroll"><table class=""><thead><tr><th>Connection</th><th>Chip</th><th>Port maximum</th><th>Negotiated</th><th></th></tr></thead><tbody>
 <tr><td>Mac mini → <a href="devices/wavlink-dock.html">Wavlink dock</a><br><span class="sub">Thunderbolt port R2</span></td><td>Wavlink TB5 controller</td><td>40 Gb/s (TB4 host)</td><td>40 Gb/s, USB4 v2 mode</td><td><span class="okk">✓ max</span></td></tr>
-<tr><td>Mac mini → <a href="devices/ktc-h24t7.html">KTC H24T7</a><br><span class="sub">Port R1, USB-C to DP cable</span></td><td>DP alt mode</td><td>DP 4 lanes, HBR3</td><td>4 lanes, top rate, no compression · 180 Hz, VRR</td><td><span class="okk">✓ max</span></td></tr>
-<tr><td>Mac mini → <a href="devices/ktc-h24t7-hdmi.html">KTC H24T7 #2</a><br><span class="sub">Port R4, USB-C to DP cable</span></td><td>DP alt mode</td><td>DP 4 lanes, HBR3</td><td>4 lanes, top rate, no compression · 180 Hz, VRR</td><td><span class="okk">✓ max</span></td></tr>
-<tr><td>Mac mini → <a href="devices/ssd-backup.html">SSD BACKUP</a><br><span class="sub">Front USB-C</span></td><td>Realtek RTL9210</td><td>10 Gb/s</td><td>10 Gb/s</td><td><span class="okk">✓ max</span></td></tr>
-<tr><td>Wavlink → Mokin enclosure</td><td>ASMedia 246x</td><td>40 Gb/s</td><td>40 Gb/s USB4</td><td><span class="okk">✓ max</span></td></tr>
-<tr><td>↳ <a href="devices/media.html">Media</a> · Crucial P310</td><td>Crucial P310 (QLC)</td><td>PCIe Gen4 x4</td><td>Gen4 x4, 16 GT/s</td><td><span class="okk">✓ max</span></td></tr>
-<tr><td>Wavlink → second Mokin enclosure</td><td>ASMedia 246x</td><td>40 Gb/s</td><td>40 Gb/s USB4</td><td><span class="okk">✓ max</span></td></tr>
+<tr><td>Mac mini → <a href="devices/ktc-h24t7-hdmi.html">KTC H24T7 #2</a><br><span class="sub">Left. Port R1, USB-C to DP cable</span></td><td>DP alt mode</td><td>DP 4 lanes, HBR3</td><td>4 lanes, top rate, no compression · 180 Hz, VRR</td><td><span class="okk">✓ max</span></td></tr>
+<tr><td>Mac mini → DATA's Mokin enclosure<br><span class="sub">Port R4, bus-powered</span></td><td>ASMedia 246x</td><td>40 Gb/s</td><td>40 Gb/s USB4</td><td><span class="okk">✓ max</span></td></tr>
 <tr><td>↳ <a href="devices/data.html">DATA</a> · Samsung 990 PRO</td><td>Samsung 990 PRO</td><td>PCIe Gen4 x4</td><td>Gen4 x4, 16 GT/s</td><td><span class="okk">✓ max</span></td></tr>
+<tr><td>Wavlink → <a href="devices/ktc-h24t7.html">KTC H24T7</a><br><span class="sub">Main, right. USB-C to DP cable on the dock</span></td><td>DP tunneled over R2</td><td>DP 4 lanes, HBR3</td><td>4 lanes, top rate, no compression · 180 Hz, VRR</td><td><span class="okk">✓ max</span></td></tr>
+<tr><td>Mac mini → <a href="devices/ssd-backup.html">SSD BACKUP</a><br><span class="sub">Front USB-C</span></td><td>Realtek RTL9210</td><td>10 Gb/s</td><td>10 Gb/s</td><td><span class="okk">✓ max</span></td></tr>
+<tr><td>Wavlink → Media's Mokin enclosure</td><td>ASMedia 246x</td><td>40 Gb/s</td><td>40 Gb/s USB4</td><td><span class="okk">✓ max</span></td></tr>
+<tr><td>↳ <a href="devices/media.html">Media</a> · Crucial P310</td><td>Crucial P310 (QLC)</td><td>PCIe Gen4 x4</td><td>Gen4 x4, 16 GT/s</td><td><span class="okk">✓ max</span></td></tr>
 <tr><td>Wavlink → iPad mini<br><span class="sub">Front 30 W port, 80 Gb/s cable, also used for the iPhone</span></td><td>Apple iPad mini</td><td>10 Gb/s (iPad USB 3)</td><td>10 Gb/s, over USB4</td><td><span class="okk">✓ max</span></td></tr>
 <tr><td>↳ iPad mini charging</td><td>USB-C PD</td><td>30 W</td><td>15 V / 2 A = 30 W</td><td><span class="okk">✓ max</span></td></tr>
 <tr><td>Wavlink → <a href="devices/scratch-disk.html">Scratch Disk</a></td><td>Realtek RTL9210</td><td>10 Gb/s (USB enclosure)</td><td>10 Gb/s</td><td><span class="okk">✓ max</span></td></tr>
@@ -197,28 +198,28 @@
 </tbody></table></div>
 </section>
 <section><h2>Drive speeds</h2>
-<p class="note-t">fio, 8 GB direct I/O, November 20, 2026. First each drive alone, then all of them at once.</p>
-<div class="bars"><div class="bar b-usb2"><div class="lab">Internal SSD<small>alone</small></div><div class="t w"><i style="width:73.2%"></i><span>5,781 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>6,473 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">DATA · 990 PRO<small>alone</small></div><div class="t w"><i style="width:46.5%"></i><span>3,672 <em>MB/s write</em></span></div><div class="t r"><i style="width:48.6%"></i><span>3,835 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">Media · P310<small>alone</small></div><div class="t w"><i style="width:37.9%"></i><span>2,995 <em>MB/s write</em></span></div><div class="t r"><i style="width:48.3%"></i><span>3,816 <em>MB/s read</em></span></div></div>
-<div class="bar b-usb"><div class="lab">SSD BACKUP · SN350<small>alone, read-only</small></div><div class="t w"><span><em>write not tested</em></span></div><div class="t r"><i style="width:11.0%"></i><span>866 <em>MB/s read</em></span></div></div>
-<div class="bar b-usb"><div class="lab">Scratch Disk<small>alone</small></div><div class="t w"><i style="width:9.3%"></i><span>737 <em>MB/s write</em></span></div><div class="t r"><i style="width:8.5%"></i><span>674 <em>MB/s read</em></span></div></div></div>
-<div class="bars"><div class="bar b-tb"><div class="lab">DATA · 990 PRO<small>all at once</small></div><div class="t w"><i style="width:22.5%"></i><span>1,822 <em>MB/s write</em></span></div><div class="t r"><i style="width:20.8%"></i><span>1,684 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">Media · P310<small>all at once</small></div><div class="t w"><i style="width:18.2%"></i><span>1,477 <em>MB/s write</em></span></div><div class="t r"><i style="width:20.7%"></i><span>1,677 <em>MB/s read</em></span></div></div>
-<div class="bar b-usb"><div class="lab">Scratch Disk<small>all at once</small></div><div class="t w"><i style="width:9.3%"></i><span>756 <em>MB/s write</em></span></div><div class="t r"><i style="width:8.6%"></i><span>697 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">Dock drives combined<small>DATA + Media + Scratch</small></div><div class="t w"><i style="width:50.1%"></i><span>4,055 <em>MB/s write</em></span></div><div class="t r"><i style="width:50.1%"></i><span>4,059 <em>MB/s read</em></span></div></div></div>
-<p class="note-t">Both charts share one scale. The three drives behind the dock hit its 40 Gb/s ceiling together, at about 4 GB/s. No errors, peak 62 °C (the P310). Within about 3% of the November 16 run. SSD BACKUP read 864 to 868 MB/s (the bar is the average); its first read after the 6:25 PM backup gave only 562, the same slow-first-pass effect seen before, so it is left out of the all-at-once chart.</p>
+<p class="note-t">fio, 8 GB direct I/O. DATA and Media are the median of three runs on November 22, before and after the swap. The other three drives were last tested November 20, on the old layout.</p>
+<div class="bars"><div class="bar b-usb2"><div class="lab">Internal SSD<small>alone, Nov 20</small></div><div class="t w"><i style="width:63.6%"></i><span>5,781 <em>MB/s write</em></span></div><div class="t r"><i style="width:71.2%"></i><span>6,473 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">DATA · 990 PRO<small>alone, on R4</small></div><div class="t w"><i style="width:40.4%"></i><span>3,677 <em>MB/s write</em></span></div><div class="t r"><i style="width:42.5%"></i><span>3,861 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Media · P310<small>alone, on the dock beside video</small></div><div class="t w"><i style="width:16.3%"></i><span>1,481 <em>MB/s write</em></span></div><div class="t r"><i style="width:39.7%"></i><span>3,608 <em>MB/s read</em></span></div></div>
+<div class="bar b-usb"><div class="lab">SSD BACKUP · SN350<small>alone, read-only, Nov 20</small></div><div class="t w"><span><em>write not tested</em></span></div><div class="t r"><i style="width:9.5%"></i><span>866 <em>MB/s read</em></span></div></div>
+<div class="bar b-usb"><div class="lab">Scratch Disk<small>alone, Nov 20</small></div><div class="t w"><i style="width:8.1%"></i><span>737 <em>MB/s write</em></span></div><div class="t r"><i style="width:7.4%"></i><span>674 <em>MB/s read</em></span></div></div></div>
+<div class="bars"><div class="bar b-tb"><div class="lab">DATA · 990 PRO<small>both running, after</small></div><div class="t w"><i style="width:40.2%"></i><span>3,658 <em>MB/s write</em></span></div><div class="t r"><i style="width:42.5%"></i><span>3,861 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Media · P310<small>both running, after</small></div><div class="t w"><i style="width:16.3%"></i><span>1,486 <em>MB/s write</em></span></div><div class="t r"><i style="width:39.5%"></i><span>3,596 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">DATA + Media<small>total, after the swap</small></div><div class="t w"><i style="width:56.6%"></i><span>5,144 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>7,456 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">DATA + Media<small>total, before, both on the dock</small></div><div class="t w"><i style="width:44.1%"></i><span>4,006 <em>MB/s write</em></span></div><div class="t r"><i style="width:44.2%"></i><span>4,020 <em>MB/s read</em></span></div></div></div>
+<p class="note-t">Both charts share one scale. With DATA on its own port the two drives together write 28% faster and read 85% faster. Media alone gave up about half its write speed (2,989 before) and 5% of its read speed (3,818 before) to the display. No errors, peak 58 °C in the swap test and 77 °C in a longer Media retest.</p>
 </section>
 <section><h2>Storage</h2>
 <div class="scroll"><table class=""><thead><tr><th>Volume</th><th>Drive</th><th class=n>Used</th><th class=n>Size</th><th class=n>Temp</th></tr></thead><tbody>
-<tr><td>Macintosh HD</td><td>Apple 512 GB internal</td><td class=n>275 GB</td><td class=n>494 GB</td><td class=n>35 °C</td></tr>
-<tr><td><a href="devices/media.html">Media</a></td><td>Crucial P310 2 TB, Mokin enclosure</td><td class=n>934 GB</td><td class=n>2.0 TB</td><td class=n>55 °C</td></tr>
-<tr><td><a href="devices/data.html">DATA</a></td><td>Samsung 990 PRO 1 TB, Mokin enclosure</td><td class=n>101 GB</td><td class=n>1.0 TB</td><td class=n>45 °C</td></tr>
-<tr><td><a href="devices/ssd-backup.html">SSD BACKUP</a></td><td>WD Green SN350 2 TB, UGREEN enclosure</td><td class=n>1.31 TB</td><td class=n>2.0 TB</td><td class=n>—</td></tr>
+<tr><td>Macintosh HD</td><td>Apple 512 GB internal</td><td class=n>283 GB</td><td class=n>494 GB</td><td class=n>35 °C</td></tr>
+<tr><td><a href="devices/media.html">Media</a></td><td>Crucial P310 2 TB, Mokin enclosure</td><td class=n>934 GB</td><td class=n>2.0 TB</td><td class=n>49 °C</td></tr>
+<tr><td><a href="devices/data.html">DATA</a></td><td>Samsung 990 PRO 1 TB, Mokin enclosure</td><td class=n>103 GB</td><td class=n>1.0 TB</td><td class=n>39 °C</td></tr>
+<tr><td><a href="devices/ssd-backup.html">SSD BACKUP</a></td><td>WD Green SN350 2 TB, UGREEN enclosure</td><td class=n>1.32 TB</td><td class=n>2.0 TB</td><td class=n>—</td></tr>
 <tr><td><a href="devices/scratch-disk.html">Scratch Disk</a></td><td>512 GB SSD, Ugreen enclosure</td><td class=n>69 GB</td><td class=n>512 GB</td><td class=n>—</td></tr>
 <tr><td><a href="devices/backup-hdd.html">Backup</a></td><td>WD Elements 4 TB hard drive</td><td class=n>2.7 TB</td><td class=n>4.0 TB</td><td class=n>—</td></tr>
 </tbody></table></div>
-<p class="note-t">Idle temperatures and used space, November 20, before the load tests. USB enclosures do not pass the drive's temperature through. Every volume last passed a file system check on November 16.</p>
+<p class="note-t">Idle temperatures and used space, November 22. USB enclosures do not pass the drive's temperature through. DATA and Media passed a file system check on November 22, the others on November 16.</p>
 </section>
 <section><h2>Network</h2>
 <div class="scroll"><table class=""><thead><tr><th>Interface</th><th>Link</th><th class=n>Down</th><th class=n>Up</th><th class=n>Idle ping</th></tr></thead><tbody>
@@ -227,7 +228,7 @@
 </tbody></table></div>
 <p class="note-t">Both measured November 20, 2026. Full details are on the <a href="devices/home-network.html">home network page</a>. The internet line is fine at about 2.3 Gb/s each way. Wi-Fi moved from 5 GHz to 6 GHz and roughly tripled, but it is still about a third of wired speed, so the mini stays on the cable.</p>
 </section>
-<section><h2>Worth remembering</h2><div class="callouts"><div class="callout attn"><h3>Eject before unplugging</h3><p>Unsafe shutdowns on record: P310 52, 990 PRO 68, internal 11. All drives report no data errors.</p></div><div class="callout attn"><h3>Video is king: a dock does video or fast drives</h3><p>Display traffic is reserved first on the Thunderbolt link. With a monitor on this dock, drive writes fell from about 3 GB/s to 1.5 GB/s. So the dock carries the SSDs and both monitors plug into the mini. The <a href="macbook-pro.html">MacBook</a> makes the opposite choice.</p></div><div class="callout"><h3>Two enclosures need the dock</h3><p>The mini runs only one bus-powered NVMe enclosure reliably. The Wavlink's own power supply lets both run at 40 Gb/s.</p></div><div class="callout"><h3>No spare lane now</h3><p>DATA and Media rarely transfer at the same time, so sharing the dock is fine. Since November 16 all three back Thunderbolt ports are taken (two monitors and the dock), so neither drive can get a port of its own.</p></div></div></section>
+<section><h2>Worth remembering</h2><div class="callouts"><div class="callout attn"><h3>Eject before unplugging</h3><p>Unsafe shutdowns on record: P310 56, 990 PRO 70, internal 11. All drives report no data errors.</p></div><div class="callout attn"><h3>Video is king: it gets the dock link first</h3><p>Display traffic is reserved first on a Thunderbolt link. With the main monitor on this dock, writes to the drive behind it fall from about 3 GB/s to 1.5 GB/s. That is a fair trade for a streaming library, and it frees a port for DATA. The main screen goes dark if the dock disconnects.</p></div><div class="callout"><h3>One bus-powered enclosure</h3><p>The mini runs only one bus-powered NVMe enclosure reliably. DATA's is that one. Media's runs on the Wavlink's own power supply.</p></div><div class="callout"><h3>Every lane has a job</h3><p>All three back Thunderbolt ports are taken: the second monitor, the dock and DATA. DATA and Media no longer slow each other down.</p></div></div></section>
 <section><h2>Next to the MacBook Pro</h2>
 <div class="scroll"><table class=""><thead><tr><th></th><th>This Mac mini</th><th>Mac Work Book Pro</th></tr></thead><tbody>
 <tr><td>Chip</td><td>Apple M6</td><td>Apple M5 Pro</td></tr>
@@ -240,8 +241,8 @@
 <p class="note-t">The MacBook Pro is no longer cabled to the mini. It runs from its own dock. See the <a href="macbook-pro.html">MacBook Pro page</a>.</p>
 </section>
 <section><h2>Desk layout PDFs</h2>
-<p class="note-t">Printable layouts of both desks, read from macOS on November 20, 2026: a port diagram, every negotiated link, storage, measured speeds and notes.</p>
-<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>Mac mini desk layout</b><span>Two monitors on the mini's own ports over DisplayPort, the Wavlink dock with five drives, and today's fio and network tests.</span><span class="go">Open PDF &rarr;</span></a><a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on its Anker Thunderbolt 5 dock, with both monitors, the backups and the network.</span><span class="go">Open PDF &rarr;</span></a></div>
+<p class="note-t">Printable layouts of both desks, read from macOS (the mini on November 22, 2026, the MacBook on November 20): a port diagram, every negotiated link, storage, measured speeds and notes.</p>
+<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-22.pdf"><span class="spd">PDF · Nov 22, 2026</span><b>Mac mini desk layout</b><span>The layout after DATA moved to its own port and the main monitor to the Wavlink dock, with the before-and-after drive tests.</span><span class="go">Open PDF &rarr;</span></a><a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on its Anker Thunderbolt 5 dock, with both monitors, the backups and the network.</span><span class="go">Open PDF &rarr;</span></a></div>
 </section>
 <section><h2>Earlier snapshots</h2><p class="note-t">How the desk looked on October 19, 2026, before the Wavlink dock and the KTC monitor: the <a href="mac-mini-m6-scan.html">full scan</a> and the <a href="mac-mini-map.html">chip and dock map</a>.</p></section>
 </main>

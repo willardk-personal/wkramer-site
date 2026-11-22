@@ -3,7 +3,7 @@
 import pathlib, html
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-CHECKED = "November 20, 2026"
+CHECKED = "November 22, 2026"
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">')
 
@@ -100,10 +100,10 @@ D = []  # device pages, in pager order
 # ---------------------------------------------------------------- Wavlink
 D.append(dict(
     slug="wavlink-dock", name="Wavlink WL-UTD58", em="Thunderbolt 5 dock", group="Dock", bus="tb", spd="40 Gb/s uplink",
-    card="Self-powered Thunderbolt 5 dock. Carries three SSDs, the Time Machine disk, a LAN adapter and the Blu-ray burner on one cable.",
-    lede="The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R2, with both drive enclosures on its 15 W Thunderbolt ports and the front 30 W one charging and syncing an iPad mini or iPhone.",
+    card="Self-powered Thunderbolt 5 dock. Carries the main display, two SSDs, the Time Machine disk, a LAN adapter and the Blu-ray burner on one cable.",
+    lede="The one cable that carries almost everything. A self-powered Thunderbolt 5 dock on the mini's port R2, with the main display and Media's drive enclosure on two of its Thunderbolt ports, and the front 30 W one charging and syncing an iPad mini or iPhone.",
     path=[MINI, UPLINK, ("node", "Wavlink WL-UTD58", "USB4 v2 mode · fw 64.64", "me")],
-    stats=[("40", "Gb/s", "link to the mini"), ("3 / 3", "", "Thunderbolt ports in use"), ("~4.0", "GB/s", "combined drive ceiling"), ("7", "", "devices behind it")],
+    stats=[("40", "Gb/s", "link to the mini"), ("1.5", "GB/s", "write ceiling, beside video"), ("3.6", "GB/s", "Media read"), ("7", "", "devices it serves")],
     body=[
         sec("What it is", spec([
             ("Model", "Wavlink WL-UTD58 Rev.b Thunderbolt 5 Dock"),
@@ -118,8 +118,8 @@ D.append(dict(
         ]),
             '<p class="note-t">It is a Thunderbolt 5 dock, but the mini\'s ports are Thunderbolt 4, so the link runs at 40 Gb/s. That is the top speed the mini offers.</p>'),
         sec("What is plugged into it", table(["Dock port", "Device", "Link", "Carried by"], [
-            ("Thunderbolt (15 W)", '<a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
-            ("Thunderbolt (15 W)", '<a href="data.html">DATA</a> · Samsung 990 PRO in a second Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
+            ("Thunderbolt", '<a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
+            ("Thunderbolt", '<a href="ktc-h24t7.html">KTC H24T7</a> · main display, USB-C to DP cable', "DisplayPort, 4 lanes HBR3", "Thunderbolt, tunneled"),
             ("Thunderbolt (front, 30 W)", "iPad mini or iPhone · charging at the full 30 W (15 V / 2 A USB-C PD)", "10 Gb/s USB 3, over USB4", "USB 3 hub, tunneled"),
             ("USB-A (orange)", '<a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure', "10 Gb/s USB", "USB 3 hub, two hubs down"),
             ("USB 3 hub", '<a href="backup-hdd.html">Backup</a> · WD Elements 4 TB', "5 Gb/s", "USB 3 hub"),
@@ -127,24 +127,22 @@ D.append(dict(
             ("USB 2 side", '<a href="blu-ray.html">Blu-ray burner</a>', "480 Mb/s", "USB 2 hub"),
         ]),
             '<p class="note-t">The dock\'s four USB-A ports are rated 10 Gb/s each, but everything USB shares one 10 Gb/s link inside the dock: the Scratch Disk, the Backup drive, the LAN adapter and the card reader. The front 30 W port is the only 30 W port, so it is the charging spot for the iPad mini or iPhone. With an 80 Gb/s cable the iPad links at 10 Gb/s, its top speed, and its data joins that same shared USB link. The iPad reports a USB-C PD charger offering 5 V / 3 A, 9 V / 3 A and 15 V / 2 A, and it picks 15 V / 2 A, the full 30 W.</p>'),
-        sec("One shared uplink", '<p>Everything behind the dock shares the single 40 Gb/s link to the mini. Run alone, each NVMe drive reads about 3.8 GB/s. Run together, they split a ceiling of about 4 GB/s.</p>',
+        sec("One shared uplink", '<p>Everything behind the dock shares the single 40 Gb/s link to the mini. Since November 22 that includes the main display. Video travels outbound, the same direction as drive writes, and is reserved first: Media\'s writes fell from about 3 to 1.5 GB/s, while its reads lost about 5%.</p>',
             bars([
-                ("DATA alone", "990 PRO", 3672, 3835, "tb"),
-                ("Media alone", "P310", 2995, 3816, "tb"),
-                ("DATA, all at once", "990 PRO", 1822, 1684, "tb"),
-                ("Media, all at once", "P310", 1477, 1677, "tb"),
-                ("Scratch, all at once", "USB 10 Gb/s", 756, 697, "usb"),
-                ("Dock total", "three drives together", 4055, 4059, "tb"),
+                ("Media, beside the display", "Nov 22, alone", 1481, 3608, "tb"),
+                ("Media, beside the display", "Nov 22, DATA busy on its own port", 1486, 3596, "tb"),
+                ("Media, no display on the dock", "Nov 22, before the swap", 2989, 3818, "tb"),
+                ("Two NVMe drives on the dock", "Nov 22, before the swap, total", 4006, 4020, "tb"),
             ]),
-            '<p class="note-t">fio, 8 GB direct I/O, November 20, 2026. No errors, peak drive temperature 62 °C (the P310). The total has held near 4 GB/s in every run: 4159 MB/s write and 4058 read on November 13, just after DATA moved to its Mokin enclosure, and 3990 and 4070 on November 11, with DATA still in the ACASIS. A two-drive run on November 7 gave the same ceiling: 3770 MB/s write and 3870 read combined, within 0.3% over three passes.</p>'),
+            '<p class="note-t">fio, 8 GB direct I/O, median of three, November 22, 2026. No errors. With no display on it, the dock has topped out near 4 GB/s in every run: 4006 MB/s write and 4020 read just before the swap, 4055 and 4059 on November 20 with the Scratch Disk added, and 3770 and 3870 on November 7.</p>'),
         sec("Why the dock is here", '<p>The mini runs one bus-powered NVMe enclosure reliably, not two. On October 19 I tried every arrangement of the two enclosures on the mini\'s own ports:</p>',
             table(["Setup", "Result"], [
                 ("Mokin first, ACASIS second", "ACASIS fell back to USB 10 Gb/s and its drive ran at about 950 MB/s. A new cable and a reboot did not help."),
                 ("ACASIS first, Mokin second", "ACASIS came up at 40 Gb/s. The Mokin's drive failed to attach, mounted unwritable, then dropped."),
                 ("Mokin alone", "Stable at 40 Gb/s."),
             ]),
-            '<p>Whichever enclosure connected second lost. Each port supplies about 15 W of bus power, and that is the likely cause, though the logs cannot prove it: no PCIe or NVMe errors, and the overcurrent counters stayed at 0. A dock with its own power supply fixes it. Both enclosures now run behind the Wavlink at 40 Gb/s with no drops. Since November 13 both NVMe drives are in Mokin enclosures.</p>'),
-        sec("Keep monitors off it", '<p>DisplayPort video reserves outbound Thunderbolt bandwidth, the same direction drive writes use. With the KTC monitor (1440p at 180 Hz) on the dock, writes to the NVMe drives capped near 1.5 GB/s. With the monitor on the mini\'s own port, they reach about 3 GB/s. Reads were barely affected. Both monitors now plug into the mini directly.</p>'),
+            '<p>Whichever enclosure connected second lost. Each port supplies about 15 W of bus power, and that is the likely cause, though the logs cannot prove it: no PCIe or NVMe errors, and the overcurrent counters stayed at 0. A dock with its own power supply fixes it: both enclosures ran behind the Wavlink at 40 Gb/s with no drops until November 22. Now DATA is the one enclosure the mini powers, and Media stays on the dock\'s power.</p>'),
+        sec("Why a monitor is on it", '<p>It frees one of the mini\'s three Thunderbolt ports. DATA took that port and now runs at full speed whatever the dock is doing, so the two NVMe drives together went from about 4.0 GB/s each way to 5.1 write and 7.5 read. The cost is Media\'s write speed, which matters little for a streaming library. The main screen also goes dark if the dock disconnects.</p>'),
     ]))
 
 # ---------------------------------------------------------------- Media
@@ -153,7 +151,7 @@ D.append(dict(
     card="Crucial P310 2 TB in a fanless Mokin USB4 enclosure. The Plex and Apple TV streaming source.",
     lede="The streaming library. A Crucial P310 2 TB NVMe drive in a fanless Mokin USB4 enclosure, behind the Wavlink dock.",
     path=[MINI, UPLINK, DOCK, ("wire", "40 Gb/s USB4", "tb"), ("node", "Mokin enclosure", "ASMedia 246x", None), ("wire", "PCIe Gen4 x4", "tb"), ("node", "Crucial P310 2 TB", "volume Media", "me")],
-    stats=[("3,816", "MB/s", "read, alone"), ("2,995", "MB/s", "write, alone"), ("934", "GB", "used of 2 TB"), ("55", "°C", "idle")],
+    stats=[("3,608", "MB/s", "read, alone"), ("1,481", "MB/s", "write, alone"), ("934", "GB", "used of 2 TB"), ("49", "°C", "idle")],
     body=[
         sec("The drive and its enclosure", spec([
             ("Drive", 'Crucial P310 2 TB <span class="mono">(CT2000P310SSD8)</span>, QLC flash, firmware VACR011'),
@@ -166,46 +164,49 @@ D.append(dict(
         ])),
         sec("Measured speed", bars([
             ("Direct on the mini", "Nov 6, 4 GB", 3210, 3845, "tb"),
-            ("Behind the dock", "Nov 20, 8 GB, alone", 2995, 3816, "tb"),
-            ("Behind the dock", "Nov 20, all drives at once", 1477, 1677, "tb"),
+            ("With the main display on the dock", "Nov 22, 8 GB, alone", 1481, 3608, "tb"),
+            ("With the main display on the dock", "Nov 22, DATA busy too", 1486, 3596, "tb"),
+            ("No display on the dock", "Nov 22, before the swap, alone", 2989, 3818, "tb"),
             ("Sustained write", "after the cache fills", 900, 0, "tb"),
         ]),
-            '<p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 56k read and 24k write operations per second.</p>',
-            '<p>Short writes land in a fast cache at about 3 GB/s. Once the cache fills, writes settle near 0.9 GB/s, which is the limit of QLC flash. Reads are not affected.</p>'),
-        sec("Heat", '<p>The enclosure has no fan. The drive sits at 43 to 55 °C in normal use. It reached 70 °C after about 400 GB of nonstop writes, and 77 °C in a stress test that pushed about 560 GB of I/O in 8 minutes. It never throttled. In the November 20 load test it went from 55 to 62 °C. The critical limit is 85 °C. A heatsink or some airflow would help on very long runs.</p>'),
+            '<p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 55k read and 23k write operations per second with the drive cool (November 22).</p>',
+            '<p>Short writes land in a fast cache, which takes about 3 GB/s. Behind the dock with the display on it, they arrive at no more than about 1.5 GB/s. Once the cache fills, writes settle near 0.9 GB/s, which is the limit of QLC flash. Reads are not affected.</p>'),
+        sec("Heat", '<p>The enclosure has no fan. The drive sits at 43 to 55 °C in normal use. It reached 70 °C after about 400 GB of nonstop writes, and 77 °C in a stress test that pushed about 560 GB of I/O in 8 minutes. It never throttled. In the November 22 swap test it went from 49 to 58 °C, and the longer retest after it peaked at 77 °C, with no errors or drops. The critical limit is 85 °C. A heatsink or some airflow would help on very long runs.</p>'),
         sec("Health", spec([
             ("Wear", "0% used, 100% spare"),
-            ("Written / read", "7.01 TB / 11.2 TB"),
-            ("Power-on time", "1,080 hours, 108 power cycles"),
-            ("Unsafe shutdowns", "52"),
+            ("Written / read", "7.26 TB / 11.9 TB"),
+            ("Power-on time", "1,122 hours, 114 power cycles"),
+            ("Unsafe shutdowns", "56"),
             ("Media errors", "0"),
         ]),
-            '<p class="note-t">From smartctl, November 20, 2026. Most of the unsafe shutdowns come from unplugging without ejecting during the October troubleshooting. Eject first.</p>'),
+            '<p class="note-t">From smartctl, November 22, 2026. It was also pulled while mounted during that day\'s swap, and verified clean afterwards. Most of the unsafe shutdowns come from unplugging without ejecting during the October troubleshooting. Eject first.</p>'),
     ]))
 
 # ---------------------------------------------------------------- DATA
 D.append(dict(
-    slug="data", name="DATA", em="Samsung 990 PRO 1 TB", group="Storage", bus="tb", spd="40 Gb/s · Gen4 x4", checked="November 20, 2026",
+    slug="data", name="DATA", em="Samsung 990 PRO 1 TB", group="Storage", bus="tb", spd="40 Gb/s · Gen4 x4",
     card="Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure. The fastest drive here for small random work.",
-    lede="The working drive. A Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure, on a dock port next to Media's Mokin. It moved there from an ACASIS Thunderbolt 3 enclosure on November 13.",
-    path=[MINI, UPLINK, DOCK, ("wire", "40 Gb/s USB4", "tb"), ("node", "Mokin enclosure", "ASMedia 246x", None), ("wire", "PCIe Gen4 x4", "tb"), ("node", "990 PRO 1 TB", "volume DATA", "me")],
-    stats=[("3,835", "MB/s", "read, alone"), ("3,672", "MB/s", "write, alone"), ("112k", "IOPS", "random 4k read"), ("45", "°C", "idle")],
+    lede="The working drive. A Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure, straight into the mini's port R4 since November 22. It shares that link with nothing.",
+    path=[MINI, ("wire", "40 Gb/s USB4 · R4", "tb"), ("node", "Mokin enclosure", "ASMedia 246x", None), ("wire", "PCIe Gen4 x4", "tb"), ("node", "990 PRO 1 TB", "volume DATA", "me")],
+    stats=[("3,861", "MB/s", "read, alone"), ("3,677", "MB/s", "write, alone"), ("112k", "IOPS", "random 4k read"), ("39", "°C", "idle")],
     body=[
         sec("The drive and its enclosure", spec([
             ("Drive", "Samsung SSD 990 PRO 1 TB, firmware 3B2QJXD7"),
             ("Drive link", "PCIe Gen4, 4 lanes, 16 GT/s, the drive's full link"),
             ("Enclosure", "Mokin USB4 enclosure, fanless. Until November 13 an ACASIS TBU405Pro (Thunderbolt 3), now a spare."),
-            ("Enclosure chip", 'ASMedia 246x <span class="mono">(device 0x2463)</span>'),
-            ("Enclosure link", "40 Gb/s USB4, on one of the Wavlink's 15 W Thunderbolt ports, next to Media"),
-            ("Volume", "DATA (APFS, not encrypted), formerly SAMSUNG SSD. 101 GB used, 899 GB free."),
+            ("Enclosure chip", 'ASMedia 246x <span class="mono">(device 0x2463)</span>, firmware 53.26'),
+            ("Enclosure link", "40 Gb/s USB4, straight into the mini's port R4, which also powers it. On the Wavlink until November 22."),
+            ("Volume", "DATA (APFS, not encrypted), formerly SAMSUNG SSD. 103 GB used, 897 GB free."),
             ("History", "Came over from the MacBook Pro."),
         ])),
         sec("Measured speed", bars([
-            ("Mokin, behind the dock", "Nov 20, 8 GB, alone", 3672, 3835, "tb"),
-            ("Mokin, behind the dock", "Nov 20, all drives at once", 1822, 1684, "tb"),
+            ("Mokin, on the mini", "Nov 22, 8 GB, alone", 3677, 3861, "tb"),
+            ("Mokin, on the mini", "Nov 22, Media busy too", 3658, 3861, "tb"),
+            ("Mokin, behind the dock", "Nov 22, before the swap, alone", 3665, 3835, "tb"),
+            ("Mokin, behind the dock", "Nov 22, before, Media busy too", 2227, 2011, "tb"),
             ("Sustained write", "Nov 13, 3 minutes nonstop", 3674, 0, "tb"),
             ("ACASIS, behind the dock", "Nov 11, 8 GB, alone", 2930, 3170, "tb"),
-        ], 3845),
+        ], 3861),
             '<p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 112k read and 48k write operations per second on November 20, the same as in the ACASIS. That is more than twice the internal SSD (43k and 18k) in the same test. On November 13, the first day in the Mokin, it measured 3,660 MB/s write and 3,831 read. A retest that evening, after the move to the 15 W port, gave 3,490 MB/s write and 3,624 read. Media, which did not move, dropped by the same 5%, so that is run-to-run spread, not the port.</p>'),
         sec("Heat", '<p>The Mokin has no fan. Its thermal pad presses the drive against the aluminum case, which works as the heatsink, so the case feels warm in use. The 3-minute sustained write rewrote a 64 GB file, 661 GB in all, at a steady 3,674 MB/s. The drive went from 31 to 42 °C, far below where it would slow down.</p>'),
         sec("Thunderbolt 3 against USB4", table(["Standard", "Speed", "In this setup"], [
@@ -217,17 +218,17 @@ D.append(dict(
             '<p>Both enclosures hold a 40 Gb/s link. The difference is inside. The ACASIS Thunderbolt 3 chip reached the 990 PRO at PCIe Gen3, about 3.2 GB/s. The Mokin\'s USB4 chip runs it at Gen4, so reads rose from 3,170 to 3,831 MB/s and writes from 2,930 to 3,660 MB/s. About 3.8 GB/s is the most any enclosure gets on the mini\'s 40 Gb/s ports. Neither enclosure would get faster on a Thunderbolt 5 port.</p>'),
         sec("Health", spec([
             ("Wear", "0% used, 100% spare"),
-            ("Written / read", "3.58 TB / 1.65 TB"),
-            ("Power-on time", "871 hours, 131 power cycles"),
-            ("Unsafe shutdowns", "68"),
+            ("Written / read", "3.71 TB / 1.91 TB"),
+            ("Power-on time", "913 hours, 137 power cycles"),
+            ("Unsafe shutdowns", "70"),
             ("Media errors", "0"),
         ]),
-            '<p class="note-t">From smartctl, November 20, 2026. The count went from 58 to 61 when the drive was moved on November 10, to 63 with the enclosure swap on November 13, and to 68 by November 15, which included a forced restart. It has not moved since. Eject before unplugging.</p>'),
+            '<p class="note-t">From smartctl, November 22, 2026. The count went from 58 to 61 when the drive was moved on November 10, to 63 with the enclosure swap on November 13, and to 68 by November 15, which included a forced restart. It read 70 after the November 22 swap. Eject before unplugging.</p>'),
     ]))
 
 # ---------------------------------------------------------------- Scratch
 D.append(dict(
-    slug="scratch-disk", name="Scratch Disk", em="512 GB SSD", group="Storage", bus="usb", spd="10 Gb/s USB",
+    slug="scratch-disk", checked="November 22, 2026; speeds are from November 20", name="Scratch Disk", em="512 GB SSD", group="Storage", bus="usb", spd="10 Gb/s USB",
     card="512 GB SSD in a Ugreen USB enclosure. Temp files and working space, kept off the internal drive.",
     lede="Working space. A 512 GB SSD in a Ugreen USB enclosure, plugged into one of the dock's USB-A ports.",
     path=[MINI, UPLINK, DOCK, ("wire", "USB hub · 10 Gb/s", "usb"), ("node", "Ugreen enclosure", "Realtek RTL9210", None), ("wire", "NVMe", "usb"), ("node", "512 GB SSD", "volume Scratch Disk", "me")],
@@ -249,24 +250,24 @@ D.append(dict(
             ("Thunderbolt port, all at once", "Nov 13", 787, 754, "usb"),
         ], 1250),
             '<p class="note-t">fio with direct I/O. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link. Random 4k at queue depth 32: 11k to 12k read and 5k write operations per second on either port (11k and 5k on November 20). The USB-A port costs about 3% on writes and 9% on reads, from the two extra hub hops.</p>',
-            '<p>The drive is limited by its USB bridge, not by the dock. It keeps full speed while the two NVMe drives are busy, because 0.8 GB/s is a small share of the dock\'s 4 GB/s.</p>'),
+            '<p>The drive is limited by its USB bridge, not by the dock. These tests predate November 22. Back then both NVMe drives were on the dock and no display was, and it kept full speed while they were busy. Its writes now share the roughly 1.5 GB/s the display leaves with Media, which has not been tested.</p>'),
         sec("History", '<p>This SSD used to sit in the M.2 slot of an Ivanky USB dock, where it measured the same ~780 MB/s. When the Wavlink replaced that dock, the drive moved into its own enclosure.</p>'),
     ]))
 
 # ---------------------------------------------------------------- SSD BACKUP
 D.append(dict(
-    slug="ssd-backup", name="SSD BACKUP", em="WD Green SN350 2 TB", group="Storage", bus="usb", spd="10 Gb/s USB",
+    slug="ssd-backup", checked="November 22, 2026; speeds are from November 20", name="SSD BACKUP", em="WD Green SN350 2 TB", group="Storage", bus="usb", spd="10 Gb/s USB",
     card="WD Green SN350 2 TB in a UGREEN USB enclosure on the mini's front port. Time Machine copy of Media.",
     lede="The fast backup. A WD Green SN350 2 TB in a UGREEN USB enclosure on the mini's own front USB-C port, outside the dock.",
     path=[MINI, ("wire", "front USB-C · 10 Gb/s", "usb"), ("node", "UGREEN enclosure", "Realtek RTL9210", None), ("wire", "NVMe", "usb"), ("node", "WD Green SN350 2 TB", "volume SSD BACKUP", "me")],
-    stats=[("866", "MB/s", "read"), ("1.31", "TB", "used of 2 TB"), ("10", "Gb/s", "USB link"), ("0", "", "shared with the dock")],
+    stats=[("866", "MB/s", "read"), ("1.32", "TB", "used of 2 TB"), ("10", "Gb/s", "USB link"), ("0", "", "shared with the dock")],
     body=[
         sec("The drive and its enclosure", spec([
             ("Drive", "WD Green SN350 2 TB, PCIe Gen3, QLC flash, no DRAM cache"),
             ("Enclosure", 'UGREEN USB enclosure, Realtek RTL9210 bridge <span class="mono">(0bda:9210)</span>'),
             ("Link", "USB 10 Gb/s, the most the front port and the enclosure both offer"),
             ("Where", "One of the mini's two front USB-C ports. The other is free."),
-            ("Volume", "SSD BACKUP (case-sensitive APFS). 1.31 TB used, 685 GB free."),
+            ("Volume", "SSD BACKUP (case-sensitive APFS). 1.32 TB used, 679 GB free."),
             ("Job", 'Time Machine destination. It holds a backup of <a href="media.html">Media</a>.'),
         ])),
         sec("Measured speed", bars([
@@ -275,7 +276,7 @@ D.append(dict(
             ("While the dock is busy", "Nov 11", None, 870, "usb"),
         ], 1250),
             '<p class="note-t">Time Machine blocks ordinary writes to its destination, so this drive was tested read-only on an existing file. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link. On November 20 the first read after a backup gave only 562 MB/s, then 829, 868 and 864; the bar is the average of the last two. Random 4k reads at queue depth 32: 40k per second.</p>',
-            '<p>Because it is on the mini\'s own port, it does not share the dock\'s link. It held 870 MB/s while all three dock drives ran flat out.</p>'),
+            '<p>Because it is on the mini\'s own port, it does not share the dock\'s link. On November 11 it held 870 MB/s while the three drives then on the dock ran flat out.</p>'),
         sec("Things to know", notes([
             "QLC flash with no DRAM: a large first backup slows once the drive's cache fills. Later backups are small and quick.",
             "Keep 15 to 20% free so the drive has room to work.",
@@ -285,7 +286,7 @@ D.append(dict(
 
 # ---------------------------------------------------------------- Backup HDD
 D.append(dict(
-    slug="backup-hdd", name="Backup", em="WD Elements 4 TB", group="Storage", bus="usb5", spd="5 Gb/s USB",
+    slug="backup-hdd", checked="November 20, 2026", name="Backup", em="WD Elements 4 TB", group="Storage", bus="usb5", spd="5 Gb/s USB",
     card="WD Elements 4 TB hard drive. The main Time Machine disk.",
     lede="The big, slow, safe one. A WD Elements 4 TB hard drive on the dock's USB hub, used only by Time Machine.",
     path=[MINI, UPLINK, DOCK, ("wire", "USB hub · 5 Gb/s", "usb5"), ("node", "WD Elements 4 TB", "volume Backup", "me")],
@@ -308,9 +309,9 @@ D.append(dict(
 # ---------------------------------------------------------------- KTC
 D.append(dict(
     slug="ktc-h24t7", name="KTC H24T7", em="main display", group="Displays", bus="dp", spd="DisplayPort · 180 Hz",
-    card="24-inch 1440p Fast IPS at 180 Hz with VRR, on DisplayPort straight from the mini.",
-    lede="The main display. A 24-inch 1440p Fast IPS panel at 180 Hz, on DisplayPort end to end from the mini's port R1.",
-    path=[MINI, ("wire", "R1 · USB-C to DP", "dp"), ("node", "USB-C to DP cable", "4 lanes · HBR3", None), ("wire", "DisplayPort", "dp"), ("node", "KTC H24T7", "1440p · 180 Hz · VRR", "me")],
+    card="24-inch 1440p Fast IPS at 180 Hz with VRR, on DisplayPort through the Wavlink dock.",
+    lede="The main display. A 24-inch 1440p Fast IPS panel at 180 Hz, on the right of the desk. Since November 22 its DisplayPort signal runs through the Wavlink dock.",
+    path=[MINI, UPLINK, DOCK, ("wire", "DP, tunneled", "dp"), ("node", "USB-C to DP cable", "4 lanes · HBR3", None), ("wire", "DisplayPort", "dp"), ("node", "KTC H24T7", "1440p · 180 Hz · VRR", "me")],
     stats=[("180", "Hz", "refresh, with VRR"), ("2560×1440", "", "panel"), ("400", "nits", "HDR400"), ("~95", "%", "DCI-P3")],
     body=[
         sec("The panel", spec([
@@ -321,16 +322,17 @@ D.append(dict(
             ("Contrast", "1000:1"),
         ])),
         sec("How it is connected", spec([
-            ("Port", "Mac mini Thunderbolt port R1"),
+            ("Port", "A Wavlink Thunderbolt port, reaching the mini over port R2. On R4 until November 22."),
             ("Cable", "USB-C to DisplayPort"),
-            ("Signal", "DisplayPort alt mode, 4 lanes at HBR3, no compression (no DSC)"),
-            ("Running at", "Looks like 2560×1440 in HiDPI (5120×2880 backing) at 180 Hz"),
+            ("Signal", "DisplayPort tunneled over Thunderbolt, 4 lanes at HBR3, no compression (no DSC)"),
+            ("Running at", "Looks like 2048×1152 in HiDPI (4096×2304 backing) at 180 Hz, VRR 50 to 180 Hz"),
+            ("Colour", "RGB Full, 10-bit, with its own H24T7 colour profile"),
             ("Role", "Main display"),
         ])),
         sec("Things to know", notes([
-            "Keep it on DisplayPort. Through an HDMI 1.4-class USB-C to HDMI cable it dropped to 75 Hz.",
-            'Keep it off the <a href="wavlink-dock.html">Wavlink dock</a>. With this monitor on the dock, writes to the NVMe drives behind it capped near 1.5 GB/s. On the mini\'s own port they reach about 3 GB/s.',
-            'A <a href="ktc-h24t7-hdmi.html">second H24T7</a> sits next to it, also on DisplayPort from its own Thunderbolt port. Both report the same identity to macOS, so tell them apart by port.',
+            'It is on the <a href="wavlink-dock.html">Wavlink dock</a> on purpose, to free a Thunderbolt port for DATA. The cost is write speed behind the dock, capped near 1.5 GB/s. If the dock disconnects, this screen goes dark.',
+            "Until November 16 it ran on the mini's HDMI port, which held it to 144 Hz with no VRR (the monitor's HDMI maximum). There macOS picked YCbCr Limited with a generic profile and it needed a manual fix in BetterDisplay. On DisplayPort it came up RGB Full with its own profile.",
+            'A <a href="ktc-h24t7-hdmi.html">second H24T7</a> sits to its left, on DisplayPort from port R1. Both report the same identity to macOS, so tell them apart by port.',
             'Its HDMI input carries the <a href="../macbook-pro.html">MacBook</a>, over a USB-C to HDMI cable from that machine\'s dock, at 144 Hz. Both computers stay plugged in; the monitor\'s input button switches between them, no KVM.',
         ])),
     ]))
@@ -338,25 +340,24 @@ D.append(dict(
 # ---------------------------------------------------------------- KTC #2 (HDMI)
 D.append(dict(
     slug="ktc-h24t7-hdmi", name="KTC H24T7 #2", em="second display", group="Displays", bus="dp", spd="DisplayPort · 180 Hz",
-    card="A second 24-inch 1440p KTC, at 180 Hz with VRR on DisplayPort from the mini's port R4.",
-    lede="The second display, the same model as the main one. A 24-inch 1440p Fast IPS panel at 180 Hz with VRR, on DisplayPort end to end from the mini's port R4. It was on HDMI at 144 Hz until November 16.",
-    path=[MINI, ("wire", "R4 · USB-C to DP", "dp"), ("node", "USB-C to DP cable", "4 lanes · HBR3", None), ("wire", "DisplayPort", "dp"), ("node", "KTC H24T7", "1440p · 180 Hz · VRR", "me")],
+    card="A second 24-inch 1440p KTC, at 180 Hz with VRR on DisplayPort from the mini's port R1.",
+    lede="The second display, the same model as the main one. A 24-inch 1440p Fast IPS panel at 180 Hz with VRR, on the left of the desk. It runs DisplayPort end to end from the mini's port R1.",
+    path=[MINI, ("wire", "R1 · USB-C to DP", "dp"), ("node", "USB-C to DP cable", "4 lanes · HBR3", None), ("wire", "DisplayPort", "dp"), ("node", "KTC H24T7", "1440p · 180 Hz · VRR", "me")],
     stats=[("180", "Hz", "refresh, with VRR"), ("2560×1440", "", "panel"), ("400", "nits", "HDR400"), ("~95", "%", "DCI-P3")],
     body=[
         sec("The panel", '<p>The same panel as the <a href="ktc-h24t7.html">main display</a>: 24-inch Fast IPS, 2560×1440, 400 nits, about 95% DCI-P3.</p>'),
         sec("How it is connected", spec([
-            ("Port", "Mac mini Thunderbolt port R4"),
+            ("Port", "Mac mini Thunderbolt port R1"),
             ("Cable", "USB-C to DisplayPort"),
             ("Signal", "DisplayPort alt mode, 4 lanes at HBR3, no compression (no DSC)"),
-            ("Running at", "Looks like 2560×1440 in HiDPI (5120×2880 backing) at 180 Hz, VRR 50 to 180 Hz"),
+            ("Running at", "Looks like 2048×1152 in HiDPI (4096×2304 backing) at 180 Hz, VRR 50 to 180 Hz"),
             ("Colour", "RGB Full, 10-bit, with its own H24T7 colour profile"),
             ("Role", "Second display"),
         ])),
         sec("Things to know", notes([
-            "Until November 16 it ran on the mini's HDMI port, which held it to 144 Hz with no VRR (the monitor's HDMI maximum). A USB-C to DisplayPort cable on its own Thunderbolt port brings it level with the main display: 180 Hz, VRR and 10-bit colour.",
-            "On HDMI macOS picked YCbCr Limited with a generic profile and it needed a manual fix in BetterDisplay. On DisplayPort it came up RGB Full with its own profile, so the two match without tweaks.",
+            "Keep it on DisplayPort. Through an HDMI 1.4-class USB-C to HDMI cable it dropped to 75 Hz.",
             'Its HDMI input carries the <a href="../macbook-pro.html">MacBook</a>, over a USB-C to HDMI cable from that machine\'s dock, at 144 Hz. That is plenty for work. Both computers stay plugged in; the monitor\'s input button switches between them, no KVM.',
-            "The move uses the last free Thunderbolt port on the mini: R1 and R4 drive the monitors and R2 the dock.",
+            "All three of the mini's back Thunderbolt ports are in use: this display on R1, DATA on R4 and the dock on R2.",
         ])),
     ]))
 
@@ -379,7 +380,7 @@ D.append(dict(
         sec("Status", spec([
             ("Now", "Not connected to the Mac mini"),
             ("Until Nov 15", "Mac mini HDMI, looks like 1920×1080 in HiDPI (3840×2160 backing) at 100 Hz"),
-            ("Replaced by", '<a href="ktc-h24t7-hdmi.html">KTC H24T7 #2</a>'),
+            ("Replaced by", '<a href="ktc-h24t7.html">KTC H24T7</a>, now the main display'),
         ])),
         sec("Things to know", notes([
             'Next to a <a href="ktc-h24t7.html">KTC</a> its white never quite matched: this is an sRGB 250-nit panel and the KTC is a wide-gamut 400-nit one. Two identical KTCs solve that.',
@@ -388,7 +389,7 @@ D.append(dict(
 
 # ---------------------------------------------------------------- LAN
 D.append(dict(
-    slug="lan-adapter", name="Realtek 2.5G LAN", em="USB adapter", group="Other", bus="net", spd="5 Gb/s USB · idle",
+    slug="lan-adapter", checked="November 20, 2026", name="Realtek 2.5G LAN", em="USB adapter", group="Other", bus="net", spd="5 Gb/s USB · idle",
     card="Realtek RTL8156 2.5 Gb Ethernet on the dock's USB hub. Present but not in use.",
     lede="A spare network port. A Realtek RTL8156 2.5 Gb Ethernet adapter on the dock's USB hub. Nothing is plugged into it.",
     path=[MINI, UPLINK, DOCK, ("wire", "USB hub · 5 Gb/s", "usb5"), ("node", "Realtek RTL8156", "en12 · not in use", "me")],
@@ -406,7 +407,7 @@ D.append(dict(
 
 # ---------------------------------------------------------------- Blu-ray
 D.append(dict(
-    slug="blu-ray", name="Blu-ray burner", em="Matshita UJ260", group="Other", bus="usb2", spd="480 Mb/s USB 2",
+    slug="blu-ray", checked="November 20, 2026", name="Blu-ray burner", em="Matshita UJ260", group="Other", bus="usb2", spd="480 Mb/s USB 2",
     card="Matshita BD-MLT UJ260 slim Blu-ray and DVD burner on the dock's USB 2 side.",
     lede="For discs. A Matshita BD-MLT UJ260 slim Blu-ray and DVD burner in a USB 2 case, on the dock's USB 2 side.",
     path=[MINI, UPLINK, DOCK, ("wire", "USB 2 · 480 Mb/s", "usb2"), ("node", "Initio bridge", "13fd:0840", None), ("wire", "SATA", "usb2"), ("node", "Matshita UJ260", "BD / DVD burner", "me")],
@@ -424,7 +425,7 @@ D.append(dict(
 
 # ---------------------------------------------------------------- Home network
 D.append(dict(
-    slug="home-network", name="Home network", em="wired 2.5 Gb", group="Network", bus="net", spd="2.5 Gb/s Ethernet",
+    slug="home-network", checked="November 20, 2026", name="Home network", em="wired 2.5 Gb", group="Network", bus="net", spd="2.5 Gb/s Ethernet",
     card="The mini's built-in 2.5 Gb Ethernet into an ACASIS 2.5 Gb switch. 2.30 Gb/s down and 2.31 Gb/s up in the last test.",
     lede="How the mini reaches the internet. Its built-in 2.5 Gb Ethernet port runs to an ACASIS 2.5 Gb Ethernet switch, and from there to the router.",
     path=[MINI, ("wire", "en0 · 2500Base-T", "net"), ("node", "ACASIS 2.5GbE switch", "Ethernet hub for the desk", "me"), ("wire", "Ethernet", "net"), ("node", "Router", "internet", None)],
@@ -480,8 +481,8 @@ for i, d in enumerate(D):
 
 # ================================================================= hub
 svg = (ROOT / "_src/diagram.svg").read_text().replace('<text x="28" y="650" class="tm">192.168.1.2</text>', "")
-HITS = [("ktc-h24t7", "dp", 15, 30, 165, 118), ("ktc-h24t7-hdmi", "dp", 190, 30, 165, 118), ("ssd-backup", "usb", 15, 700, 340, 106),
-        ("wavlink-dock", "tb", 430, 40, 230, 100), ("media", "tb", 760, 150, 385, 62), ("data", "tb", 760, 226, 385, 62),
+HITS = [("ktc-h24t7", "dp", 760, 226, 385, 62), ("ktc-h24t7-hdmi", "dp", 15, 30, 165, 118), ("ssd-backup", "usb", 15, 700, 340, 106),
+        ("wavlink-dock", "tb", 430, 40, 230, 100), ("media", "tb", 760, 150, 385, 62), ("data", "tb", 190, 30, 165, 118),
         ("scratch-disk", "usb", 760, 706, 385, 62), ("backup-hdd", "usb5", 760, 478, 385, 62), ("lan-adapter", "net", 760, 554, 385, 62),
         ("blu-ray", "usb2", 760, 630, 385, 62), ("home-network", "net", 15, 560, 165, 110)]
 names = {d["slug"]: d["name"] for d in D}
@@ -506,22 +507,22 @@ hub = "\n".join([
     sec("The machine", spec([
         ("Model", "Mac mini (Mac18,5), 2026"),
         ("Chip", "Apple M6: 12-core CPU (2 Super, 4 Performance, 6 Efficiency), 12-core GPU"),
-        ("Memory and storage", "16 GB, 512 GB internal SSD (275 GB used)"),
+        ("Memory and storage", "16 GB, 512 GB internal SSD (283 GB used)"),
         ("Software", "macOS 27.2.1"),
-        ("Back ports", "3 Thunderbolt 4 (R1 and R4 monitors, R2 dock), HDMI (free), 2.5 Gb Ethernet"),
+        ("Back ports", "3 Thunderbolt 4 (R1 second monitor, R2 dock with the main monitor, R4 DATA), HDMI (free), 2.5 Gb Ethernet"),
         ("Front ports", "2 USB-C at 10 Gb/s (one drive, one free), headphone jack"),
         ("Wireless", "Wi-Fi 7, Bluetooth 6. MX Keys S keyboard and MX Anywhere 3S mouse over Bluetooth."),
     ])),
-    sec("Every link, against its maximum", '<p class="note-t">The most each port allows, next to what macOS reports as negotiated. Every connection runs at its top speed.</p>',
+    sec("Every link, against its maximum", '<p class="note-t">The most each port allows, next to what macOS reports as negotiated on November 22 (the iPad, last seen November 14). Every link negotiates its maximum. The main display does take part of the dock link, so writes behind it top out near 1.5 GB/s.</p>',
         table(["Connection", "Chip", "Port maximum", "Negotiated", ""], [
             ("Mac mini → " + L("wavlink-dock", "Wavlink dock") + '<br><span class="sub">Thunderbolt port R2</span>', "Wavlink TB5 controller", "40 Gb/s (TB4 host)", "40 Gb/s, USB4 v2 mode", OK),
-            ("Mac mini → " + L("ktc-h24t7", "KTC H24T7") + '<br><span class="sub">Port R1, USB-C to DP cable</span>', "DP alt mode", "DP 4 lanes, HBR3", "4 lanes, top rate, no compression · 180 Hz, VRR", OK),
-            ("Mac mini → " + L("ktc-h24t7-hdmi", "KTC H24T7 #2") + '<br><span class="sub">Port R4, USB-C to DP cable</span>', "DP alt mode", "DP 4 lanes, HBR3", "4 lanes, top rate, no compression · 180 Hz, VRR", OK),
-            ("Mac mini → " + L("ssd-backup", "SSD BACKUP") + '<br><span class="sub">Front USB-C</span>', "Realtek RTL9210", "10 Gb/s", "10 Gb/s", OK),
-            ("Wavlink → Mokin enclosure", "ASMedia 246x", "40 Gb/s", "40 Gb/s USB4", OK),
-            ("↳ " + L("media", "Media") + " · Crucial P310", "Crucial P310 (QLC)", "PCIe Gen4 x4", "Gen4 x4, 16 GT/s", OK),
-            ("Wavlink → second Mokin enclosure", "ASMedia 246x", "40 Gb/s", "40 Gb/s USB4", OK),
+            ("Mac mini → " + L("ktc-h24t7-hdmi", "KTC H24T7 #2") + '<br><span class="sub">Left. Port R1, USB-C to DP cable</span>', "DP alt mode", "DP 4 lanes, HBR3", "4 lanes, top rate, no compression · 180 Hz, VRR", OK),
+            ("Mac mini → DATA\'s Mokin enclosure" + '<br><span class="sub">Port R4, bus-powered</span>', "ASMedia 246x", "40 Gb/s", "40 Gb/s USB4", OK),
             ("↳ " + L("data", "DATA") + " · Samsung 990 PRO", "Samsung 990 PRO", "PCIe Gen4 x4", "Gen4 x4, 16 GT/s", OK),
+            ("Wavlink → " + L("ktc-h24t7", "KTC H24T7") + '<br><span class="sub">Main, right. USB-C to DP cable on the dock</span>', "DP tunneled over R2", "DP 4 lanes, HBR3", "4 lanes, top rate, no compression · 180 Hz, VRR", OK),
+            ("Mac mini → " + L("ssd-backup", "SSD BACKUP") + '<br><span class="sub">Front USB-C</span>', "Realtek RTL9210", "10 Gb/s", "10 Gb/s", OK),
+            ("Wavlink → Media's Mokin enclosure", "ASMedia 246x", "40 Gb/s", "40 Gb/s USB4", OK),
+            ("↳ " + L("media", "Media") + " · Crucial P310", "Crucial P310 (QLC)", "PCIe Gen4 x4", "Gen4 x4, 16 GT/s", OK),
             ("Wavlink → iPad mini" + '<br><span class="sub">Front 30 W port, 80 Gb/s cable, also used for the iPhone</span>', "Apple iPad mini", "10 Gb/s (iPad USB 3)", "10 Gb/s, over USB4", OK),
             ("↳ iPad mini charging", "USB-C PD", "30 W", "15 V / 2 A = 30 W", OK),
             ("Wavlink → " + L("scratch-disk", "Scratch Disk"), "Realtek RTL9210", "10 Gb/s (USB enclosure)", "10 Gb/s", OK),
@@ -530,38 +531,38 @@ hub = "\n".join([
             ("Wavlink → " + L("blu-ray", "Blu-ray burner"), "Initio bridge", "USB 2", "480 Mb/s", OK),
             ("Mac mini → " + L("home-network", "home network") + '<br><span class="sub">en0, into the ACASIS 2.5GbE switch</span>', "Built-in 2.5GbE", "2.5 Gb/s", "2500Base-T full duplex", OK),
         ])),
-    sec("Drive speeds", '<p class="note-t">fio, 8 GB direct I/O, November 20, 2026. First each drive alone, then all of them at once.</p>',
+    sec("Drive speeds", '<p class="note-t">fio, 8 GB direct I/O. DATA and Media are the median of three runs on November 22, before and after the swap. The other three drives were last tested November 20, on the old layout.</p>',
         bars([
-            ("Internal SSD", "alone", 5781, 6473, "usb2"),
-            ("DATA · 990 PRO", "alone", 3672, 3835, "tb"),
-            ("Media · P310", "alone", 2995, 3816, "tb"),
-            ("SSD BACKUP · SN350", "alone, read-only", None, 866, "usb"),
-            ("Scratch Disk", "alone", 737, 674, "usb"),
-        ]),
+            ("Internal SSD", "alone, Nov 20", 5781, 6473, "usb2"),
+            ("DATA · 990 PRO", "alone, on R4", 3677, 3861, "tb"),
+            ("Media · P310", "alone, on the dock beside video", 1481, 3608, "tb"),
+            ("SSD BACKUP · SN350", "alone, read-only, Nov 20", None, 866, "usb"),
+            ("Scratch Disk", "alone, Nov 20", 737, 674, "usb"),
+        ], 7456),
         bars([
-            ("DATA · 990 PRO", "all at once", 1822, 1684, "tb"),
-            ("Media · P310", "all at once", 1477, 1677, "tb"),
-            ("Scratch Disk", "all at once", 756, 697, "usb"),
-            ("Dock drives combined", "DATA + Media + Scratch", 4055, 4059, "tb"),
-        ], 6640),
-        '<p class="note-t">Both charts share one scale. The three drives behind the dock hit its 40 Gb/s ceiling together, at about 4 GB/s. No errors, peak 62 °C (the P310). Within about 3% of the November 16 run. SSD BACKUP read 864 to 868 MB/s (the bar is the average); its first read after the 6:25 PM backup gave only 562, the same slow-first-pass effect seen before, so it is left out of the all-at-once chart.</p>'),
+            ("DATA · 990 PRO", "both running, after", 3658, 3861, "tb"),
+            ("Media · P310", "both running, after", 1486, 3596, "tb"),
+            ("DATA + Media", "total, after the swap", 5144, 7456, "tb"),
+            ("DATA + Media", "total, before, both on the dock", 4006, 4020, "tb"),
+        ], 7456),
+        '<p class="note-t">Both charts share one scale. With DATA on its own port the two drives together write 28% faster and read 85% faster. Media alone gave up about half its write speed (2,989 before) and 5% of its read speed (3,818 before) to the display. No errors, peak 58 °C in the swap test and 77 °C in a longer Media retest.</p>'),
     sec("Storage", table(["Volume", "Drive", "Used", "Size", "Temp"], [
-        ("Macintosh HD", "Apple 512 GB internal", "275 GB", "494 GB", "35 °C"),
-        (L("media", "Media"), "Crucial P310 2 TB, Mokin enclosure", "934 GB", "2.0 TB", "55 °C"),
-        (L("data", "DATA"), "Samsung 990 PRO 1 TB, Mokin enclosure", "101 GB", "1.0 TB", "45 °C"),
-        (L("ssd-backup", "SSD BACKUP"), "WD Green SN350 2 TB, UGREEN enclosure", "1.31 TB", "2.0 TB", "—"),
+        ("Macintosh HD", "Apple 512 GB internal", "283 GB", "494 GB", "35 °C"),
+        (L("media", "Media"), "Crucial P310 2 TB, Mokin enclosure", "934 GB", "2.0 TB", "49 °C"),
+        (L("data", "DATA"), "Samsung 990 PRO 1 TB, Mokin enclosure", "103 GB", "1.0 TB", "39 °C"),
+        (L("ssd-backup", "SSD BACKUP"), "WD Green SN350 2 TB, UGREEN enclosure", "1.32 TB", "2.0 TB", "—"),
         (L("scratch-disk", "Scratch Disk"), "512 GB SSD, Ugreen enclosure", "69 GB", "512 GB", "—"),
         (L("backup-hdd", "Backup"), "WD Elements 4 TB hard drive", "2.7 TB", "4.0 TB", "—"),
-    ], num=(2, 3, 4)), '<p class="note-t">Idle temperatures and used space, November 20, before the load tests. USB enclosures do not pass the drive\'s temperature through. Every volume last passed a file system check on November 16.</p>'),
+    ], num=(2, 3, 4)), '<p class="note-t">Idle temperatures and used space, November 22. USB enclosures do not pass the drive\'s temperature through. DATA and Media passed a file system check on November 22, the others on November 16.</p>'),
     sec("Network", table(["Interface", "Link", "Down", "Up", "Idle ping"], [
         ("en0 · wired", "2.5GbE via the ACASIS switch, carries the traffic", "2.30 Gb/s", "2.31 Gb/s", "11.0 ms"),
         ("en1 · Wi-Fi 7", "6 GHz, 160 MHz, 2161 Mb/s link", "743 Mb/s", "937 Mb/s", "13.3 ms"),
     ], num=(2, 3, 4)), '<p class="note-t">Both measured November 20, 2026. Full details are on the ' + L("home-network", "home network page") + '. The internet line is fine at about 2.3 Gb/s each way. Wi-Fi moved from 5 GHz to 6 GHz and roughly tripled, but it is still about a third of wired speed, so the mini stays on the cable.</p>'),
     '<section><h2>Worth remembering</h2><div class="callouts">'
-    '<div class="callout attn"><h3>Eject before unplugging</h3><p>Unsafe shutdowns on record: P310 52, 990 PRO 68, internal 11. All drives report no data errors.</p></div>'
-    '<div class="callout attn"><h3>Video is king: a dock does video or fast drives</h3><p>Display traffic is reserved first on the Thunderbolt link. With a monitor on this dock, drive writes fell from about 3 GB/s to 1.5 GB/s. So the dock carries the SSDs and both monitors plug into the mini. The <a href="macbook-pro.html">MacBook</a> makes the opposite choice.</p></div>'
-    '<div class="callout"><h3>Two enclosures need the dock</h3><p>The mini runs only one bus-powered NVMe enclosure reliably. The Wavlink\'s own power supply lets both run at 40 Gb/s.</p></div>'
-    '<div class="callout"><h3>No spare lane now</h3><p>DATA and Media rarely transfer at the same time, so sharing the dock is fine. Since November 16 all three back Thunderbolt ports are taken (two monitors and the dock), so neither drive can get a port of its own.</p></div>'
+    '<div class="callout attn"><h3>Eject before unplugging</h3><p>Unsafe shutdowns on record: P310 56, 990 PRO 70, internal 11. All drives report no data errors.</p></div>'
+    '<div class="callout attn"><h3>Video is king: it gets the dock link first</h3><p>Display traffic is reserved first on a Thunderbolt link. With the main monitor on this dock, writes to the drive behind it fall from about 3 GB/s to 1.5 GB/s. That is a fair trade for a streaming library, and it frees a port for DATA. The main screen goes dark if the dock disconnects.</p></div>'
+    '<div class="callout"><h3>One bus-powered enclosure</h3><p>The mini runs only one bus-powered NVMe enclosure reliably. DATA\'s is that one. Media\'s runs on the Wavlink\'s own power supply.</p></div>'
+    '<div class="callout"><h3>Every lane has a job</h3><p>All three back Thunderbolt ports are taken: the second monitor, the dock and DATA. DATA and Media no longer slow each other down.</p></div>'
     '</div></section>',
     sec("Next to the MacBook Pro", table(["", "This Mac mini", "Mac Work Book Pro"], [
         ("Chip", "Apple M6", "Apple M5 Pro"),
@@ -571,13 +572,13 @@ hub = "\n".join([
         ("Internal SSD", "512 GB", "1 TB"),
         ("Thunderbolt", "Thunderbolt 4, 40 Gb/s", "Thunderbolt 5, up to 80 Gb/s"),
     ]), '<p class="note-t">The MacBook Pro is no longer cabled to the mini. It runs from its own dock. See the <a href="macbook-pro.html">MacBook Pro page</a>.</p>'),
-    sec("Desk layout PDFs", '<p class="note-t">Printable layouts of both desks, read from macOS on November 20, 2026: a port diagram, every negotiated link, storage, measured speeds and notes.</p>', '<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>Mac mini desk layout</b><span>Two monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with five drives, and today\'s fio and network tests.</span><span class="go">Open PDF &rarr;</span></a><a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on its Anker Thunderbolt 5 dock, with both monitors, the backups and the network.</span><span class="go">Open PDF &rarr;</span></a></div>'),
+    sec("Desk layout PDFs", '<p class="note-t">Printable layouts of both desks, read from macOS (the mini on November 22, 2026, the MacBook on November 20): a port diagram, every negotiated link, storage, measured speeds and notes.</p>', '<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-22.pdf"><span class="spd">PDF · Nov 22, 2026</span><b>Mac mini desk layout</b><span>The layout after DATA moved to its own port and the main monitor to the Wavlink dock, with the before-and-after drive tests.</span><span class="go">Open PDF &rarr;</span></a><a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on its Anker Thunderbolt 5 dock, with both monitors, the backups and the network.</span><span class="go">Open PDF &rarr;</span></a></div>'),
     '<section><h2>Earlier snapshots</h2><p class="note-t">How the desk looked on October 19, 2026, before the Wavlink dock and the KTC monitor: the <a href="mac-mini-m6-scan.html">full scan</a> and the <a href="mac-mini-map.html">chip and dock map</a>.</p></section>',
 ])
 hero = (f'<div class="eyebrow">Checked {CHECKED} · Mac18,5</div>\n'
         '<h1>Mac mini <em>desk setup</em></h1>\n'
         '<p class="lede">My play toy: an Apple M6 Mac mini, what is plugged into it, the chip inside each device, and the speed every link actually runs at.</p>\n'
-        + stats([("40", "Gb/s", "dock uplink"), ("~4.0", "GB/s", "drives behind the dock, combined"), ("6", "drives", "10 TB in all"), ("180 + 180", "Hz", "two displays"), ("0", "errors", "in the Nov 20 load tests")]))
+        + stats([("40", "Gb/s", "dock uplink"), ("5.1 / 7.5", "GB/s", "two NVMe drives at once, write / read"), ("6", "drives", "10 TB in all"), ("180 + 180", "Hz", "two displays"), ("0", "errors", "in the Nov 22 drive tests")]))
 page("mac-mini.html", "Mac mini setup",
      "An Apple M6 Mac mini with a Thunderbolt 5 dock, six drives and two monitors: what is plugged into what, a page for each device, and measured speeds.",
      "tb", hero, hub, one=False)

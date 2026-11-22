@@ -32,12 +32,12 @@
 <div class="bar b-usb"><div class="lab">Thunderbolt port, alone<small>Nov 13, 8 GB</small></div><div class="t w"><i style="width:51.6%"></i><span>787 <em>MB/s write</em></span></div><div class="t r"><i style="width:49.3%"></i><span>752 <em>MB/s read</em></span></div></div>
 <div class="bar b-usb"><div class="lab">Thunderbolt port, all at once<small>Nov 13</small></div><div class="t w"><i style="width:51.6%"></i><span>787 <em>MB/s write</em></span></div><div class="t r"><i style="width:49.5%"></i><span>754 <em>MB/s read</em></span></div></div></div>
 <p class="note-t">fio with direct I/O. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link. Random 4k at queue depth 32: 11k to 12k read and 5k write operations per second on either port (11k and 5k on November 20). The USB-A port costs about 3% on writes and 9% on reads, from the two extra hub hops.</p>
-<p>The drive is limited by its USB bridge, not by the dock. It keeps full speed while the two NVMe drives are busy, because 0.8 GB/s is a small share of the dock's 4 GB/s.</p>
+<p>The drive is limited by its USB bridge, not by the dock. These tests predate November 22. Back then both NVMe drives were on the dock and no display was, and it kept full speed while they were busy. Its writes now share the roughly 1.5 GB/s the display leaves with Media, which has not been tested.</p>
 </section>
 <section><h2>History</h2>
 <p>This SSD used to sit in the M.2 slot of an Ivanky USB dock, where it measured the same ~780 MB/s. When the Wavlink replaced that dock, the drive moved into its own enclosure.</p>
 </section>
-<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 20, 2026.</p>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 22, 2026; speeds are from November 20.</p>
 <div class="pager"><a href="data.html">&larr; DATA</a><a href="../mac-mini.html">All devices</a><a href="ssd-backup.html">SSD BACKUP &rarr;</a></div>
 </main>
 <footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>

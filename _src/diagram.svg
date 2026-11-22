@@ -1,18 +1,18 @@
 <svg viewBox="0 0 1160 830" role="img" aria-labelledby="dgT">
-        <title id="dgT">Port map: the Mac mini drives two displays, the home network, the SSD BACKUP drive on a front USB-C port, and the Wavlink dock, which carries three SSDs, the Time Machine hard drive, a LAN adapter and a Blu-ray burner.</title>
+        <title id="dgT">Port map: the Mac mini drives a second display, the DATA drive, the home network, the SSD BACKUP drive on a front USB-C port, and the Wavlink dock, which carries the main display, two SSDs, the Time Machine hard drive, a LAN adapter and a Blu-ray burner.</title>
 
         <!-- links -->
         <line x1="97" y1="260" x2="97" y2="148" class="ln l-dp"/>
         <text x="108" y="200" class="lbl c-dp">DisplayPort</text>
         <text x="108" y="216" class="lbl2">4 lanes · HBR3</text>
 
-        <line x1="272" y1="260" x2="272" y2="148" class="ln l-dp"/>
-        <text x="283" y="200" class="lbl c-dp">DisplayPort</text>
-        <text x="283" y="216" class="lbl2">4 lanes · HBR3</text>
+        <line x1="272" y1="260" x2="272" y2="148" class="ln l-tb"/>
+        <text x="283" y="200" class="lbl c-tb">40 Gb/s</text>
+        <text x="283" y="216" class="lbl2">USB4</text>
 
         <line x1="300" y1="330" x2="430" y2="330" class="ln l-tb"/>
         <text x="365" y="318" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
-        <text x="365" y="350" class="lbl2" text-anchor="middle">USB4 v2 mode</text>
+        <text x="365" y="350" class="lbl2" text-anchor="middle">USB4 v2 + video</text>
 
         <line x1="300" y1="410" x2="352" y2="410" class="ln l-free"/>
         <text x="358" y="414" class="lbl2">free</text>
@@ -27,8 +27,9 @@
 
         <line x1="638" y1="181" x2="760" y2="181" class="ln l-tb"/>
         <text x="699" y="172" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
-        <line x1="638" y1="257" x2="760" y2="257" class="ln l-tb"/>
-        <text x="699" y="248" class="lbl c-tb" text-anchor="middle">40 Gb/s</text>
+        <line x1="638" y1="257" x2="760" y2="257" class="ln l-dp"/>
+        <text x="699" y="248" class="lbl c-dp" text-anchor="middle">DP video</text>
+        <text x="699" y="276" class="lbl2" text-anchor="middle">HBR3 ×4</text>
         <line x1="638" y1="333" x2="760" y2="333" class="ln l-u10"/>
         <text x="699" y="324" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
         <text x="699" y="352" class="lbl2" text-anchor="middle">front 30W</text>
@@ -41,20 +42,20 @@
         <line x1="638" y1="737" x2="760" y2="737" class="ln l-u10"/>
         <text x="699" y="728" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
 
-        <!-- displays -->
+        <!-- top: left display on R1, DATA on R4 -->
         <rect x="15" y="30" width="165" height="118" rx="8" class="node"/>
-        <text x="28" y="56" class="t1">KTC H24T7</text>
-        <text x="28" y="76" class="t2">Main · 24in 1440p IPS</text>
-        <text x="28" y="94" class="t2">2560×1440 @ 180Hz</text>
-        <text x="28" y="112" class="t2">HiDPI, 5K backing, VRR</text>
+        <text x="28" y="56" class="t1">KTC H24T7 #2</text>
+        <text x="28" y="76" class="t2">Second (left) · 1440p</text>
+        <text x="28" y="94" class="t2">180Hz, VRR</text>
+        <text x="28" y="112" class="t2">Looks like 2048×1152</text>
         <text x="28" y="132" class="tm">USB-C→DP cable</text>
 
         <rect x="190" y="30" width="165" height="118" rx="8" class="node"/>
-        <text x="203" y="56" class="t1">KTC H24T7 #2</text>
-        <text x="203" y="76" class="t2">Second · 24in 1440p IPS</text>
-        <text x="203" y="94" class="t2">2560×1440 @ 180Hz</text>
-        <text x="203" y="112" class="t2">HiDPI, 5K backing, VRR</text>
-        <text x="203" y="132" class="tm">USB-C→DP cable</text>
+        <text x="203" y="56" class="t1">DATA · 990 PRO</text>
+        <text x="203" y="76" class="t2">Samsung 1TB · Gen4 x4</text>
+        <text x="203" y="94" class="t2">Mokin, ASMedia 246x</text>
+        <text x="203" y="112" class="t2">Straight into the mini</text>
+        <text x="203" y="132" class="tm">powered by the mini</text>
 
         <!-- mac mini -->
         <rect x="30" y="260" width="270" height="220" rx="14" class="node mini"/>
@@ -79,7 +80,7 @@
 
         <rect x="190" y="560" width="165" height="110" rx="8" class="node"/>
         <text x="203" y="586" class="t1">Wireless</text>
-        <text x="203" y="606" class="t2">Wi-Fi 7 · 5GHz · 80MHz</text>
+        <text x="203" y="606" class="t2">Wi-Fi 7 · 6GHz · 160MHz</text>
         <text x="203" y="624" class="t2">MX Keys S keyboard</text>
         <text x="203" y="642" class="t2">MX Anywhere 3S mouse</text>
 
@@ -101,8 +102,8 @@
         <text x="460" y="176" class="t1">Thunderbolt ×3</text>
         <text x="460" y="196" class="t2">40 Gb/s each</text>
         <text x="460" y="214" class="t2">(TB5 ports, host is TB4)</text>
-        <text x="460" y="240" class="t2">Both Mokins: 15W ports</text>
-        <text x="460" y="258" class="t2"> </text>
+        <text x="460" y="240" class="t2">Media and the main KTC</text>
+        <text x="460" y="258" class="t2">Video caps writes: ~1.5 GB/s</text>
         <text x="460" y="290" class="t2">Front 30W port: iPad mini</text>
         <text x="460" y="308" class="t2">or iPhone, 30W charge + sync</text>
 
@@ -119,8 +120,8 @@
         <text x="774" y="196" class="t2">Plex and Apple TV source · Mokin, ASMedia 246x · Gen4 x4</text>
 
         <rect x="760" y="226" width="385" height="62" rx="8" class="node"/>
-        <text x="774" y="252" class="t1">Samsung 990 PRO 1TB · DATA</text>
-        <text x="774" y="272" class="t2">Mokin, ASMedia 246x · Gen4 x4 · 15W port</text>
+        <text x="774" y="252" class="t1">KTC H24T7 · main (right)</text>
+        <text x="774" y="272" class="t2">1440p @ 180Hz, VRR · looks like 2048×1152 · USB-C to DP cable</text>
 
         <rect x="760" y="302" width="385" height="62" rx="8" class="node"/>
         <text x="774" y="328" class="t1">iPad mini / iPhone</text>
