@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KTC H24T7 · Mac mini setup</title><meta name="description" content="24-inch 1440p Fast IPS at 180 Hz with VRR, on DisplayPort through the Wavlink dock.">
+<title>KTC H24T7 · Mac mini setup</title><meta name="description" content="24-inch 1440p Fast IPS at 180 Hz with VRR, on DisplayPort straight from the mini.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../site.css">
@@ -10,8 +10,8 @@
 <div class="hero">
 <div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Displays / <b>DisplayPort · 180 Hz</b></div>
 <h1>KTC H24T7 <em>main display</em></h1>
-<p class="lede">The main display. A 24-inch 1440p Fast IPS panel at 180 Hz, on the right of the desk. Since November 22 its DisplayPort signal runs through the Wavlink dock.</p>
-<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R2</span><i></i></div><a class="hop" href="wavlink-dock.html"><b>Wavlink dock</b><span>WL-UTD58</span></a><div class="wire b-dp"><span>DP, tunneled</span><i></i></div><div class="hop"><b>USB-C to DP cable</b><span>4 lanes · HBR3</span></div><div class="wire b-dp"><span>DisplayPort</span><i></i></div><div class="hop me"><b>KTC H24T7</b><span>1440p · 180 Hz · VRR</span></div></div>
+<p class="lede">The main display. A 24-inch 1440p Fast IPS panel at 180 Hz, on the right of the desk, on DisplayPort end to end from the mini's port R4.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-dp"><span>R4 · USB-C to DP</span><i></i></div><div class="hop"><b>USB-C to DP cable</b><span>4 lanes · HBR3</span></div><div class="wire b-dp"><span>DisplayPort</span><i></i></div><div class="hop me"><b>KTC H24T7</b><span>1440p · 180 Hz · VRR</span></div></div>
 <div class="stats"><div class="stat"><b>180<small>Hz</small></b><span>refresh, with VRR</span></div><div class="stat"><b>2560×1440<small></small></b><span>panel</span></div><div class="stat"><b>400<small>nits</small></b><span>HDR400</span></div><div class="stat"><b>~95<small>%</small></b><span>DCI-P3</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
@@ -26,18 +26,18 @@
 </section>
 <section><h2>How it is connected</h2>
 <div class="scroll"><table class="spec"><tbody>
-<tr><td>Port</td><td>A Wavlink Thunderbolt port, reaching the mini over port R2. On R4 until November 22.</td></tr>
+<tr><td>Port</td><td>Mac mini Thunderbolt port R4. Through the Wavlink dock from November 22 to 23.</td></tr>
 <tr><td>Cable</td><td>USB-C to DisplayPort</td></tr>
-<tr><td>Signal</td><td>DisplayPort tunneled over Thunderbolt, 4 lanes at HBR3, no compression (no DSC)</td></tr>
-<tr><td>Running at</td><td>Looks like 2048×1152 in HiDPI (4096×2304 backing) at 180 Hz, VRR 50 to 180 Hz</td></tr>
+<tr><td>Signal</td><td>DisplayPort alt mode, 4 lanes at HBR3, no compression (no DSC)</td></tr>
+<tr><td>Running at</td><td>Looks like 2560×1440 in HiDPI (5120×2880 backing) at 180 Hz, VRR 50 to 180 Hz</td></tr>
 <tr><td>Colour</td><td>RGB Full, 10-bit, with its own H24T7 colour profile</td></tr>
 <tr><td>Role</td><td>Main display</td></tr>
 </tbody></table></div>
 </section>
 <section><h2>Things to know</h2>
-<ul class="notes"><li>It is on the <a href="wavlink-dock.html">Wavlink dock</a> on purpose, to free a Thunderbolt port for DATA. The cost is write speed behind the dock, capped near 1.5 GB/s. If the dock disconnects, this screen goes dark.</li><li>Until November 16 it ran on the mini's HDMI port, which held it to 144 Hz with no VRR (the monitor's HDMI maximum). There macOS picked YCbCr Limited with a generic profile and it needed a manual fix in BetterDisplay. On DisplayPort it came up RGB Full with its own profile.</li><li>A <a href="ktc-h24t7-hdmi.html">second H24T7</a> sits to its left, on DisplayPort from port R1. Both report the same identity to macOS, so tell them apart by port.</li><li>Its HDMI input carries the <a href="../macbook-pro.html">MacBook</a>, over a USB-C to HDMI cable from that machine's dock, at 144 Hz. Both computers stay plugged in; the monitor's input button switches between them, no KVM.</li></ul>
+<ul class="notes"><li>Keep it off the <a href="wavlink-dock.html">Wavlink dock</a>. From November 22 to 23 it ran through the dock to free a port for DATA. Writes behind the dock capped near 1.5 GB/s, and after a restart on the morning of November 23 this screen stayed dark, cause not found. It went back to R4 that day.</li><li>Until November 16 it ran on the mini's HDMI port, which held it to 144 Hz with no VRR (the monitor's HDMI maximum). There macOS picked YCbCr Limited with a generic profile and it needed a manual fix in BetterDisplay. On DisplayPort it came up RGB Full with its own profile.</li><li>A <a href="ktc-h24t7-hdmi.html">second H24T7</a> sits to its left, on DisplayPort from port R1. Both report the same identity to macOS, so tell them apart by port.</li><li>Its HDMI input carries the <a href="../macbook-pro.html">MacBook</a>, over a USB-C to HDMI cable from that machine's dock, at 144 Hz. Both computers stay plugged in; the monitor's input button switches between them, no KVM.</li></ul>
 </section>
-<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 22, 2026.</p>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 23, 2026.</p>
 <div class="pager"><a href="backup-hdd.html">&larr; Backup</a><a href="../mac-mini.html">All devices</a><a href="ktc-h24t7-hdmi.html">KTC H24T7 #2 &rarr;</a></div>
 </main>
 <footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>

@@ -12,7 +12,7 @@
 <h1>Media <em>Crucial P310 2 TB</em></h1>
 <p class="lede">The streaming library. A Crucial P310 2 TB NVMe drive in a fanless Mokin USB4 enclosure, behind the Wavlink dock.</p>
 <div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R2</span><i></i></div><a class="hop" href="wavlink-dock.html"><b>Wavlink dock</b><span>WL-UTD58</span></a><div class="wire b-tb"><span>40 Gb/s USB4</span><i></i></div><div class="hop"><b>Mokin enclosure</b><span>ASMedia 246x</span></div><div class="wire b-tb"><span>PCIe Gen4 x4</span><i></i></div><div class="hop me"><b>Crucial P310 2 TB</b><span>volume Media</span></div></div>
-<div class="stats"><div class="stat"><b>3,608<small>MB/s</small></b><span>read, alone</span></div><div class="stat"><b>1,481<small>MB/s</small></b><span>write, alone</span></div><div class="stat"><b>934<small>GB</small></b><span>used of 2 TB</span></div><div class="stat"><b>49<small>°C</small></b><span>idle</span></div></div>
+<div class="stats"><div class="stat"><b>3,816<small>MB/s</small></b><span>read, alone</span></div><div class="stat"><b>2,972<small>MB/s</small></b><span>write, alone</span></div><div class="stat"><b>934<small>GB</small></b><span>used of 2 TB</span></div><div class="stat"><b>51<small>°C</small></b><span>idle</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
 <section><h2>The drive and its enclosure</h2>
@@ -28,27 +28,27 @@
 </section>
 <section><h2>Measured speed</h2>
 <div class="bars"><div class="bar b-tb"><div class="lab">Direct on the mini<small>Nov 6, 4 GB</small></div><div class="t w"><i style="width:68.5%"></i><span>3,210 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>3,845 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">With the main display on the dock<small>Nov 22, 8 GB, alone</small></div><div class="t w"><i style="width:31.6%"></i><span>1,481 <em>MB/s write</em></span></div><div class="t r"><i style="width:76.9%"></i><span>3,608 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">With the main display on the dock<small>Nov 22, DATA busy too</small></div><div class="t w"><i style="width:31.7%"></i><span>1,486 <em>MB/s write</em></span></div><div class="t r"><i style="width:76.7%"></i><span>3,596 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">No display on the dock<small>Nov 22, before the swap, alone</small></div><div class="t w"><i style="width:63.7%"></i><span>2,989 <em>MB/s write</em></span></div><div class="t r"><i style="width:81.4%"></i><span>3,818 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Behind the dock<small>Nov 23, 8 GB, alone</small></div><div class="t w"><i style="width:63.4%"></i><span>2,972 <em>MB/s write</em></span></div><div class="t r"><i style="width:81.4%"></i><span>3,816 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Behind the dock<small>Nov 23, DATA busy too</small></div><div class="t w"><i style="width:38.1%"></i><span>1,788 <em>MB/s write</em></span></div><div class="t r"><i style="width:42.8%"></i><span>2,008 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">With the main display on the dock<small>Nov 22 trial, alone</small></div><div class="t w"><i style="width:31.6%"></i><span>1,481 <em>MB/s write</em></span></div><div class="t r"><i style="width:76.9%"></i><span>3,608 <em>MB/s read</em></span></div></div>
 <div class="bar b-tb"><div class="lab">Sustained write<small>after the cache fills</small></div><div class="t w"><i style="width:19.2%"></i><span>900 <em>MB/s write</em></span></div></div></div>
 <p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 55k read and 23k write operations per second with the drive cool (November 22).</p>
-<p>Short writes land in a fast cache, which takes about 3 GB/s. Behind the dock with the display on it, they arrive at no more than about 1.5 GB/s. Once the cache fills, writes settle near 0.9 GB/s, which is the limit of QLC flash. Reads are not affected.</p>
+<p>Short writes land in a fast cache at about 3 GB/s. Once the cache fills, writes settle near 0.9 GB/s, which is the limit of QLC flash. Reads are not affected. During the November 22 trial, with the main display on the dock, writes arrived at no more than about 1.5 GB/s.</p>
 </section>
 <section><h2>Heat</h2>
-<p>The enclosure has no fan. The drive sits at 43 to 55 °C in normal use. It reached 70 °C after about 400 GB of nonstop writes, and 77 °C in a stress test that pushed about 560 GB of I/O in 8 minutes. It never throttled. In the November 22 swap test it went from 49 to 58 °C, and the longer retest after it peaked at 77 °C, with no errors or drops. The critical limit is 85 °C. A heatsink or some airflow would help on very long runs.</p>
+<p>The enclosure has no fan. The drive sits at 43 to 55 °C in normal use. It reached 70 °C after about 400 GB of nonstop writes, and 77 °C in a stress test that pushed about 560 GB of I/O in 8 minutes. It never throttled. In the November 23 load test it went from 55 to 61 °C. A longer retest on November 22 peaked at 77 °C, with no errors or drops. The critical limit is 85 °C. A heatsink or some airflow would help on very long runs.</p>
 </section>
 <section><h2>Health</h2>
 <div class="scroll"><table class="spec"><tbody>
 <tr><td>Wear</td><td>0% used, 100% spare</td></tr>
 <tr><td>Written / read</td><td>7.26 TB / 11.9 TB</td></tr>
-<tr><td>Power-on time</td><td>1,122 hours, 114 power cycles</td></tr>
+<tr><td>Power-on time</td><td>1,151 hours, 116 power cycles</td></tr>
 <tr><td>Unsafe shutdowns</td><td>56</td></tr>
 <tr><td>Media errors</td><td>0</td></tr>
 </tbody></table></div>
-<p class="note-t">From smartctl, November 22, 2026. It was also pulled while mounted during that day's swap, and verified clean afterwards. Most of the unsafe shutdowns come from unplugging without ejecting during the October troubleshooting. Eject first.</p>
+<p class="note-t">From smartctl, November 23, 2026 (SMART status passed). It was pulled while mounted during the November 22 swap, and verified clean afterwards. Most of the unsafe shutdowns come from unplugging without ejecting during the October troubleshooting. Eject first.</p>
 </section>
-<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 22, 2026.</p>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 23, 2026.</p>
 <div class="pager"><a href="wavlink-dock.html">&larr; Wavlink WL-UTD58</a><a href="../mac-mini.html">All devices</a><a href="data.html">DATA &rarr;</a></div>
 </main>
 <footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>

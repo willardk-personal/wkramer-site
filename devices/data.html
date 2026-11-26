@@ -10,9 +10,9 @@
 <div class="hero">
 <div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Storage / <b>40 Gb/s · Gen4 x4</b></div>
 <h1>DATA <em>Samsung 990 PRO 1 TB</em></h1>
-<p class="lede">The working drive. A Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure, straight into the mini's port R4 since November 22. It shares that link with nothing.</p>
-<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s USB4 · R4</span><i></i></div><div class="hop"><b>Mokin enclosure</b><span>ASMedia 246x</span></div><div class="wire b-tb"><span>PCIe Gen4 x4</span><i></i></div><div class="hop me"><b>990 PRO 1 TB</b><span>volume DATA</span></div></div>
-<div class="stats"><div class="stat"><b>3,861<small>MB/s</small></b><span>read, alone</span></div><div class="stat"><b>3,677<small>MB/s</small></b><span>write, alone</span></div><div class="stat"><b>112k<small>IOPS</small></b><span>random 4k read</span></div><div class="stat"><b>39<small>°C</small></b><span>idle</span></div></div>
+<p class="lede">The working drive. A Samsung 990 PRO 1 TB in a fanless Mokin USB4 enclosure, on a dock port next to Media's Mokin. It moved there from an ACASIS Thunderbolt 3 enclosure on November 13, and spent November 22 to 23 on the mini's own port R4.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../mac-mini.html"><b>Mac mini M6</b><span>Mac18,5</span></a><div class="wire b-tb"><span>40 Gb/s · R2</span><i></i></div><a class="hop" href="wavlink-dock.html"><b>Wavlink dock</b><span>WL-UTD58</span></a><div class="wire b-tb"><span>40 Gb/s USB4</span><i></i></div><div class="hop"><b>Mokin enclosure</b><span>ASMedia 246x</span></div><div class="wire b-tb"><span>PCIe Gen4 x4</span><i></i></div><div class="hop me"><b>990 PRO 1 TB</b><span>volume DATA</span></div></div>
+<div class="stats"><div class="stat"><b>3,835<small>MB/s</small></b><span>read, alone</span></div><div class="stat"><b>3,669<small>MB/s</small></b><span>write, alone</span></div><div class="stat"><b>112k<small>IOPS</small></b><span>random 4k read</span></div><div class="stat"><b>39<small>°C</small></b><span>idle</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
 <section><h2>The drive and its enclosure</h2>
@@ -21,16 +21,16 @@
 <tr><td>Drive link</td><td>PCIe Gen4, 4 lanes, 16 GT/s, the drive's full link</td></tr>
 <tr><td>Enclosure</td><td>Mokin USB4 enclosure, fanless. Until November 13 an ACASIS TBU405Pro (Thunderbolt 3), now a spare.</td></tr>
 <tr><td>Enclosure chip</td><td>ASMedia 246x <span class="mono">(device 0x2463)</span>, firmware 53.26</td></tr>
-<tr><td>Enclosure link</td><td>40 Gb/s USB4, straight into the mini's port R4, which also powers it. On the Wavlink until November 22.</td></tr>
+<tr><td>Enclosure link</td><td>40 Gb/s USB4, on a Wavlink Thunderbolt port next to Media, on the dock's power. On the mini's port R4 from November 22 to 23.</td></tr>
 <tr><td>Volume</td><td>DATA (APFS, not encrypted), formerly SAMSUNG SSD. 103 GB used, 897 GB free.</td></tr>
 <tr><td>History</td><td>Came over from the MacBook Pro.</td></tr>
 </tbody></table></div>
 </section>
 <section><h2>Measured speed</h2>
-<div class="bars"><div class="bar b-tb"><div class="lab">Mokin, on the mini<small>Nov 22, 8 GB, alone</small></div><div class="t w"><i style="width:78.1%"></i><span>3,677 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>3,861 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">Mokin, on the mini<small>Nov 22, Media busy too</small></div><div class="t w"><i style="width:77.7%"></i><span>3,658 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>3,861 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">Mokin, behind the dock<small>Nov 22, before the swap, alone</small></div><div class="t w"><i style="width:77.8%"></i><span>3,665 <em>MB/s write</em></span></div><div class="t r"><i style="width:81.4%"></i><span>3,835 <em>MB/s read</em></span></div></div>
-<div class="bar b-tb"><div class="lab">Mokin, behind the dock<small>Nov 22, before, Media busy too</small></div><div class="t w"><i style="width:47.3%"></i><span>2,227 <em>MB/s write</em></span></div><div class="t r"><i style="width:42.7%"></i><span>2,011 <em>MB/s read</em></span></div></div>
+<div class="bars"><div class="bar b-tb"><div class="lab">Mokin, behind the dock<small>Nov 23, 8 GB, alone</small></div><div class="t w"><i style="width:77.9%"></i><span>3,669 <em>MB/s write</em></span></div><div class="t r"><i style="width:81.4%"></i><span>3,835 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Mokin, behind the dock<small>Nov 23, Media busy too</small></div><div class="t w"><i style="width:47.4%"></i><span>2,232 <em>MB/s write</em></span></div><div class="t r"><i style="width:42.7%"></i><span>2,011 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Mokin, on the mini's R4<small>Nov 22 trial, alone</small></div><div class="t w"><i style="width:78.1%"></i><span>3,677 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>3,861 <em>MB/s read</em></span></div></div>
+<div class="bar b-tb"><div class="lab">Mokin, on the mini's R4<small>Nov 22 trial, Media busy too</small></div><div class="t w"><i style="width:77.7%"></i><span>3,658 <em>MB/s write</em></span></div><div class="t r"><i style="width:82.0%"></i><span>3,861 <em>MB/s read</em></span></div></div>
 <div class="bar b-tb"><div class="lab">Sustained write<small>Nov 13, 3 minutes nonstop</small></div><div class="t w"><i style="width:78.0%"></i><span>3,674 <em>MB/s write</em></span></div></div>
 <div class="bar b-tb"><div class="lab">ACASIS, behind the dock<small>Nov 11, 8 GB, alone</small></div><div class="t w"><i style="width:62.2%"></i><span>2,930 <em>MB/s write</em></span></div><div class="t r"><i style="width:67.3%"></i><span>3,170 <em>MB/s read</em></span></div></div></div>
 <p class="note-t">fio with direct I/O. Random 4k at queue depth 32 (70% read): 112k read and 48k write operations per second on November 20, the same as in the ACASIS. That is more than twice the internal SSD (43k and 18k) in the same test. On November 13, the first day in the Mokin, it measured 3,660 MB/s write and 3,831 read. A retest that evening, after the move to the 15 W port, gave 3,490 MB/s write and 3,624 read. Media, which did not move, dropped by the same 5%, so that is run-to-run spread, not the port.</p>
@@ -50,14 +50,14 @@
 <section><h2>Health</h2>
 <div class="scroll"><table class="spec"><tbody>
 <tr><td>Wear</td><td>0% used, 100% spare</td></tr>
-<tr><td>Written / read</td><td>3.71 TB / 1.91 TB</td></tr>
-<tr><td>Power-on time</td><td>913 hours, 137 power cycles</td></tr>
+<tr><td>Written / read</td><td>3.71 TB / 1.92 TB</td></tr>
+<tr><td>Power-on time</td><td>942 hours, 140 power cycles</td></tr>
 <tr><td>Unsafe shutdowns</td><td>70</td></tr>
 <tr><td>Media errors</td><td>0</td></tr>
 </tbody></table></div>
-<p class="note-t">From smartctl, November 22, 2026. The count went from 58 to 61 when the drive was moved on November 10, to 63 with the enclosure swap on November 13, and to 68 by November 15, which included a forced restart. It read 70 after the November 22 swap. Eject before unplugging.</p>
+<p class="note-t">From smartctl, November 23, 2026 (SMART status passed). The count went from 58 to 61 when the drive was moved on November 10, to 63 with the enclosure swap on November 13, and to 68 by November 15, which included a forced restart. It read 70 after the November 22 swap and was unchanged on November 23. Eject before unplugging.</p>
 </section>
-<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 22, 2026.</p>
+<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked November 23, 2026.</p>
 <div class="pager"><a href="media.html">&larr; Media</a><a href="../mac-mini.html">All devices</a><a href="scratch-disk.html">Scratch Disk &rarr;</a></div>
 </main>
 <footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
