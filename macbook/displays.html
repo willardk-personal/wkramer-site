@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Displays · Mac Work Book Pro</title><meta name="description" content="The same two KTC H24T7 monitors as the Mac mini, both at 1440p and 144 Hz over USB-C to HDMI from the dock.">
+<title>Displays · Mac Work Book Pro</title><meta name="description" content="The same two KTC H24T7 monitors as the Mac mini, both at 1440p and 144 Hz: one from the MacBook&#x27;s own HDMI port, one from the Ivanky dock.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../site.css">
@@ -10,30 +10,33 @@
 <div class="hero">
 <div class="eyebrow"><a href="../macbook-pro.html">Mac Work Book Pro</a> / Displays / <b>144 Hz + 144 Hz</b></div>
 <h1>Displays <em>two KTCs</em></h1>
-<p class="lede">Two KTC H24T7 monitors, each on its own USB-C to HDMI cable from the dock. Both are shared with the Mac mini, which uses their DisplayPort inputs.</p>
-<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-tb"><span>80–120 Gb/s</span><i></i></div><a class="hop" href="anker-dock.html"><b>Anker Prime dock</b><span>Thunderbolt 5</span></a><div class="wire b-hdmi"><span>USB-C → HDMI ×2</span><i></i></div><div class="hop me"><b>KTC H24T7 ×2</b><span>1440p · 144 Hz each</span></div></div>
-<div class="stats"><div class="stat"><b>1440p<small>144 Hz</small></b><span>KTC H24T7, main</span></div><div class="stat"><b>1440p<small>144 Hz</small></b><span>KTC H24T7 #2</span></div></div>
+<p class="lede">Two KTC H24T7 monitors on their HDMI inputs: one straight from the MacBook's HDMI port, the other from the Ivanky dock. Both are shared with the Mac mini, which uses their DisplayPort inputs.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-hdmi"><span>HDMI · and dock HDMI</span><i></i></div><div class="hop me"><b>KTC H24T7 ×2</b><span>1440p · 144 Hz each</span></div></div>
+<div class="stats"><div class="stat"><b>1440p<small>144 Hz</small></b><span>KTC H24T7, main</span></div><div class="stat"><b>1440p<small>144 Hz</small></b><span>KTC H24T7, second</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
 <section><h2>What the MacBook sees</h2>
 <div class="scroll"><table class=""><thead><tr><th>Display</th><th>Role</th><th>Running at</th><th>Against its maximum</th></tr></thead><tbody>
 <tr><td><a href="../devices/ktc-h24t7.html">KTC H24T7</a></td><td>Main</td><td>2560×1440 at 144 Hz</td><td>The monitor's HDMI maximum. The panel's 180 Hz and VRR need DisplayPort, which the Mac mini uses</td></tr>
-<tr><td><a href="../devices/ktc-h24t7-hdmi.html">KTC H24T7 #2</a></td><td>Second</td><td>2560×1440 at 144 Hz</td><td>Same: the HDMI maximum</td></tr>
+<tr><td><a href="../devices/ktc-h24t7-hdmi.html">KTC H24T7</a></td><td>Second</td><td>2560×1440 at 144 Hz</td><td>Same: the HDMI maximum</td></tr>
 </tbody></table></div>
-<p class="note-t">Read November 16, 2026. At home the MacBook runs with its lid closed: one KTC is the main display and the other extends the desktop.</p>
+<p class="note-t">Read November 27, 2026. At home the MacBook runs with its lid closed: one KTC is the main display and the other extends the desktop.</p>
 <p class="note-t">Panel details for each monitor are on its Mac mini page.</p>
 </section>
 <section><h2>How they are connected</h2>
-<div class="scroll"><table class=""><thead><tr><th>Display</th><th>Dock port</th><th>Notes</th></tr></thead><tbody>
-<tr><td>KTC H24T7</td><td>Dock USB-C</td><td>USB-C to HDMI cable into the monitor's HDMI input</td></tr>
-<tr><td>KTC H24T7 #2</td><td>Dock USB-C</td><td>USB-C to HDMI cable into the monitor's HDMI input</td></tr>
+<div class="scroll"><table class=""><thead><tr><th>From</th><th>Cable</th><th>Notes</th></tr></thead><tbody>
+<tr><td>The MacBook's own HDMI port</td><td>HDMI, straight into the monitor</td><td>The MacBook's port is HDMI 2.1; the monitor's input is HDMI 2.0, which tops out at 144 Hz here</td></tr>
+<tr><td><a href="ivanky-dock.html">Ivanky dock</a> HDMI</td><td>HDMI from the dock</td><td>Carried from the MacBook over DisplayPort Alt Mode on the dock cable's own wires, so it doesn't use the dock's 10 Gb/s</td></tr>
 </tbody></table></div>
-<p class="note-t">macOS lists displays under the graphics chip, not under Thunderbolt, so it shows the dock's ports as empty with both monitors on them. The read shows the video leaving the MacBook over the dock cable at HBR3, and the dock's own HDMI / DisplayPort output unused. The MacBook's own HDMI port is free too.</p>
+<p class="note-t">macOS reports no connection type for either monitor, so it doesn't say which one is on which cable, or which is the main display.</p>
 </section>
 <section><h2>Sharing with the Mac mini</h2>
 <p>Both computers stay connected to both monitors all the time: the Mac mini on each monitor's DisplayPort input at 180 Hz with VRR, the MacBook on its HDMI input at 144 Hz. There is no KVM switch. Switching a monitor's input moves it from one computer to the other, and nothing has to be unplugged.</p><p>144 Hz is the KTC's HDMI limit. The MacBook is for work, not games, so it loses nothing that matters.</p>
 </section>
-<p class="note-t">Read from macOS on the MacBook Pro, November 8, 2026.</p>
+<section><h2>Before November 27</h2>
+<p>On the Anker Thunderbolt 5 dock both monitors ran from the dock over USB-C to HDMI cables, also at 1440p and 144 Hz.</p>
+</section>
+<p class="note-t">Read from macOS on the MacBook Pro, November 27, 2026.</p>
 <div class="pager"><a href="seagate-backup.html">&larr; Seagate Expansion</a><a href="../macbook-pro.html">All devices</a><a href="network.html">Network &rarr;</a></div>
 </main>
 <footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>

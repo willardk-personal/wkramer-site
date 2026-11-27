@@ -3,72 +3,74 @@
 (importing build also rebuilds the Mac mini pages)."""
 from build import page, table, spec, bars, path, stats, sec, notes
 
-READ = "November 8, 2026"
-READ20 = "November 20, 2026"
+READ = "November 27, 2026"
 CUR = "macbook-pro.html"
 MB = ("node", "MacBook Pro", "Mac17,9 · M5 Pro", "../macbook-pro.html")
-DOCK = ("node", "Anker Prime dock", "Thunderbolt 5", "anker-dock.html")
-UP = ("wire", "80–120 Gb/s", "tb")
-HUB3 = ("node", "Dock USB 3 hub", "one 10 Gb/s uplink", None)
+DOCK = ("node", "Ivanky dock", "13-in-1 USB-C", "ivanky-dock.html")
+UP = ("wire", "10 Gb/s USB-C", "usb")
 
 D = []
 
-# ---------------------------------------------------------------- Anker dock
+# ---------------------------------------------------------------- Ivanky dock
 D.append(dict(
-    slug="anker-dock", name="Anker Prime", em="Thunderbolt 5 dock", group="Dock", bus="tb", spd="80 Gb/s uplink",
-    card="Anker Prime 14-in-1 Thunderbolt 5 docking station. One cable carries power, both monitors, wired network, a backup drive and the camera, at 80 Gb/s or 120 Gb/s with the monitors on.",
-    lede="One cable to the MacBook. An Anker Prime 14-in-1 Thunderbolt 5 docking station with its power supply built in, linked at 80 Gb/s, and at 120 Gb/s toward the dock while it drives both monitors.",
-    path=[MB, UP, ("node", "Anker Prime dock", "USB4 v2 mode · fw 64.1", "me")],
-    stats=[("80–120", "Gb/s", "link to the MacBook"), ("14", "ports", "on the box"), ("140", "W", "charging, rated"), ("10", "Gb/s", "shared by all its USB")],
+    slug="ivanky-dock", name="Ivanky", em="13‑in‑1 USB‑C dock", group="Dock", bus="usb", spd="10 Gb/s uplink",
+    card="Ivanky 13-in-1 USB-C dock, the Mac mini's old one. One monitor, both backup drives and the camera share a single 10 Gb/s link to the MacBook.",
+    lede="One USB-C cable to the MacBook. The Ivanky 13-in-1 dock that used to sit under the Mac mini now carries one monitor, both Time Machine drives, a card reader and the camera. It replaced an Anker Thunderbolt 5 dock in late November.",
+    path=[MB, UP, ("node", "Ivanky dock", "VIA VL822 hub · 10 Gb/s", "me")],
+    stats=[("10", "Gb/s", "link to the MacBook, shared"), ("13", "ports", "on the box"), ("1440p", "144 Hz", "monitor on its HDMI"), ("140", "W", "Mokin charger, shared with the MacBook")],
     body=[
         sec("What it is", spec([
-            ("Model", "Anker Prime TB5 Docking Station, 14-in-1 (A83B5)"),
-            ("Firmware", "64.1"),
-            ("Link to the MacBook", "USB4 v2 mode on the MacBook's Thunderbolt bus 2, receptacle 3 (November 20). 80 Gb/s with the monitors off; 120 Gb/s with both monitors on (November 16; on November 20 it read 80 Gb/s with them on), Thunderbolt 5's bandwidth boost, which sends more lanes toward the dock for video."),
-            ("Power", "Built-in power supply, no brick. Rated to charge the laptop at up to 140 W."),
-            ("Size", "116 × 116 × 75 mm, about 1.1 kg"),
-            ("USB 3 inside", 'Intel hub <span class="mono">8087:5787</span> feeding two VIA VL822 hubs'),
-            ("USB 2 inside", 'Fresco Logic hub <span class="mono">1d5c:5801</span> feeding two VIA 2822 hubs'),
+            ("Model", "Ivanky 13-in-1 Mac mini dock and stand (Fusion Dock 3)"),
+            ("Type", "A 10 Gb/s USB-C dock, not Thunderbolt. macOS's Thunderbolt report lists no device, which is expected."),
+            ("Link to the MacBook", 'The MacBook\'s Thunderbolt port on the HDMI edge, used as a plain USB-C port. macOS sees a VIA hub <span class="mono">(2109:0822)</span> at 10 Gb/s on a USB 3.1 bus.'),
+            ("Video", "HDMI out, up to 4K at 144 Hz. The picture travels over DisplayPort Alt Mode on its own wires in the cable, so it takes nothing from the 10 Gb/s the USB devices share."),
+            ("Power", "It came with a 20 W adapter, which isn't used. It runs from the same Mokin 140 W smart charger as the MacBook, which shows the power draw."),
+            ("USB 3 inside", 'VIA <span class="mono">2109:0822</span> at 10 Gb/s, feeding a VIA <span class="mono">2109:0817</span> at 5 Gb/s'),
+            ("USB 2 inside", 'VIA <span class="mono">2822</span> → VIA <span class="mono">2817</span>, plus two Genesys <span class="mono">05e3:0608</span> hubs, at 480 Mb/s'),
+            ("History", 'The same unit sat under the <a href="mac-mini.html">Mac mini</a> until early November, with the Scratch Disk in its M.2 slot.'),
         ]),
-            '<p class="note-t">Rated figures come from Anker\'s published specifications. Everything else is what macOS reported.</p>'),
-        sec("Its ports, and what is in them", table(["Port", "Where", "Rated", "In use"], [
-            ("Thunderbolt 5 upstream", "back", "80 Gb/s, 120 Gb/s boost, 140 W", "The MacBook, at 80 Gb/s"),
-            ("USB-C ×2 (video)", "—", "—", 'Video for the two <a href="displays.html">KTC H24T7</a> monitors, each over a USB-C to HDMI cable from the dock. macOS does not say which two ports.'),
-            ("Thunderbolt 5 downstream ×2", "back", "Up to 120 Gb/s", "No Thunderbolt device. macOS lists three downstream ports; the box labels two."),
-            ("HDMI 2.1 / DisplayPort 2.1", "back", "One at a time", 'Unused since November 15, when the Dell S2425HS left the desk'),
-            ("Ethernet", "back", "2.5 Gb/s", '<a href="network.html">Realtek RTL8156</a>, en8, 2500Base-T full duplex'),
-            ("USB-A ×2", "back", "10 Gb/s each", '<a href="seagate-backup.html">Seagate hard drive</a> (5 Gb/s) and the Lenovo camera (480 Mb/s). macOS does not report which socket each uses.'),
-            ("USB-C ×2, USB-A ×1", "front", "10 Gb/s each, 45 W across the two USB-C", "See the row above"),
-            ("SD and TF", "side", "—", 'Card reader <span class="mono">(Genesys Logic 05e3:0764)</span>, 5 Gb/s, no card'),
-            ("Audio", "front", "—", "Not checked"),
-            ("AC in", "back", "—", "Mains power"),
-        ])),
-        sec("One hub behind every USB port", '<p>Inside the dock, every USB port, the 2.5 Gb Ethernet and the card reader share one 10 Gb/s USB 3 uplink. That is a small slice of the 80 Gb/s cable, and it is the real limit for anything plugged into the dock\'s USB sockets.</p>',
-            '<p>It is why the <a href="sandisk-backup.html">SanDisk backup SSD</a> moved off the dock to its own MacBook port: its backups no longer share that uplink with the wired network, and it runs faster in both directions.</p>'),
-        sec("The dock before this one", '<p>Until early November this desk used a Wavlink WL-UTD58 Thunderbolt 5 dock. That dock now serves the <a href="../devices/wavlink-dock.html">Mac mini</a>, where its own power supply lets two NVMe enclosures run at once.</p>'),
+            '<p class="note-t">Port list from the Ivanky product listing. Everything else is what macOS reported on November 27.</p>'),
+        sec("Its ports, and what is in them", table(["Port", "Rated", "In use"], [
+            ("USB-C upstream", "10 Gb/s", "The MacBook"),
+            ("HDMI", "4K at 144 Hz", 'One <a href="displays.html">KTC H24T7</a>, 2560×1440 at 144 Hz'),
+            ("USB-A and USB-C", "10 Gb/s each", '<a href="sandisk-backup.html">SanDisk SSD</a>, 10 Gb/s'),
+            ("USB-A and USB-C", "5 Gb/s each", '<a href="seagate-backup.html">Seagate hard drive</a>, 5 Gb/s'),
+            ("USB-A ×3", "USB 2", "Lenovo Performance RGB Camera, 480 Mb/s"),
+            ("SD and TF", "—", 'macOS lists a USB 3 card reader <span class="mono">(05e3:0749)</span> at 5 Gb/s, no card'),
+            ("M.2 NVMe / SATA slot", "10 Gb/s", 'Empty. Its Realtek RTL9210B-CG bridge shows at 480 Mb/s with no drive in it. On the Mac mini it held the Scratch Disk at about 780 MB/s.'),
+            ("Audio ×2", "—", "Not checked"),
+            ("Power in", "20 W adapter in the box", "Mokin 140 W charger"),
+        ]),
+            '<p class="note-t">macOS doesn\'t say which socket each device uses.</p>'),
+        sec("One 10 Gb/s link for everything", '<p>The SanDisk, the Seagate, the card reader, the camera and the M.2 slot all share one 10 Gb/s link to the MacBook. The SanDisk alone can use most of it, so a backup to it and a backup to the Seagate at the same time would share it. Video doesn\'t count against it.</p>'),
+        sec("The docks before this one", '<p>From November 6 to 26 this desk used an Anker Prime 14-in-1 Thunderbolt 5 dock (A83B5). It linked at 80 Gb/s, or 120 Gb/s with both monitors on, carried both monitors over USB-C to HDMI cables and the wired network, and had its power supply built in. It is being returned. Before that, a Wavlink WL-UTD58 Thunderbolt 5 dock was here; it now serves the <a href="../devices/wavlink-dock.html">Mac mini</a>.</p>'),
     ]))
 
 # ---------------------------------------------------------------- SanDisk
 D.append(dict(
     slug="sandisk-backup", name="SanDisk SSD", em="1 TB backup", group="Storage", bus="usb", spd="10 Gb/s USB",
-    card="SanDisk SSD 1 TB on the MacBook's own port. The portable Time Machine disk, faster since it left the dock.",
-    lede="The backup that travels. A SanDisk 1 TB portable SSD used by Time Machine, plugged straight into the MacBook instead of the dock.",
-    path=[MB, ("wire", "own port · 10 Gb/s", "usb"), ("node", "SanDisk SSD 1 TB", "SANDISK TIMEMACHINE", "me")],
-    stats=[("845", "MB/s", "write"), ("813", "MB/s", "read"), ("477", "GiB", "used of 931"), ("10", "Gb/s", "USB link")],
+    card="SanDisk SSD 1 TB on the Ivanky dock at 10 Gb/s. The portable Time Machine disk: 780 MB/s read on November 27.",
+    lede="The backup that travels. A SanDisk 1 TB portable SSD used by Time Machine, on the Ivanky dock's 10 Gb/s hub.",
+    path=[MB, UP, DOCK, ("wire", "USB 3 hub · 10 Gb/s", "usb"), ("node", "SanDisk SSD 1 TB", "SANDISK TIMEMACHINE", "me")],
+    stats=[("780", "MB/s", "read, Nov 27"), ("505", "GiB", "used of 931"), ("10", "Gb/s", "USB link")],
     body=[
         sec("The drive", spec([
             ("Drive", 'SanDisk SSD 1 TB, portable <span class="mono">(0781:5504)</span>'),
             ("Link", "USB 10 Gb/s, the most the drive offers"),
-            ("Where", "One of the MacBook's own ports (receptacle 1 or 2; macOS does not say which)"),
-            ("Volume", "SANDISK TIMEMACHINE. 477 GiB used of 931 GiB (November 20)."),
-            ("Job", "Time Machine destination, chosen because it is small and tough enough to travel. Latest backup November 8, 2026 at 4:43 PM."),
+            ("Where", "The Ivanky dock's first USB 3 hub (VIA VL822), one hop from the MacBook, sharing the dock's 10 Gb/s link"),
+            ("Volume", "SANDISK TIMEMACHINE. 505 GiB used of 931 GiB (November 27)."),
+            ("Job", "Time Machine destination, chosen because it is small and tough enough to travel."),
         ])),
-        sec("Dock against the MacBook's own port", bars([
-            ("On the dock", "Nov 7", 794, 702, "usb"),
+        sec("Read speed on the Ivanky", table(["Date", "Read"], [
+            ("Nov 27, 2026", "780 MB/s"),
+            ("Nov 26, 2026", "766 MB/s"),
+        ], num=(1,)),
+            '<p class="note-t">4 GiB of a Windows 11 ISO inside the latest backup, read once with the page cache bypassed, after Time Machine had finished. Not comparable one-to-one with the 8 GiB runs below.</p>'),
+        sec("Earlier: Anker dock against the MacBook's own port", bars([
+            ("On the Anker dock", "Nov 7", 794, 702, "usb"),
             ("Own MacBook port", "Nov 7, late evening", 845, 813, "usb"),
         ], 1250),
-            '<p class="note-t">8 GiB sequential, three runs each, write includes sync, read after a cache purge, no backup running. The own-port figures are the middle of 842 to 847 write and 812 to 814 read. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link.</p>',
-            '<p>The drive is faster on its own port in both directions, and its backups no longer compete with the wired network for the dock\'s single USB uplink.</p>'),
+            '<p class="note-t">8 GiB sequential, three runs each, write includes sync, read after a cache purge, no backup running. The own-port figures are the middle of 842 to 847 write and 812 to 814 read. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link.</p>'),
         sec("Earlier: cables and sockets", '<p class="note-t">8 GB write and read back on October 17 and 19, on the Wavlink dock that was here then.</p>',
             table(["Connection", "Write", "Read"], [
                 ("MacBook's own Thunderbolt port, new cable", "~783 MB/s", "~769 MB/s"),
@@ -83,75 +85,82 @@ D.append(dict(
 # ---------------------------------------------------------------- Seagate
 D.append(dict(
     slug="seagate-backup", name="Seagate Expansion", em="2 TB backup", group="Storage", bus="usb5", spd="5 Gb/s USB",
-    card="Seagate Expansion 2 TB portable hard drive on the dock. The second Time Machine disk.",
-    lede="The second backup. A Seagate Expansion 2 TB portable hard drive on the dock's USB hub, used only by Time Machine.",
-    path=[MB, UP, DOCK, ("wire", "USB hub · 5 Gb/s", "usb5"), ("node", "Seagate Expansion 2 TB", "MacBook Backup", "me")],
-    stats=[("780", "GiB", "used of 1.8 TiB"), ("5", "Gb/s", "USB link"), ("5,400", "rpm", "drive inside")],
+    card="Seagate Expansion 2 TB portable hard drive on the Ivanky dock. The second Time Machine disk.",
+    lede="The second backup. A Seagate Expansion 2 TB portable hard drive on the Ivanky dock's 5 Gb/s hub, used only by Time Machine.",
+    path=[MB, UP, DOCK, ("wire", "USB 3 hubs · 5 Gb/s", "usb5"), ("node", "Seagate Expansion 2 TB", "MacBook Backup", "me")],
+    stats=[("99", "MB/s", "read, Nov 27"), ("789", "GiB", "used of 1.8 TiB"), ("5", "Gb/s", "USB link"), ("5,400", "rpm", "drive inside")],
     body=[
         sec("The drive", spec([
-            ("Drive", "Seagate Expansion 2 TB portable hard drive"),
+            ("Drive", 'Seagate Expansion 2 TB portable hard drive <span class="mono">(0bc2:2030)</span>'),
             ("Disk inside", 'Seagate <span class="mono">ST2000LM007</span>: 2.5-inch, 7 mm, 5,400 rpm, two 1 TB shingled (SMR) platters, 128 MB cache'),
             ("Rated speed", "Up to 140 MB/s"),
-            ("Link", "USB 5 Gb/s, on one of the dock's USB sockets"),
-            ("Volume", "MacBook Backup. 780 GiB used of 1.8 TiB (November 20)."),
+            ("Link", "USB 5 Gb/s, two hubs from the MacBook (VIA VL822 → VL817) inside the Ivanky dock"),
+            ("Volume", "MacBook Backup. 789 GiB used of 1.8 TiB (November 27)."),
             ("Job", "Time Machine destination that stays at the desk."),
         ]),
-            '<p class="note-t">Disk details are Seagate\'s published figures for the ST2000LM007. Its speed has not been measured here.</p>'),
+            '<p class="note-t">Disk details are Seagate\'s published figures for the ST2000LM007.</p>'),
+        sec("Read speed", table(["Date", "Read"], [
+            ("Nov 27, 2026", "99 MB/s"),
+            ("Nov 26, 2026", "128 MB/s"),
+        ], num=(1,)),
+            '<p class="note-t">4 GiB of a Windows 11 ISO inside the latest backup, read once with the page cache bypassed. Why November 27 read lower wasn\'t determined from one run; where a file sits on a hard drive\'s platter changes its speed.</p>'),
         sec("Things to know", notes([
             "Shingled drives write quickly in bursts and slow down on long rewrites. Time Machine's hourly backups suit that well.",
-            'It shares the dock\'s USB uplink with the wired network. At hard drive speeds that does not matter, which is why this one stayed on the dock and the <a href="sandisk-backup.html">SanDisk SSD</a> moved off.',
+            'It shares the dock\'s 10 Gb/s link with the <a href="sandisk-backup.html">SanDisk SSD</a>. At hard drive speeds that barely matters.',
         ])),
     ]))
 
 # ---------------------------------------------------------------- Displays
 D.append(dict(
     slug="displays", name="Displays", em="two KTCs", group="Displays", bus="hdmi", spd="144 Hz + 144 Hz",
-    card="The same two KTC H24T7 monitors as the Mac mini, both at 1440p and 144 Hz over USB-C to HDMI from the dock.",
-    lede="Two KTC H24T7 monitors, each on its own USB-C to HDMI cable from the dock. Both are shared with the Mac mini, which uses their DisplayPort inputs.",
-    path=[MB, UP, DOCK, ("wire", "USB-C → HDMI ×2", "hdmi"), ("node", "KTC H24T7 ×2", "1440p · 144 Hz each", "me")],
-    stats=[("1440p", "144 Hz", "KTC H24T7, main"), ("1440p", "144 Hz", "KTC H24T7 #2")],
+    card="The same two KTC H24T7 monitors as the Mac mini, both at 1440p and 144 Hz: one from the MacBook's own HDMI port, one from the Ivanky dock.",
+    lede="Two KTC H24T7 monitors on their HDMI inputs: one straight from the MacBook's HDMI port, the other from the Ivanky dock. Both are shared with the Mac mini, which uses their DisplayPort inputs.",
+    path=[MB, ("wire", "HDMI · and dock HDMI", "hdmi"), ("node", "KTC H24T7 ×2", "1440p · 144 Hz each", "me")],
+    stats=[("1440p", "144 Hz", "KTC H24T7, main"), ("1440p", "144 Hz", "KTC H24T7, second")],
     body=[
         sec("What the MacBook sees", table(["Display", "Role", "Running at", "Against its maximum"], [
             ('<a href="../devices/ktc-h24t7.html">KTC H24T7</a>', "Main", "2560×1440 at 144 Hz", "The monitor's HDMI maximum. The panel's 180 Hz and VRR need DisplayPort, which the Mac mini uses"),
-            ('<a href="../devices/ktc-h24t7-hdmi.html">KTC H24T7 #2</a>', "Second", "2560×1440 at 144 Hz", "Same: the HDMI maximum"),
+            ('<a href="../devices/ktc-h24t7-hdmi.html">KTC H24T7</a>', "Second", "2560×1440 at 144 Hz", "Same: the HDMI maximum"),
         ]),
-            '<p class="note-t">Read November 16, 2026. At home the MacBook runs with its lid closed: one KTC is the main display and the other extends the desktop.</p>',
+            '<p class="note-t">Read November 27, 2026. At home the MacBook runs with its lid closed: one KTC is the main display and the other extends the desktop.</p>',
             '<p class="note-t">Panel details for each monitor are on its Mac mini page.</p>'),
-        sec("How they are connected", table(["Display", "Dock port", "Notes"], [
-            ("KTC H24T7", "Dock USB-C", "USB-C to HDMI cable into the monitor\'s HDMI input"),
-            ("KTC H24T7 #2", "Dock USB-C", "USB-C to HDMI cable into the monitor\'s HDMI input"),
+        sec("How they are connected", table(["From", "Cable", "Notes"], [
+            ("The MacBook's own HDMI port", "HDMI, straight into the monitor", "The MacBook's port is HDMI 2.1; the monitor's input is HDMI 2.0, which tops out at 144 Hz here"),
+            ('<a href="ivanky-dock.html">Ivanky dock</a> HDMI', "HDMI from the dock", "Carried from the MacBook over DisplayPort Alt Mode on the dock cable's own wires, so it doesn't use the dock's 10 Gb/s"),
         ]),
-            '<p class="note-t">macOS lists displays under the graphics chip, not under Thunderbolt, so it shows the dock\'s ports as empty with both monitors on them. The read shows the video leaving the MacBook over the dock cable at HBR3, and the dock\'s own HDMI / DisplayPort output unused. The MacBook\'s own HDMI port is free too.</p>'),
+            '<p class="note-t">macOS reports no connection type for either monitor, so it doesn\'t say which one is on which cable, or which is the main display.</p>'),
         sec("Sharing with the Mac mini", '<p>Both computers stay connected to both monitors all the time: the Mac mini on each monitor\'s DisplayPort input at 180 Hz with VRR, the MacBook on its HDMI input at 144 Hz. There is no KVM switch. Switching a monitor\'s input moves it from one computer to the other, and nothing has to be unplugged.</p><p>144 Hz is the KTC\'s HDMI limit. The MacBook is for work, not games, so it loses nothing that matters.</p>'),
+        sec("Before November 27", '<p>On the Anker Thunderbolt 5 dock both monitors ran from the dock over USB-C to HDMI cables, also at 1440p and 144 Hz.</p>'),
     ]))
 
 # ---------------------------------------------------------------- Network
 D.append(dict(
-    slug="network", name="Network", em="wired through the dock", group="Network", bus="net", spd="2.5 Gb/s Ethernet",
-    card="2.5 Gb Ethernet through the dock's Realtek adapter. 1.47 Gb/s down and 1.98 Gb/s up in the last test, with Wi-Fi 7 as the fallback.",
-    lede="How the MacBook reaches the network. The dock's 2.5 Gb Ethernet port is the default route, with Wi-Fi 7 behind it.",
-    path=[MB, UP, DOCK, ("wire", "USB hub · 5 Gb/s", "usb5"), ("node", "Realtek RTL8156", "en8 · 2500Base-T", "me"), ("wire", "Ethernet", "net"), ("node", "Home network", "", None)],
-    stats=[("1.47", "Gb/s", "down"), ("1.98", "Gb/s", "up"), ("10.9", "ms", "idle ping")],
+    slug="network", name="Network", em="Wi-Fi 7", group="Network", bus="net", spd="Wi-Fi 7 · 6 GHz",
+    card="Wi-Fi 7 on 6 GHz: 1.50 Gb/s down and 1.25 Gb/s up on November 27. The Ivanky dock has no Ethernet port.",
+    lede="How the MacBook reaches the network. Wi-Fi 7 on 6 GHz is the default route since the move to the Ivanky dock, which has no Ethernet port.",
+    path=[MB, ("wire", "Wi-Fi 7 · 6 GHz", "net"), ("node", "Home Wi-Fi", "Verizon CHR30A router", "me")],
+    stats=[("1.50", "Gb/s", "down"), ("1.25", "Gb/s", "up"), ("13.8", "ms", "idle ping")],
     body=[
-        sec("The wired link", spec([
-            ("Adapter", "Realtek RTL8156, built into the dock, on its USB 3 hub at 5 Gb/s"),
-            ("Interface", "en8"),
-            ("Negotiated", "2500Base-T, full duplex. That is the port's top speed."),
-            ("Role", "Default route"),
+        sec("The link", spec([
+            ("Interface", "en0, Wi-Fi 7 (802.11be), default route"),
+            ("Channel", "37, 6 GHz, 160 MHz wide"),
+            ("Signal", "−46 dBm, noise −94 dBm, link rate 1921 Mb/s"),
+            ("Router", "Verizon CHR30A, on a Verizon fiber terminal"),
         ])),
-        sec("Last speed test", table(["Interface", "Link", "Down", "Up", "Idle ping"], [
-            ("en8 · wired", "2.5GbE through the dock", "1.47 Gb/s", "1.98 Gb/s", "10.9 ms"),
-            ("en0 · Wi-Fi 7", "5 GHz, channel 36, 80 MHz, 1080 Mb/s link, −34 dBm", "161.8 Mb/s", "214.6 Mb/s", "14.3 ms"),
+        sec("Speed tests", table(["Date", "Link", "Down", "Up", "Idle ping"], [
+            ("Nov 27, 2026", "Wi-Fi 7, 6 GHz, 160 MHz", "1.50 Gb/s", "1.25 Gb/s", "13.8 ms"),
+            ("Nov 26, 2026, test 1", "Wi-Fi 7, 6 GHz, 160 MHz", "1.34 Gb/s", "1.06 Gb/s", "57 ms"),
+            ("Nov 26, 2026, test 2", "Wi-Fi 7, 6 GHz, 160 MHz", "580 Mb/s", "842 Mb/s", "16 ms"),
         ], num=(2, 3, 4)),
-            f'<p class="note-t">Measured {READ}. On Wi-Fi, responsiveness under load was low (511 ms). The Mac mini, on its own Ethernet port, measured about 2.1 Gb/s each way the same day.</p>',
-            '<p>Wired through the dock is about nine times faster than Wi-Fi here. Download runs below upload, and below the Mac mini\'s 2.1 Gb/s. Drives were slower on the dock too. There are two candidates, not yet tested apart. One is video: both monitors run through the dock, and display traffic is reserved ahead of data on the Thunderbolt link. The other is that the dock\'s Ethernet is a USB adapter sharing one 10 Gb/s uplink with the dock\'s other USB devices. Moving the KTC to one of the MacBook\'s own ports and retesting would tell them apart.</p>'),
-        sec("Earlier tests", table(["Date", "Down", "Up", "Idle latency"], [
-            ("Nov 8, 2026", "1.47 Gb/s", "1.98 Gb/s", "10.9 ms"),
-            ("Oct 19, 2026", "1.74 Gb/s", "2.11 Gb/s", "12 ms"),
-            ("Oct 19, 2026, earlier", "1.60 Gb/s", "2.00 Gb/s", "—"),
-        ], num=(1, 2, 3)),
-            '<p class="note-t">All wired. The October tests ran through the Wavlink dock that was here then, which uses the same Realtek adapter chip.</p>'),
-        sec("Link to the Mac mini", '<p>The two Macs normally talk over the home network. A direct Thunderbolt cable between them linked at 40 Gb/s in a test on November 7. It is unplugged now.</p>'),
+            '<p class="note-t">macOS networkQuality. On November 27 responsiveness was Medium on upload and High on download.</p>'),
+        sec("Earlier tests", table(["Date", "Link", "Down", "Up", "Idle ping"], [
+            ("Nov 8, 2026", "Wired, 2.5 GbE through the Anker dock", "1.47 Gb/s", "1.98 Gb/s", "10.9 ms"),
+            ("Nov 8, 2026", "Wi-Fi 7, 5 GHz, 80 MHz", "161.8 Mb/s", "214.6 Mb/s", "14.3 ms"),
+            ("Oct 19, 2026", "Wired, through the Wavlink dock", "1.74 Gb/s", "2.11 Gb/s", "12 ms"),
+            ("Oct 19, 2026, earlier", "Wired, through the Wavlink dock", "1.60 Gb/s", "2.00 Gb/s", "—"),
+        ], num=(2, 3, 4)),
+            '<p class="note-t">The wired tests used each Thunderbolt dock\'s built-in Realtek RTL8156 2.5 GbE adapter. Wi-Fi on 6 GHz now gets close to what wired did through those docks.</p>'),
+        sec("Link to the Mac mini", '<p>The two Macs normally talk over the home network. In a test on November 25 a direct Thunderbolt link, with the MacBook on the Mac mini\'s Wavlink dock, ran at 37.7 Gb/s each way, about 16 times the home network\'s 2.5 Gb/s.</p>'),
     ]))
 
 names = {d["slug"]: d["name"] for d in D}
@@ -177,37 +186,45 @@ def line(x1, y1, x2, y2, cls, label="", lc="", lx=None, ly=None):
     return o
 
 R = 760
-svg = ['<svg viewBox="0 0 1160 640" role="img" aria-labelledby="mbT"><title id="mbT">Port map: one Thunderbolt 5 cable links the MacBook Pro to the Anker dock, which carries the displays, a backup hard drive, wired Ethernet, the card reader and the camera. The SanDisk backup SSD is on the MacBook\'s own port.</title>']
-svg += [line(280, 250, 430, 250, "l-tb", "80–120 Gb/s", "c-tb"), '<text x="355" y="272" class="lbl2" text-anchor="middle">USB4 v2 mode</text>',
-        line(155, 430, 155, 520, "l-u10", "10 Gb/s", "c-u10", 195, 482),
-        line(280, 340, 332, 340, "l-free"), '<text x="338" y="344" class="lbl2">free</text>',
-        line(660, 79, R, 79, "l-hdmi", "USB-C→HDMI", "c-hdmi"), line(660, 149, R, 149, "l-hdmi", "USB-C→HDMI", "c-hdmi"),
-        line(660, 257, R, 257, "l-u5", "5 Gb/s", "c-u5"), line(660, 327, R, 327, "l-u5", "5 Gb/s", "c-u5"),
-        line(660, 397, R, 397, "l-u5", "5 Gb/s", "c-u5"), line(660, 527, R, 527, "l-u2", "480 Mb/s", "c-u2")]
-svg += ['<rect x="30" y="170" width="250" height="260" rx="14" class="node mini"/>',
-        '<text x="48" y="212" class="t-big">MacBook Pro</text><text x="48" y="234" class="t2">M5 Pro · Mac17,9 · 48 GB</text>',
-        '<text x="48" y="286" class="t2">Internal 1 TB SSD</text><text x="48" y="304" class="t2">Wi-Fi 7 as fallback</text>',
-        '<text x="270" y="254" class="tag" text-anchor="end">TB rec. 1</text><text x="270" y="344" class="tag" text-anchor="end">TB port</text><text x="155" y="420" class="tag" text-anchor="middle">own port</text>',
-        box(30, 520, 330, 76, "SanDisk SSD 1 TB · SANDISK TIMEMACHINE", "Time Machine · on the MacBook's own port", "moved off the dock"),
-        '<rect x="430" y="30" width="230" height="580" rx="14" class="node dock"/>',
-        '<text x="448" y="62" class="t-big" style="font-size:18px">Anker Prime dock</text><text x="448" y="84" class="t2">Thunderbolt 5 · 14-in-1</text>',
-        '<rect x="446" y="100" width="192" height="64" rx="8" class="sub"/><text x="460" y="126" class="t1">Video out</text><text x="460" y="146" class="t2">2× USB-C · HDMI port unused</text>',
-        '<rect x="446" y="200" width="192" height="240" rx="8" class="sub"/><text x="460" y="226" class="t1">USB 3 hub · 10 Gb/s</text><text x="460" y="290" class="tm">Intel 8087:5787</text><text x="460" y="306" class="tm">→ VIA VL822 ×2</text><text x="460" y="356" class="t2">One uplink for every</text><text x="460" y="374" class="t2">USB port, Ethernet</text><text x="460" y="392" class="t2">and the card reader</text>',
-        '<rect x="446" y="480" width="192" height="94" rx="8" class="sub"/><text x="460" y="506" class="t1">USB 2 side</text><text x="460" y="540" class="tm">Fresco 1d5c:5801</text><text x="460" y="556" class="tm">→ VIA 2822 ×2</text>',
-        box(R, 50, 385, 58, "KTC H24T7 · main display", "1440p at 144 Hz · USB-C to HDMI from the dock"),
-        box(R, 120, 385, 58, "KTC H24T7 #2", "1440p at 144 Hz · USB-C to HDMI from the dock"),
-        box(R, 228, 385, 58, "Seagate Expansion 2 TB · MacBook Backup", "Time Machine · hard drive"),
-        box(R, 298, 385, 58, "Realtek 2.5G LAN → home network", "RTL8156 · en8 · 2500Base-T · default route"),
-        box(R, 368, 385, 58, "Card reader", "SD and TF · Genesys Logic · no card"),
-        box(R, 498, 385, 58, "Lenovo camera", "USB 2")]
-HITS = [("anker-dock", "tb", 430, 30, 230, 64), ("sandisk-backup", "usb", 30, 520, 330, 76), ("displays", "hdmi", R, 50, 385, 58), ("displays", "hdmi", R, 120, 385, 58),
-        ("seagate-backup", "usb5", R, 228, 385, 58), ("network", "net", R, 298, 385, 58)]
+PWR = 'style="stroke:#d9577a;stroke-width:3"'
+svg = ['<svg viewBox="0 0 1160 730" role="img" aria-labelledby="mbT"><title id="mbT">Port map: one USB-C cable at 10 Gb/s links the MacBook Pro to the Ivanky dock, which carries one monitor, both backup drives, a card reader, an empty M.2 slot and the camera. The second monitor is on the MacBook\'s own HDMI port. A Mokin 140 W charger powers the MacBook over MagSafe, and the network is Wi-Fi 7.</title>']
+svg += [line(280, 240, 430, 240, "l-u10", "10 Gb/s", "c-u10"), '<text x="355" y="262" class="lbl2" text-anchor="middle">USB-C, not TB</text>',
+        line(280, 330, 332, 330, "l-free"), '<text x="338" y="334" class="lbl2">2 free</text>',
+        line(638, 129, R, 129, "l-hdmi", "HDMI", "c-hdmi"),
+        line(638, 199, R, 199, "l-u10", "10 Gb/s", "c-u10"),
+        line(638, 279, R, 279, "l-u5", "5 Gb/s", "c-u5"), line(638, 349, R, 349, "l-u5", "5 Gb/s", "c-u5"),
+        line(638, 429, R, 429, "l-u2", "480 Mb/s", "c-u2"), line(638, 499, R, 499, "l-u2", "480 Mb/s", "c-u2"),
+        '<polyline points="280,420 340,420 340,609 760,609" class="ln l-hdmi"/>', '<text x="550" y="600" class="lbl c-hdmi" text-anchor="middle">HDMI 2.1 → monitor\'s HDMI 2.0</text>',
+        f'<line x1="90" y1="470" x2="90" y2="570" class="ln" {PWR}/>', '<text x="100" y="525" class="lbl" style="fill:#d9577a">MagSafe</text>',
+        line(245, 470, 245, 650, "l-air"), '<text x="255" y="560" class="lbl c-mut">Wi-Fi 7</text>']
+svg += ['<rect x="30" y="150" width="250" height="320" rx="14" class="node mini"/>',
+        '<text x="48" y="192" class="t-big">MacBook Pro</text><text x="48" y="214" class="t2">M5 Pro · Mac17,9 · 48 GB</text>',
+        '<text x="48" y="256" class="t2">Internal 1 TB SSD</text><text x="48" y="274" class="t2">Battery 100%, 13 cycles</text>',
+        '<text x="270" y="236" class="tag" text-anchor="end">TB port · HDMI edge</text><text x="270" y="326" class="tag" text-anchor="end">TB ports</text><text x="270" y="410" class="tag" text-anchor="end">HDMI</text>',
+        '<text x="90" y="460" class="tag" text-anchor="middle">MagSafe</text><text x="245" y="460" class="tag" text-anchor="middle">en0</text>',
+        box(30, 570, 180, 64, "Mokin 140 W charger", "smart, shows power draw"),
+        box(30, 650, 330, 64, "Home Wi-Fi · Verizon CHR30A", "6 GHz · ch 37 · 160 MHz · default route"),
+        '<rect x="430" y="20" width="230" height="525" rx="14" class="node dock"/>',
+        '<text x="448" y="52" class="t-big" style="font-size:18px">Ivanky dock</text><text x="448" y="74" class="t2">13-in-1 · USB-C, not Thunderbolt</text>',
+        '<rect x="446" y="100" width="192" height="58" rx="8" class="sub"/><text x="460" y="124" class="t1">HDMI out</text><text x="460" y="144" class="t2">4K@144 max · own wires</text>',
+        '<rect x="446" y="170" width="192" height="58" rx="8" class="sub"/><text x="460" y="194" class="t1">USB 3 hub · 10 Gb/s</text><text x="460" y="214" class="tm">VIA 2109:0822</text>',
+        '<rect x="446" y="250" width="192" height="128" rx="8" class="sub"/><text x="460" y="274" class="t1">↳ USB 3 hub · 5 Gb/s</text><text x="460" y="294" class="tm">VIA 2109:0817</text>',
+        '<rect x="446" y="400" width="192" height="128" rx="8" class="sub"/><text x="460" y="424" class="t1">USB 2 hubs</text><text x="460" y="444" class="tm">VIA 2822 → 2817</text><text x="460" y="460" class="tm">Genesys 05e3:0608 ×2</text>',
+        box(R, 100, 385, 58, "KTC H24T7 · via the dock", "1440p at 144 Hz · dock HDMI"),
+        box(R, 170, 385, 58, "SanDisk SSD 1 TB · SANDISK TIMEMACHINE", "Time Machine · 780 MB/s read"),
+        box(R, 250, 385, 58, "Seagate Expansion 2 TB · MacBook Backup", "Time Machine · hard drive"),
+        box(R, 320, 385, 58, "Card reader", "SD and TF · 05e3:0749 · no card"),
+        box(R, 400, 385, 58, "M.2 slot · empty", "Realtek RTL9210B-CG · built into the dock"),
+        box(R, 470, 385, 58, "Lenovo camera", "Performance RGB Camera · USB 2"),
+        box(R, 580, 385, 58, "KTC H24T7 · MacBook HDMI", "1440p at 144 Hz · HDMI 2.0 input")]
+HITS = [("ivanky-dock", "usb", 430, 20, 230, 64), ("displays", "hdmi", R, 100, 385, 58), ("sandisk-backup", "usb", R, 170, 385, 58),
+        ("seagate-backup", "usb5", R, 250, 385, 58), ("displays", "hdmi", R, 580, 385, 58), ("network", "net", 30, 650, 330, 64)]
 svg += [f'<a href="macbook/{s}.html" class="b-{b}" aria-label="{names[s]}"><rect class="hit" x="{x}" y="{y}" width="{w}" height="{h}" rx="8"/></a>' for s, b, x, y, w, h in HITS]
 svg.append("</svg>")
-KEYS = [("tb", "Thunderbolt 5, 80–120 Gb/s"), ("hdmi", "HDMI"), ("usb", "USB 10 Gb/s"), ("usb5", "USB 5 Gb/s"), ("usb2", "USB 2")]
+KEYS = [("usb", "USB 10 Gb/s"), ("hdmi", "HDMI"), ("usb5", "USB 5 Gb/s"), ("usb2", "USB 2")]
 fig = ('<figure class="wiring"><div class="dscroll">' + "".join(svg) + '</div><figcaption>'
        + "".join(f'<span class="key b-{b}"><i></i>{t}</span>' for b, t in KEYS)
-       + '<span>macOS does not report which USB socket each device uses. Select a device to open its page.</span></figcaption></figure>')
+       + '<span>macOS does not report which USB socket each device uses, or which monitor is on which cable. Select a device to open its page.</span></figcaption></figure>')
 
 cards = ""
 for g in ["Dock", "Storage", "Displays", "Network"]:
@@ -217,70 +234,73 @@ for g in ["Dock", "Storage", "Displays", "Network"]:
 
 L = lambda s, t: f'<a href="macbook/{s}.html">{t}</a>'
 OK = '<span class="okk">✓ max</span>'
+PDFS = ('<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-23.pdf"><span class="spd">PDF · Nov 23, 2026</span><b>Mac mini desk layout</b><span>Both monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with Media, DATA and the Scratch Disk, and the November 23 drive tests.</span><span class="go">Open PDF &rarr;</span></a>'
+        '<a class="card" href="downloads/macbook-pro-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on the Ivanky 13-in-1 USB-C dock, one monitor on its own HDMI, the backups, the internal SSD and Wi-Fi.</span><span class="go">Open PDF &rarr;</span></a>'
+        '<a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro, earlier</b><span>The same desk on the Anker Thunderbolt 5 dock, before November 27.</span><span class="go">Open PDF &rarr;</span></a></div>')
 hub = "\n".join([
     f'<section><h2>What is plugged into what</h2>{fig}</section>',
     f'<section><h2>The devices</h2><p class="note-t">Each one has its own page: what it is, the path its signal takes from the MacBook, and what it measured.</p>{cards}</section>',
     sec("The machine", spec([
         ("Model", "MacBook Pro 14-inch (Mac17,9), silver, part Z1MH0004ELL/A"),
         ("Chip", "Apple M5 Pro: 18-core CPU (6 Super, 12 Performance), 20-core GPU"),
-        ("Memory and storage", "48 GB, 1 TB internal SSD (AP1024Z), 364 of 926 GiB used"),
-        ("Thunderbolt", "3 Thunderbolt 5 ports, up to 120 Gb/s. One holds the dock, one the SanDisk SSD, one is free."),
-        ("Power", "Charged through the dock's cable"),
-        ("Wireless", "Wi-Fi 7"),
+        ("Memory and storage", "48 GB, 1 TB internal SSD (AP1024Z), 392 of 926 GiB used"),
+        ("Thunderbolt", "3 Thunderbolt 5 ports, up to 120 Gb/s. The one on the HDMI edge holds the Ivanky dock as plain USB-C; the other two are free."),
+        ("Power", "Mokin 140 W smart charger over a USB-C to MagSafe cable. The same charger powers the dock. A second Mokin lives in the travel kit; one charges the MacBook, an iPad mini and an iPhone at once."),
+        ("Battery", "100% maximum capacity, 13 cycles, condition Normal after about three months (November 27). Held at 80% charge on the desk."),
+        ("Wireless", "Wi-Fi 7, the default route"),
     ])),
-    sec("Every link, against its maximum", '<p class="note-t">The most each port allows, next to what macOS reports as negotiated.</p>',
+    sec("Every link, against its maximum", '<p class="note-t">The most each port allows, next to what macOS reported as negotiated on November 27.</p>',
         table(["Connection", "Chip", "Port maximum", "Negotiated", ""], [
-            ("MacBook → " + L("anker-dock", "Anker dock") + '<br><span class="sub">TB bus 2, receptacle 3</span>', "Anker TB5 dock, fw 64.1", "80 Gb/s (TB5, 120 Gb/s boost)", "80 Gb/s on November 20 with both monitors on (120 Gb/s boost seen November 16) · USB4 v2 mode", OK),
-            (L("displays", "KTC H24T7") + ' · main display<br><span class="sub">Dock USB-C, USB-C to HDMI cable</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
-            (L("displays", "KTC H24T7 #2") + '<br><span class="sub">Dock USB-C, USB-C to HDMI cable</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
-            ('Anker → USB 3 hub<br><span class="sub">Inside the dock</span>', "Intel 8087:5787 → VIA VL822 ×2", "10 Gb/s", "10 Gb/s", OK),
-            ("↳ " + L("seagate-backup", "Seagate Expansion 2 TB"), "Seagate ST2000LM007", "5 Gb/s", "5 Gb/s", OK),
-            ("↳ " + L("network", "2.5G LAN adapter"), "Realtek RTL8156", "5 Gb/s", "5 Gb/s", OK),
-            ("↳ Card reader, no card", "Genesys Logic 05e3:0764", "5 Gb/s", "5 Gb/s", OK),
-            ('Anker → Lenovo camera<br><span class="sub">USB 2 hub chain</span>', "Fresco 1d5c:5801 → VIA 2822 ×2", "USB 2", "480 Mb/s", OK),
-            ("MacBook → " + L("sandisk-backup", "SanDisk SSD 1 TB") + '<br><span class="sub">Own MacBook port</span>', "SanDisk 0781:5504", "10 Gb/s", "10 Gb/s", OK),
-            ("MacBook → " + L("network", "home network") + '<br><span class="sub">en8, through the dock</span>', "Realtek 2.5GbE", "2.5 Gb/s", "2500Base-T full duplex", OK),
-            ('MacBook → Wi-Fi<br><span class="sub">en0</span>', "Wi-Fi 7", "—", "6 GHz ch 37, 160 MHz, 2161 Mb/s, −39 dBm", '<span class="sub">6 GHz</span>'),
+            ("MacBook → " + L("ivanky-dock", "Ivanky dock") + '<br><span class="sub">Thunderbolt port on the HDMI edge, as USB-C</span>', "VIA 2109:0822", "10 Gb/s (the dock\'s USB-C uplink)", "10 Gb/s on a USB 3.1 bus. No Thunderbolt device, as expected", OK),
+            ("MacBook HDMI → " + L("displays", "KTC H24T7") + '<br><span class="sub">MacBook HDMI 2.1, monitor HDMI 2.0</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
+            ("Ivanky HDMI → " + L("displays", "KTC H24T7") + '<br><span class="sub">DisplayPort Alt Mode, own wires</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
+            ("↳ " + L("sandisk-backup", "SanDisk SSD 1 TB"), "SanDisk 0781:5504", "10 Gb/s", "10 Gb/s", OK),
+            ('↳ USB 3 hub<br><span class="sub">Inside the dock</span>', "VIA 2109:0817", "5 Gb/s", "5 Gb/s", OK),
+            ("&nbsp;&nbsp;↳ " + L("seagate-backup", "Seagate Expansion 2 TB"), "Seagate 0bc2:2030", "5 Gb/s", "5 Gb/s", OK),
+            ("&nbsp;&nbsp;↳ Card reader, no card", "Generic 05e3:0749", "5 Gb/s", "5 Gb/s", OK),
+            ('↳ USB 2 hubs<br><span class="sub">Inside the dock</span>', "VIA 2822 → 2817, Genesys 05e3:0608 ×2", "480 Mb/s", "480 Mb/s", OK),
+            ("&nbsp;&nbsp;↳ M.2 slot, empty", "Realtek 0bda:9210", "10 Gb/s with a drive", '480 Mb/s <span class="sub">(no drive)</span>', '<span class="sub">empty</span>'),
+            ("&nbsp;&nbsp;↳ Lenovo camera", "Lenovo 17ef:4839", "USB 2", "480 Mb/s", OK),
+            ('MacBook → Wi-Fi<br><span class="sub">en0, default route</span>', "Wi-Fi 7", "—", "6 GHz ch 37, 160 MHz, 1921 Mb/s, −46 dBm", '<span class="sub">6 GHz</span>'),
         ])),
-    sec("Drive speeds", '<p class="note-t">8 GiB sequential, three runs each, write includes sync, read after a cache purge, no backup running. November 7, 2026.</p>',
+    sec("Drive speeds", '<p class="note-t">4 GiB read of the same file, page cache bypassed, one run each, November 27, 2026. Internal SSD write: 4 GiB with a full flush to flash.</p>',
         bars([
-            ("Samsung 990 PRO", "MacBook's own TB port", 2877, 2928, "tb"),
-            ("SanDisk SSD", "own MacBook port", 845, 813, "usb"),
-            ("SanDisk SSD", "on the dock", 794, 702, "usb"),
+            ("Internal SSD", "Apple AP1024Z", 11561, 9990, "tb"),
+            ("SanDisk SSD", "on the Ivanky, 10 Gb/s", None, 780, "usb"),
+            ("Seagate HDD", "on the Ivanky, 5 Gb/s", None, 99, "usb5"),
         ]),
-        '<p class="note-t">The SanDisk is faster on its own port in both directions. The 990 PRO has since moved to the Mac mini, where the drive is called <a href="devices/data.html">DATA</a> and now sits in a Mokin USB4 enclosure.</p>'),
+        '<p class="note-t">Write speeds weren\'t tested on the backup drives; macOS blocks writes to Time Machine disks. The SanDisk read 766 MB/s and the Seagate 128 MB/s the day before. The Samsung 990 PRO that ran 2,877 / 2,928 MB/s on a MacBook port on November 7 now lives on the Mac mini as <a href="devices/data.html">DATA</a>.</p>'),
     sec("Storage", table(["Volume", "Drive", "Used", "Size"], [
-        ("Macintosh HD", "Apple 1 TB internal (AP1024Z)", "364 GiB", "926 GiB"),
-        (L("sandisk-backup", "SANDISK TIMEMACHINE"), "SanDisk SSD 1 TB, own MacBook port, Time Machine", "477 GiB", "931 GiB"),
-        (L("seagate-backup", "MacBook Backup"), "Seagate Expansion 2 TB hard drive, on the dock, Time Machine", "780 GiB", "1.8 TiB"),
-    ], num=(2, 3)), '<p class="note-t">Used space read November 20, 2026.</p>'),
+        ("Macintosh HD", "Apple 1 TB internal (AP1024Z), FileVault on", "392 GiB", "926 GiB"),
+        (L("sandisk-backup", "SANDISK TIMEMACHINE"), "SanDisk SSD 1 TB, on the Ivanky, Time Machine", "505 GiB", "931 GiB"),
+        (L("seagate-backup", "MacBook Backup"), "Seagate Expansion 2 TB hard drive, on the Ivanky, Time Machine", "789 GiB", "1.8 TiB"),
+    ], num=(2, 3)), '<p class="note-t">Used space read November 27, 2026.</p>'),
     sec("Network", table(["Interface", "Link", "Down", "Up", "Idle ping"], [
-        ("en8 · wired", "2.5GbE through the dock, default route", "1.47 Gb/s", "1.98 Gb/s", "10.9 ms"),
-        ("en0 · Wi-Fi 7", "5 GHz, 80 MHz on Nov 8; now 6 GHz, 160 MHz", "161.8 Mb/s", "214.6 Mb/s", "14.3 ms"),
-    ], num=(2, 3, 4)), f'<p class="note-t">Measured {READ}; not re-run since the Wi-Fi moved to 6 GHz. Details and earlier tests are on the ' + L("network", "network page") + '.</p>'),
+        ("en0 · Wi-Fi 7", "6 GHz, channel 37, 160 MHz, default route", "1.50 Gb/s", "1.25 Gb/s", "13.8 ms"),
+    ], num=(2, 3, 4)), f'<p class="note-t">Measured {READ}. The Ivanky has no Ethernet port, so there is no wired link now. Earlier wired tests are on the ' + L("network", "network page") + '.</p>'),
     '<section><h2>Worth remembering</h2><div class="callouts">'
-    '<div class="callout"><h3>The dock\'s USB is one 10 Gb/s lane</h3><p>Every USB socket, the Ethernet port and the card reader share it. Fast drives belong on the MacBook\'s own ports or the dock\'s Thunderbolt ports.</p></div>'
-    '<div class="callout"><h3>Two computers, no KVM</h3><p>Each monitor has both Macs plugged in at once: the Mac mini on DisplayPort, this MacBook on HDMI through USB-C to HDMI cables from the dock. The monitor\'s input button picks the computer.</p></div>'
-    '<div class="callout attn"><h3>Video is king: a dock does video or fast drives</h3><p>On any dock, display traffic is reserved first and data gets what is left. This dock carries both monitors, so the fast drive sits on the MacBook\'s own port, where it measured quicker. The <a href="mac-mini.html">Mac mini</a> makes the opposite choice: its dock carries the SSDs and the monitors plug into the mini.</p></div>'
-    '<div class="callout"><h3>Video lifts the link to 120 Gb/s</h3><p>With both monitors on, the dock cable runs at 120 Gb/s, Thunderbolt 5\'s boost mode that gives more lanes to the direction video travels. With the monitors switched to the Mac mini it drops back to 80 Gb/s.</p></div>'
-    '<div class="callout"><h3>What moved to the Mac mini</h3><p>The Wavlink dock and the Samsung 990 PRO both live on the <a href="mac-mini.html">Mac mini</a> now. The ACASIS enclosure that held the 990 PRO is a spare.</p></div>'
+    '<div class="callout"><h3>One 10 Gb/s link, and that\'s enough</h3><p>The Ivanky is a USB-C dock, not Thunderbolt. Both backup drives, the card reader and the camera share its single 10 Gb/s link. The SanDisk still reads at 780 MB/s, close to what it managed on its own port.</p></div>'
+    '<div class="callout"><h3>Video rides its own wires</h3><p>The dock\'s monitor runs over DisplayPort Alt Mode, separate from the USB data, so it doesn\'t slow the drives. The second monitor sits on the MacBook\'s own HDMI port.</p></div>'
+    '<div class="callout"><h3>Two computers, no KVM</h3><p>Each monitor has both Macs plugged in at once: the Mac mini on DisplayPort, this MacBook on HDMI. The monitor\'s input button picks the computer.</p></div>'
+    '<div class="callout"><h3>One charger for everything</h3><p>A Mokin 140 W smart charger runs the MacBook over MagSafe and the dock, and shows the power draw. With several devices on it, the 140 W is split, so the MacBook gets less than it would alone.</p></div>'
+    '<div class="callout attn"><h3>A $50 dock replaced a $350 one</h3><p>The Anker Thunderbolt 5 dock is going back. The Ivanky, the Mac mini\'s old dock, gives the same everyday setup. What it gives up: Thunderbolt speed for fast drives, and wired Ethernet.</p></div>'
     '</div></section>',
-    sec("Desk layout PDFs", '<p class="note-t">Printable layouts of both desks, read from macOS (the mini on November 23, 2026, the MacBook on November 20): a port diagram, every negotiated link, storage, measured speeds and notes.</p>', '<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-23.pdf"><span class="spd">PDF · Nov 23, 2026</span><b>Mac mini desk layout</b><span>Both monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with Media, DATA and the Scratch Disk, and the November 23 drive tests.</span><span class="go">Open PDF &rarr;</span></a><a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on its Anker Thunderbolt 5 dock, with both monitors, the backups and the network.</span><span class="go">Open PDF &rarr;</span></a></div>'),
+    sec("Desk layout PDFs", '<p class="note-t">Printable layouts of both desks, read from macOS: a port diagram, every negotiated link, storage, measured speeds and notes.</p>', PDFS),
     sec("Next to the Mac mini", table(["", "Mac Work Book Pro", "Home Mac mini"], [
         ("Chip", "Apple M5 Pro", "Apple M6"),
         ("CPU", "18 cores: 6 Super, 12 Performance", "12 cores: 2 Super, 4 Performance, 6 Efficiency"),
         ("GPU", "20 cores", "12 cores"),
         ("Memory", "48 GB", "16 GB"),
         ("Internal SSD", "1 TB", "512 GB"),
-        ("Thunderbolt", "Thunderbolt 5, 80 Gb/s, 120 Gb/s with the monitors on", "Thunderbolt 4, 40 Gb/s"),
-        ("Dock", "Anker Prime, Thunderbolt 5", "Wavlink WL-UTD58, Thunderbolt 5 at 40 Gb/s"),
+        ("Thunderbolt", "Thunderbolt 5, up to 120 Gb/s (the dock uses one port as USB-C)", "Thunderbolt 4, 40 Gb/s"),
+        ("Dock", "Ivanky 13-in-1, USB-C at 10 Gb/s", "Wavlink WL-UTD58, Thunderbolt 5 at 40 Gb/s"),
     ]), '<p class="note-t">"Performance" is the lower of two tiers on the M5 Pro but the middle of three on the M6.</p>'),
 ])
-hero = (f'<div class="eyebrow">Read {READ20} · Mac17,9</div>\n'
+hero = (f'<div class="eyebrow">Read {READ} · Mac17,9</div>\n'
         '<h1>Mac Work Book <em>Pro*</em></h1>\n'
-        '<p class="lede">An Apple M5 Pro MacBook Pro with 48 GB of memory at the home desk. One Thunderbolt 5 cable to an Anker dock carries power, both monitors, the wired network, a backup drive and the camera.</p>\n'
+        '<p class="lede">An Apple M5 Pro MacBook Pro with 48 GB of memory at the home desk. One USB-C cable to the Ivanky dock carries a monitor, both backup drives and the camera; the second monitor is on the MacBook\'s own HDMI port, and a Mokin 140 W charger powers it all.</p>\n'
         '<p class="lede" style="font-size:14px">* I wish I owned this. Alas, it\'s on loan from work.</p>\n'
-        + stats([("80–120", "Gb/s", "dock link"), ("48", "GB", "memory"), ("2", "backups", "Time Machine disks"), ("144 + 144", "Hz", "two displays"), ("1.98", "Gb/s", "wired upload")]))
+        + stats([("10", "Gb/s", "dock link"), ("48", "GB", "memory"), ("2", "backups", "Time Machine disks"), ("144 + 144", "Hz", "two displays"), ("100", "%", "battery capacity")]))
 page("macbook-pro.html", "Mac Work Book Pro",
-     "An Apple M5 Pro MacBook Pro on an Anker Thunderbolt 5 dock: what is plugged into what, a page for each device, and measured speeds.",
+     "An Apple M5 Pro MacBook Pro on an Ivanky 13-in-1 USB-C dock: what is plugged into what, a page for each device, and measured speeds.",
      "usb", hero, hub, one=False, cur=CUR)

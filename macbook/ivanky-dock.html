@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ivanky · Mac Work Book Pro</title><meta name="description" content="Ivanky 13-in-1 USB-C dock, the Mac mini&#x27;s old one. One monitor, both backup drives and the camera share a single 10 Gb/s link to the MacBook.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head><body class="b-usb">
+<div class="mast one"><div class="wrap">
+<nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html">Mac mini setup</a><a href="../macbook-pro.html" aria-current="page">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a><a href="../articles.html">Articles</a></nav>
+<div class="hero">
+<div class="eyebrow"><a href="../macbook-pro.html">Mac Work Book Pro</a> / Dock / <b>10 Gb/s uplink</b></div>
+<h1>Ivanky <em>13‑in‑1 USB‑C dock</em></h1>
+<p class="lede">One USB-C cable to the MacBook. The Ivanky 13-in-1 dock that used to sit under the Mac mini now carries one monitor, both Time Machine drives, a card reader and the camera. It replaced an Anker Thunderbolt 5 dock in late November.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-usb"><span>10 Gb/s USB-C</span><i></i></div><div class="hop me"><b>Ivanky dock</b><span>VIA VL822 hub · 10 Gb/s</span></div></div>
+<div class="stats"><div class="stat"><b>10<small>Gb/s</small></b><span>link to the MacBook, shared</span></div><div class="stat"><b>13<small>ports</small></b><span>on the box</span></div><div class="stat"><b>1440p<small>144 Hz</small></b><span>monitor on its HDMI</span></div><div class="stat"><b>140<small>W</small></b><span>Mokin charger, shared with the MacBook</span></div></div>
+</div></div></div>
+<div class="wrap"><main>
+<section><h2>What it is</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Model</td><td>Ivanky 13-in-1 Mac mini dock and stand (Fusion Dock 3)</td></tr>
+<tr><td>Type</td><td>A 10 Gb/s USB-C dock, not Thunderbolt. macOS's Thunderbolt report lists no device, which is expected.</td></tr>
+<tr><td>Link to the MacBook</td><td>The MacBook's Thunderbolt port on the HDMI edge, used as a plain USB-C port. macOS sees a VIA hub <span class="mono">(2109:0822)</span> at 10 Gb/s on a USB 3.1 bus.</td></tr>
+<tr><td>Video</td><td>HDMI out, up to 4K at 144 Hz. The picture travels over DisplayPort Alt Mode on its own wires in the cable, so it takes nothing from the 10 Gb/s the USB devices share.</td></tr>
+<tr><td>Power</td><td>It came with a 20 W adapter, which isn't used. It runs from the same Mokin 140 W smart charger as the MacBook, which shows the power draw.</td></tr>
+<tr><td>USB 3 inside</td><td>VIA <span class="mono">2109:0822</span> at 10 Gb/s, feeding a VIA <span class="mono">2109:0817</span> at 5 Gb/s</td></tr>
+<tr><td>USB 2 inside</td><td>VIA <span class="mono">2822</span> → VIA <span class="mono">2817</span>, plus two Genesys <span class="mono">05e3:0608</span> hubs, at 480 Mb/s</td></tr>
+<tr><td>History</td><td>The same unit sat under the <a href="mac-mini.html">Mac mini</a> until early November, with the Scratch Disk in its M.2 slot.</td></tr>
+</tbody></table></div>
+<p class="note-t">Port list from the Ivanky product listing. Everything else is what macOS reported on November 27.</p>
+</section>
+<section><h2>Its ports, and what is in them</h2>
+<div class="scroll"><table class=""><thead><tr><th>Port</th><th>Rated</th><th>In use</th></tr></thead><tbody>
+<tr><td>USB-C upstream</td><td>10 Gb/s</td><td>The MacBook</td></tr>
+<tr><td>HDMI</td><td>4K at 144 Hz</td><td>One <a href="displays.html">KTC H24T7</a>, 2560×1440 at 144 Hz</td></tr>
+<tr><td>USB-A and USB-C</td><td>10 Gb/s each</td><td><a href="sandisk-backup.html">SanDisk SSD</a>, 10 Gb/s</td></tr>
+<tr><td>USB-A and USB-C</td><td>5 Gb/s each</td><td><a href="seagate-backup.html">Seagate hard drive</a>, 5 Gb/s</td></tr>
+<tr><td>USB-A ×3</td><td>USB 2</td><td>Lenovo Performance RGB Camera, 480 Mb/s</td></tr>
+<tr><td>SD and TF</td><td>—</td><td>macOS lists a USB 3 card reader <span class="mono">(05e3:0749)</span> at 5 Gb/s, no card</td></tr>
+<tr><td>M.2 NVMe / SATA slot</td><td>10 Gb/s</td><td>Empty. Its Realtek RTL9210B-CG bridge shows at 480 Mb/s with no drive in it. On the Mac mini it held the Scratch Disk at about 780 MB/s.</td></tr>
+<tr><td>Audio ×2</td><td>—</td><td>Not checked</td></tr>
+<tr><td>Power in</td><td>20 W adapter in the box</td><td>Mokin 140 W charger</td></tr>
+</tbody></table></div>
+<p class="note-t">macOS doesn't say which socket each device uses.</p>
+</section>
+<section><h2>One 10 Gb/s link for everything</h2>
+<p>The SanDisk, the Seagate, the card reader, the camera and the M.2 slot all share one 10 Gb/s link to the MacBook. The SanDisk alone can use most of it, so a backup to it and a backup to the Seagate at the same time would share it. Video doesn't count against it.</p>
+</section>
+<section><h2>The docks before this one</h2>
+<p>From November 6 to 26 this desk used an Anker Prime 14-in-1 Thunderbolt 5 dock (A83B5). It linked at 80 Gb/s, or 120 Gb/s with both monitors on, carried both monitors over USB-C to HDMI cables and the wired network, and had its power supply built in. It is being returned. Before that, a Wavlink WL-UTD58 Thunderbolt 5 dock was here; it now serves the <a href="../devices/wavlink-dock.html">Mac mini</a>.</p>
+</section>
+<p class="note-t">Read from macOS on the MacBook Pro, November 27, 2026.</p>
+<div class="pager"><a href="network.html">&larr; Network</a><a href="../macbook-pro.html">All devices</a><a href="sandisk-backup.html">SanDisk SSD &rarr;</a></div>
+</main>
+<footer>Willard Kramer &middot; New York, NY &middot; <a href="mailto:willardk@gmail.com">willardk@gmail.com</a></footer>
+</div></body></html>
