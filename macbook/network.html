@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Network · Mac Work Book Pro</title><meta name="description" content="Wi-Fi 7 on 6 GHz: 1.50 Gb/s down and 1.25 Gb/s up on November 27. The Ivanky dock has no Ethernet port.">
+<title>Network · Mac Work Book Pro</title><meta name="description" content="Wired again since November 27: a 2.5 GbE USB adapter on the Ivanky dock, 1.74 Gb/s down and 2.18 Gb/s up. Wi-Fi 7 stays on as standby.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../site.css">
@@ -8,28 +8,49 @@
 <div class="mast one"><div class="wrap">
 <nav><a class="brand" href="../index.html">Willard Kramer</a><a href="../index.html">About</a><a href="../mac-mini.html">Mac mini setup</a><a href="../macbook-pro.html" aria-current="page">Mac Work Book Pro</a><a href="../dev-env.html">Dev environment</a><a href="../articles.html">Articles</a></nav>
 <div class="hero">
-<div class="eyebrow"><a href="../macbook-pro.html">Mac Work Book Pro</a> / Network / <b>Wi-Fi 7 · 6 GHz</b></div>
-<h1>Network <em>Wi-Fi 7</em></h1>
-<p class="lede">How the MacBook reaches the network. Wi-Fi 7 on 6 GHz is the default route since the move to the Ivanky dock, which has no Ethernet port.</p>
-<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-net"><span>Wi-Fi 7 · 6 GHz</span><i></i></div><div class="hop me"><b>Home Wi-Fi</b><span>Verizon CHR30A router</span></div></div>
-<div class="stats"><div class="stat"><b>1.50<small>Gb/s</small></b><span>down</span></div><div class="stat"><b>1.25<small>Gb/s</small></b><span>up</span></div><div class="stat"><b>13.8<small>ms</small></b><span>idle ping</span></div></div>
+<div class="eyebrow"><a href="../macbook-pro.html">Mac Work Book Pro</a> / Network / <b>2.5 GbE · USB adapter</b></div>
+<h1>Network <em>2.5 GbE wired</em></h1>
+<p class="lede">How the MacBook reaches the network. Since the afternoon of November 27 a 2.5 GbE USB adapter on the Ivanky dock carries the default route, into the same switch as the Mac mini. Wi-Fi 7 stays connected as a standby.</p>
+<div class="path" aria-label="Signal path from the Mac mini"><a class="hop" href="../macbook-pro.html"><b>MacBook Pro</b><span>Mac17,9 · M5 Pro</span></a><div class="wire b-usb"><span>10 Gb/s USB-C</span><i></i></div><a class="hop" href="ivanky-dock.html"><b>Ivanky dock</b><span>13-in-1 USB-C</span></a><div class="wire b-usb"><span>USB 3 hub · 5 Gb/s</span><i></i></div><div class="hop me"><b>2.5 GbE adapter</b><span>Realtek RTL8156 · en8</span></div><div class="wire b-net"><span>2500Base-T</span><i></i></div><div class="hop"><b>ACASIS switch</b><span>2.5 GbE · Mac mini here too</span></div></div>
+<div class="stats"><div class="stat"><b>1.74<small>Gb/s</small></b><span>down, wired</span></div><div class="stat"><b>2.18<small>Gb/s</small></b><span>up, wired</span></div><div class="stat"><b>10.3<small>ms</small></b><span>idle ping</span></div><div class="stat"><b>2.30<small>Gb/s</small></b><span>Mac mini down, same switch</span></div></div>
 </div></div></div>
 <div class="wrap"><main>
-<section><h2>The link</h2>
+<section><h2>The wired link</h2>
 <div class="scroll"><table class="spec"><tbody>
-<tr><td>Interface</td><td>en0, Wi-Fi 7 (802.11be), default route</td></tr>
-<tr><td>Channel</td><td>37, 6 GHz, 160 MHz wide</td></tr>
-<tr><td>Signal</td><td>−46 dBm, noise −94 dBm, link rate 1921 Mb/s</td></tr>
+<tr><td>Adapter</td><td>USB 10/100/1G/2.5G LAN, Realtek RTL8156 <span class="mono">(0bda:8156)</span>. macOS needed no driver.</td></tr>
+<tr><td>Interface</td><td>en8, the default route since November 27</td></tr>
+<tr><td>Where</td><td>On the <a href="ivanky-dock.html">Ivanky</a>'s 10 Gb/s hub (VIA VL822), one hub from the MacBook. It links at 5 Gb/s on USB, the adapter's own maximum.</td></tr>
+<tr><td>Ethernet</td><td>2500Base-T, full duplex, into the ACASIS 2.5 GbE switch the Mac mini also uses</td></tr>
 <tr><td>Router</td><td>Verizon CHR30A, on a Verizon fiber terminal</td></tr>
+</tbody></table></div>
+</section>
+<section><h2>Where the adapter was tried</h2>
+<div class="scroll"><table class=""><thead><tr><th>Port</th><th>USB path</th><th>Result</th></tr></thead><tbody>
+<tr><td>Ivanky, on its 10 Gb/s hub</td><td>One hub (VL822)</td><td>Where it is now. The best spot</td></tr>
+<tr><td>Ivanky, a 5 Gb/s port</td><td>Two hubs (VL822 → VL817), shared with the Seagate</td><td>Worked, one hub deeper</td></tr>
+<tr><td>The MacBook's own port</td><td>No hub</td><td>Same speed as on the dock</td></tr>
 </tbody></table></div>
 </section>
 <section><h2>Speed tests</h2>
 <div class="scroll"><table class=""><thead><tr><th>Date</th><th>Link</th><th class=n>Down</th><th class=n>Up</th><th class=n>Idle ping</th></tr></thead><tbody>
-<tr><td>Nov 27, 2026</td><td>Wi-Fi 7, 6 GHz, 160 MHz</td><td class=n>1.50 Gb/s</td><td class=n>1.25 Gb/s</td><td class=n>13.8 ms</td></tr>
+<tr><td>Nov 27, 2026, two runs</td><td>2.5 GbE adapter on the Ivanky</td><td class=n>1.66–1.74 Gb/s</td><td class=n>2.15–2.18 Gb/s</td><td class=n>10.3–10.5 ms</td></tr>
+<tr><td>Nov 27, 2026, two runs</td><td>2.5 GbE adapter on the MacBook's own port</td><td class=n>1.74–1.75 Gb/s</td><td class=n>2.14–2.18 Gb/s</td><td class=n>10.0–37.4 ms</td></tr>
+<tr><td>Nov 27, 2026, before the adapter</td><td>Wi-Fi 7, 6 GHz, 160 MHz</td><td class=n>1.50 Gb/s</td><td class=n>1.25 Gb/s</td><td class=n>13.8 ms</td></tr>
 <tr><td>Nov 26, 2026, test 1</td><td>Wi-Fi 7, 6 GHz, 160 MHz</td><td class=n>1.34 Gb/s</td><td class=n>1.06 Gb/s</td><td class=n>57 ms</td></tr>
 <tr><td>Nov 26, 2026, test 2</td><td>Wi-Fi 7, 6 GHz, 160 MHz</td><td class=n>580 Mb/s</td><td class=n>842 Mb/s</td><td class=n>16 ms</td></tr>
+<tr><td><span class="sub">For comparison:</span> Mac mini, Nov 27, two runs</td><td>Built-in 2.5 GbE, same switch</td><td class=n>2.30 Gb/s</td><td class=n>2.31–2.35 Gb/s</td><td class=n>11.1–11.4 ms</td></tr>
 </tbody></table></div>
-<p class="note-t">macOS networkQuality. On November 27 responsiveness was Medium on upload and High on download.</p>
+<p class="note-t">macOS networkQuality. The November 27 runs used <span class="mono">-s</span>, which tests download and upload one after the other; runs without it test both at once and show a lower upload. The 37.4 ms idle ping was one run; the other on that port read 10.0 ms.</p>
+</section>
+<section><h2>Why download stops near 1.74 Gb/s</h2>
+<p>The adapter, not the dock. It downloads the same on the MacBook's own port as on the Ivanky, while the <a href="../devices/home-network.html">Mac mini</a> on the same switch gets 2.30 Gb/s. Upload is close to the mini's. It's the same Realtek RTL8156 chip that held the Mac mini to about 1.85 Gb/s receiving when it was tried on a USB adapter on November 12; only the mini's built-in port receives at full rate.</p>
+</section>
+<section><h2>Wi-Fi, now standby</h2>
+<div class="scroll"><table class="spec"><tbody>
+<tr><td>Interface</td><td>en0, Wi-Fi 7 (802.11be), connected but no longer the default route</td></tr>
+<tr><td>Channel</td><td>37, 6 GHz, 160 MHz wide</td></tr>
+<tr><td>Signal</td><td>−46 dBm, noise −94 dBm, link rate 1921 Mb/s</td></tr>
+</tbody></table></div>
 </section>
 <section><h2>Earlier tests</h2>
 <div class="scroll"><table class=""><thead><tr><th>Date</th><th>Link</th><th class=n>Down</th><th class=n>Up</th><th class=n>Idle ping</th></tr></thead><tbody>
@@ -38,10 +59,10 @@
 <tr><td>Oct 19, 2026</td><td>Wired, through the Wavlink dock</td><td class=n>1.74 Gb/s</td><td class=n>2.11 Gb/s</td><td class=n>12 ms</td></tr>
 <tr><td>Oct 19, 2026, earlier</td><td>Wired, through the Wavlink dock</td><td class=n>1.60 Gb/s</td><td class=n>2.00 Gb/s</td><td class=n>—</td></tr>
 </tbody></table></div>
-<p class="note-t">The wired tests used each Thunderbolt dock's built-in Realtek RTL8156 2.5 GbE adapter. Wi-Fi on 6 GHz now gets close to what wired did through those docks.</p>
+<p class="note-t">The earlier wired tests used each Thunderbolt dock's built-in 2.5 GbE adapter, also a Realtek RTL8156, and landed in the same range as the new USB adapter.</p>
 </section>
 <section><h2>Link to the Mac mini</h2>
-<p>The two Macs normally talk over the home network. In a test on November 25 a direct Thunderbolt link, with the MacBook on the Mac mini's Wavlink dock, ran at 37.7 Gb/s each way, about 16 times the home network's 2.5 Gb/s.</p>
+<p>The two Macs normally talk over the home network, now both wired to the same switch. In a test on November 25 a direct Thunderbolt link, with the MacBook on the Mac mini's Wavlink dock, ran at 37.7 Gb/s each way, about 16 times the home network's 2.5 Gb/s.</p>
 </section>
 <p class="note-t">Read from macOS on the MacBook Pro, November 27, 2026.</p>
 <div class="pager"><a href="displays.html">&larr; Displays</a><a href="../macbook-pro.html">All devices</a><a href="ivanky-dock.html">Ivanky &rarr;</a></div>
