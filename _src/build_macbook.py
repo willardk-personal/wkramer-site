@@ -234,7 +234,7 @@ for g in ["Dock", "Storage", "Displays", "Network"]:
 
 L = lambda s, t: f'<a href="macbook/{s}.html">{t}</a>'
 OK = '<span class="okk">✓ max</span>'
-PDFS = ('<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-23.pdf"><span class="spd">PDF · Nov 23, 2026</span><b>Mac mini desk layout</b><span>Both monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with Media, DATA and the Scratch Disk, and the November 23 drive tests.</span><span class="go">Open PDF &rarr;</span></a>'
+PDFS = ('<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>Mac mini desk layout</b><span>Both monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with Media, DATA and the Scratch Disk, the November 23 drive tests, and the MacBook rows updated November 27.</span><span class="go">Open PDF &rarr;</span></a>'
         '<a class="card" href="downloads/macbook-pro-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on the Ivanky 13-in-1 USB-C dock, one monitor on its own HDMI, the backups, the internal SSD and Wi-Fi.</span><span class="go">Open PDF &rarr;</span></a>'
         '<a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro, earlier</b><span>The same desk on the Anker Thunderbolt 5 dock, before November 27.</span><span class="go">Open PDF &rarr;</span></a></div>')
 hub = "\n".join([
