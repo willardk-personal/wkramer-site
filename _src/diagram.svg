@@ -1,5 +1,5 @@
 <svg viewBox="0 0 1160 830" role="img" aria-labelledby="dgT">
-        <title id="dgT">Port map: the Mac mini drives both displays, the home network, the SSD BACKUP drive on a front USB-C port, and the Wavlink dock, which carries three SSDs, the Time Machine hard drive, a LAN adapter and a Blu-ray burner.</title>
+        <title id="dgT">Port map: the Mac mini drives both displays, the home network, the SSD BACKUP drive on a front USB-C port, and the Wavlink dock, which carries two NVMe SSDs, the Time Machine hard drive, a LAN adapter and a Blu-ray burner.</title>
 
         <!-- links -->
         <line x1="97" y1="260" x2="97" y2="148" class="ln l-dp"/>
@@ -38,8 +38,8 @@
         <text x="699" y="576" class="lbl c-u5" text-anchor="middle">5 Gb/s</text>
         <line x1="638" y1="661" x2="760" y2="661" class="ln l-u2"/>
         <text x="699" y="652" class="lbl c-u2" text-anchor="middle">480 Mb/s</text>
-        <line x1="638" y1="737" x2="760" y2="737" class="ln l-u10"/>
-        <text x="699" y="728" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
+        <line x1="638" y1="737" x2="760" y2="737" class="ln l-free"/>
+        <text x="699" y="728" class="lbl2" text-anchor="middle">free</text>
 
         <!-- top: left display on R1, main (right) display on R4 -->
         <rect x="15" y="30" width="165" height="118" rx="8" class="node"/>
@@ -110,7 +110,7 @@
         <text x="460" y="496" class="t1">USB hub · 10 Gb/s</text>
         <text x="460" y="530" class="tm">Intel 8087:5787</text>
         <text x="460" y="546" class="tm">+ Parade hubs</text>
-        <text x="460" y="616" class="t2">Shared by these four</text>
+        <text x="460" y="616" class="t2">Shared by these three</text>
         <text x="460" y="634" class="t2">on one 10 Gb/s link</text>
 
         <!-- right column: thunderbolt -->
@@ -126,9 +126,9 @@
         <text x="774" y="328" class="t1">iPad mini / iPhone</text>
         <text x="774" y="348" class="t2">30W PD charging (15V/2A) · USB 3 over USB4 · 80 Gb/s cable</text>
 
-        <rect x="760" y="706" width="385" height="62" rx="8" class="node"/>
-        <text x="774" y="732" class="t1">Scratch Disk · 512GB SSD</text>
-        <text x="774" y="752" class="t2">Ugreen USB enclosure · Realtek RTL9210 · orange USB-A port</text>
+        <rect x="760" y="706" width="385" height="62" rx="8" class="node" style="stroke-dasharray:5 5"/>
+        <text x="774" y="732" class="t1" style="fill:var(--muted)">Orange USB-A port · free</text>
+        <text x="774" y="752" class="t2">Scratch Disk moved to the MacBook's Ivanky dock, Nov 27</text>
 
         <!-- right column: usb -->
         <rect x="760" y="478" width="385" height="62" rx="8" class="node"/>

@@ -121,12 +121,12 @@ D.append(dict(
             ("Thunderbolt", '<a href="media.html">Media</a> · Crucial P310 in a Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
             ("Thunderbolt", '<a href="data.html">DATA</a> · Samsung 990 PRO in a second Mokin enclosure', "40 Gb/s USB4", "Thunderbolt"),
             ("Thunderbolt (front, 30 W)", "iPad mini or iPhone · charging at the full 30 W (15 V / 2 A USB-C PD)", "10 Gb/s USB 3, over USB4", "USB 3 hub, tunneled"),
-            ("USB-A (orange)", '<a href="scratch-disk.html">Scratch Disk</a> · Ugreen USB enclosure', "10 Gb/s USB", "USB 3 hub, two hubs down"),
+            ("USB-A (orange)", 'Free. The <a href="../macbook/scratch-disk.html">Scratch Disk</a> was here until November 27; it moved to the MacBook\'s dock', "—", "USB 3 hub, two hubs down"),
             ("USB 3 hub", '<a href="backup-hdd.html">Backup</a> · WD Elements 4 TB', "5 Gb/s", "USB 3 hub"),
             ("USB 3 hub", '<a href="lan-adapter.html">Realtek 2.5G LAN</a>', "5 Gb/s", "USB 3 hub"),
             ("USB 2 side", '<a href="blu-ray.html">Blu-ray burner</a>', "480 Mb/s", "USB 2 hub"),
         ]),
-            '<p class="note-t">The dock\'s four USB-A ports are rated 10 Gb/s each, but everything USB shares one 10 Gb/s link inside the dock: the Scratch Disk, the Backup drive, the LAN adapter and the card reader. The front 30 W port is the only 30 W port, so it is the charging spot for the iPad mini or iPhone. With an 80 Gb/s cable the iPad links at 10 Gb/s, its top speed, and its data joins that same shared USB link. The iPad reports a USB-C PD charger offering 5 V / 3 A, 9 V / 3 A and 15 V / 2 A, and it picks 15 V / 2 A, the full 30 W.</p>'),
+            '<p class="note-t">The dock\'s four USB-A ports are rated 10 Gb/s each, but everything USB shares one 10 Gb/s link inside the dock: the Backup drive, the LAN adapter and the card reader. The front 30 W port is the only 30 W port, so it is the charging spot for the iPad mini or iPhone. With an 80 Gb/s cable the iPad links at 10 Gb/s, its top speed, and its data joins that same shared USB link. The iPad reports a USB-C PD charger offering 5 V / 3 A, 9 V / 3 A and 15 V / 2 A, and it picks 15 V / 2 A, the full 30 W.</p>'),
         sec("One shared uplink", '<p>Everything behind the dock shares the single 40 Gb/s link to the mini. Run alone, each NVMe drive reads about 3.8 GB/s. Run together, they split a ceiling of about 4 GB/s.</p>',
             bars([
                 ("DATA alone", "990 PRO", 3669, 3835, "tb"),
@@ -225,35 +225,6 @@ D.append(dict(
             ("Media errors", "0"),
         ]),
             '<p class="note-t">From smartctl, November 23, 2026 (SMART status passed). The count went from 58 to 61 when the drive was moved on November 10, to 63 with the enclosure swap on November 13, and to 68 by November 15, which included a forced restart. It read 70 after the November 22 swap and was unchanged on November 23. Eject before unplugging.</p>'),
-    ]))
-
-# ---------------------------------------------------------------- Scratch
-D.append(dict(
-    slug="scratch-disk", checked="November 23, 2026", name="Scratch Disk", em="512 GB SSD", group="Storage", bus="usb", spd="10 Gb/s USB",
-    card="512 GB SSD in a Ugreen USB enclosure. Temp files and working space, kept off the internal drive.",
-    lede="Working space. A 512 GB SSD in a Ugreen USB enclosure, plugged into one of the dock's USB-A ports.",
-    path=[MINI, UPLINK, DOCK, ("wire", "USB hub · 10 Gb/s", "usb"), ("node", "Ugreen enclosure", "Realtek RTL9210", None), ("wire", "NVMe", "usb"), ("node", "512 GB SSD", "volume Scratch Disk", "me")],
-    stats=[("768", "MB/s", "write"), ("692", "MB/s", "read"), ("69", "GB", "used of 512 GB"), ("10", "Gb/s", "USB link")],
-    body=[
-        sec("The drive and its enclosure", spec([
-            ("Drive", "512 GB NVMe SSD"),
-            ("Enclosure", 'Ugreen USB enclosure, Realtek RTL9210 bridge <span class="mono">(0bda:9210)</span>'),
-            ("Link", "USB 10 Gb/s, drawing up to 4.5 W from the dock"),
-            ("Where", "An orange USB-A port on the Wavlink, using a USB-A to C cable rated 10 Gb/s. It sits two Parade hubs below the dock's main USB hub. Until November 13 it was on a Thunderbolt port."),
-            ("Volume", "Scratch Disk (APFS). 69 GB used, 443 GB free."),
-            ("Job", "Temporary files, test output and working copies, so the internal SSD stays clear."),
-        ])),
-        sec("Measured speed", bars([
-            ("USB-A port, alone", "Nov 23, 8 GB, median of 3", 768, 692, "usb"),
-            ("USB-A port, alone", "Nov 20, 8 GB", 737, 674, "usb"),
-            ("USB-A port, all at once", "Nov 20", 756, 697, "usb"),
-            ("USB-A port, alone", "Nov 13, 8 GB", 766, 684, "usb"),
-            ("Thunderbolt port, alone", "Nov 13, 8 GB", 787, 752, "usb"),
-            ("Thunderbolt port, all at once", "Nov 13", 787, 754, "usb"),
-        ], 1250),
-            '<p class="note-t">fio with direct I/O. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link. Random 4k at queue depth 32: 11k to 12k read and 5k write operations per second on either port (11k and 5k on November 20). The USB-A port costs about 3% on writes and 9% on reads, from the two extra hub hops.</p>',
-            '<p>The drive is limited by its USB bridge, not by the dock. It keeps full speed while the two NVMe drives are busy, because 0.8 GB/s is a small share of the dock\'s 4 GB/s.</p>'),
-        sec("History", '<p>This SSD used to sit in the M.2 slot of an Ivanky USB dock, where it measured the same ~780 MB/s. When the Wavlink replaced that dock, the drive moved into its own enclosure. Since November 27 that Ivanky dock serves the <a href="macbook/ivanky-dock.html">MacBook Pro</a>.</p>'),
     ]))
 
 # ---------------------------------------------------------------- SSD BACKUP
@@ -481,11 +452,17 @@ for i, d in enumerate(D):
     foot = f'<p class="note-t">Read from system_profiler, smartctl and fio on the Mac mini. Checked {d.get("checked", CHECKED)}.</p>'
     page(f'devices/{d["slug"]}.html', f'{d["name"]} · Mac mini setup', d["card"], d["bus"], hero, "\n".join(d["body"]) + "\n" + foot + "\n" + pager)
 
+# old Scratch Disk URL: the drive moved to the MacBook on November 27
+page("devices/scratch-disk.html", "Scratch Disk · moved to the MacBook", "The Scratch Disk moved from the Mac mini to the MacBook Pro's Ivanky dock on November 27, 2026.", "usb",
+     '<div class="eyebrow"><a href="../mac-mini.html">Mac mini setup</a> / Storage</div>\n<h1>Scratch Disk <em>moved</em></h1>\n'
+     '<p class="lede">On November 27, 2026 the 512 GB Scratch Disk left the Mac mini\'s Wavlink dock for the MacBook Pro, where it sits in the Ivanky dock\'s built-in M.2 slot.</p>',
+     '<p><a href="../macbook/scratch-disk.html">Its page is now with the MacBook Pro &rarr;</a></p><p class="note-t">The mini\'s temporary files moved to <a href="data.html">DATA</a>.</p>')
+
 # ================================================================= hub
 svg = (ROOT / "_src/diagram.svg").read_text().replace('<text x="28" y="650" class="tm">192.168.1.2</text>', "")
 HITS = [("ktc-h24t7", "dp", 190, 30, 165, 118), ("ktc-h24t7-hdmi", "dp", 15, 30, 165, 118), ("ssd-backup", "usb", 15, 700, 340, 106),
         ("wavlink-dock", "tb", 430, 40, 230, 100), ("media", "tb", 760, 150, 385, 62), ("data", "tb", 760, 226, 385, 62),
-        ("scratch-disk", "usb", 760, 706, 385, 62), ("backup-hdd", "usb5", 760, 478, 385, 62), ("lan-adapter", "net", 760, 554, 385, 62),
+        ("backup-hdd", "usb5", 760, 478, 385, 62), ("lan-adapter", "net", 760, 554, 385, 62),
         ("blu-ray", "usb2", 760, 630, 385, 62), ("home-network", "net", 15, 560, 165, 110)]
 names = {d["slug"]: d["name"] for d in D}
 hits = "".join(f'<a href="devices/{s}.html" class="b-{b}" aria-label="{names[s]}"><rect class="hit" x="{x}" y="{y}" width="{w}" height="{h}" rx="8"/></a>' for s, b, x, y, w, h in HITS)
@@ -527,19 +504,17 @@ hub = "\n".join([
             ("↳ " + L("data", "DATA") + " · Samsung 990 PRO", "Samsung 990 PRO", "PCIe Gen4 x4", "Gen4 x4, 16 GT/s", OK),
             ("Wavlink → iPad mini" + '<br><span class="sub">Front 30 W port, 80 Gb/s cable, also used for the iPhone</span>', "Apple iPad mini", "10 Gb/s (iPad USB 3)", "10 Gb/s, over USB4", OK),
             ("↳ iPad mini charging", "USB-C PD", "30 W", "15 V / 2 A = 30 W", OK),
-            ("Wavlink → " + L("scratch-disk", "Scratch Disk"), "Realtek RTL9210", "10 Gb/s (USB enclosure)", "10 Gb/s", OK),
             ("Wavlink → " + L("backup-hdd", "Backup") + " · WD Elements", "WD USB bridge", "5 Gb/s", "5 Gb/s", OK),
             ("Wavlink → " + L("lan-adapter", "2.5G LAN adapter"), "Realtek RTL8156", "5 Gb/s", "5 Gb/s", OK),
             ("Wavlink → " + L("blu-ray", "Blu-ray burner"), "Initio bridge", "USB 2", "480 Mb/s", OK),
             ("Mac mini → " + L("home-network", "home network") + '<br><span class="sub">en0, into the ACASIS 2.5GbE switch</span>', "Built-in 2.5GbE", "2.5 Gb/s", "2500Base-T full duplex", OK),
         ])),
-    sec("Drive speeds", '<p class="note-t">fio, 8 GB direct I/O. DATA, Media and the Scratch Disk are the median of three runs on November 23. The internal SSD and SSD BACKUP were last tested November 20, on the same layout.</p>',
+    sec("Drive speeds", '<p class="note-t">fio, 8 GB direct I/O. DATA and Media are the median of three runs on November 23. The internal SSD and SSD BACKUP were last tested November 20, on the same layout.</p>',
         bars([
             ("Internal SSD", "alone, Nov 20", 5781, 6473, "usb2"),
             ("DATA · 990 PRO", "alone", 3669, 3835, "tb"),
             ("Media · P310", "alone", 2972, 3816, "tb"),
             ("SSD BACKUP · SN350", "alone, read-only, Nov 20", None, 866, "usb"),
-            ("Scratch Disk", "alone", 768, 692, "usb"),
         ], 7456),
         bars([
             ("DATA · 990 PRO", "both at once", 2232, 2011, "tb"),
@@ -553,7 +528,7 @@ hub = "\n".join([
         (L("media", "Media"), "Crucial P310 2 TB, Mokin enclosure", "934 GB", "2.0 TB", "51 °C"),
         (L("data", "DATA"), "Samsung 990 PRO 1 TB, Mokin enclosure", "103 GB", "1.0 TB", "39 °C"),
         (L("ssd-backup", "SSD BACKUP"), "WD Green SN350 2 TB, UGREEN enclosure", "1.32 TB", "2.0 TB", "—"),
-        (L("scratch-disk", "Scratch Disk"), "512 GB SSD, Ugreen enclosure", "69 GB", "512 GB", "—"),
+        ('<a href="macbook/scratch-disk.html">Scratch Disk</a>', "512 GB SSD, moved to the MacBook\'s Ivanky dock November 27. The mini\'s temp files now live on DATA", "—", "—", "—"),
         (L("backup-hdd", "Backup"), "WD Elements 4 TB hard drive", "2.7 TB", "4.0 TB", "—"),
     ], num=(2, 3, 4)), '<p class="note-t">Used space November 22; idle temperatures November 23 for DATA and Media, November 22 for the internal SSD. USB enclosures do not pass the drive\'s temperature through. DATA and Media passed a file system check on November 22, the others on November 16.</p>'),
     sec("Network", table(["Interface", "Link", "Down", "Up", "Idle ping"], [
@@ -574,13 +549,13 @@ hub = "\n".join([
         ("Internal SSD", "512 GB", "1 TB"),
         ("Thunderbolt", "Thunderbolt 4, 40 Gb/s", "Thunderbolt 5, up to 120 Gb/s"),
     ]), '<p class="note-t">The MacBook Pro is no longer cabled to the mini. It runs from its own dock. See the <a href="macbook-pro.html">MacBook Pro page</a>.</p>'),
-    sec("Desk layout PDFs", '<p class="note-t">Printable layouts of both desks, read from macOS (the mini on November 23, 2026 with MacBook rows updated November 27, the MacBook on November 27): a port diagram, every negotiated link, storage, measured speeds and notes.</p>', '<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>Mac mini desk layout</b><span>Both monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with Media, DATA and the Scratch Disk, the November 23 drive tests, and the MacBook rows updated November 27.</span><span class="go">Open PDF &rarr;</span></a><a class="card" href="downloads/macbook-pro-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on the Ivanky 13-in-1 USB-C dock, one monitor on its own HDMI, the backups, the 2.5 GbE adapter and the network speed tests.</span><span class="go">Open PDF &rarr;</span></a></div>'),
+    sec("Desk layout PDFs", '<p class="note-t">Printable layouts of both desks, read from macOS (the mini on November 23, 2026 with MacBook rows and the Scratch Disk move updated November 27, the MacBook on November 27): a port diagram, every negotiated link, storage, measured speeds and notes.</p>', '<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>Mac mini desk layout</b><span>Both monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with Media and DATA, the November 23 drive tests, and the MacBook rows and Scratch Disk move updated November 27.</span><span class="go">Open PDF &rarr;</span></a><a class="card" href="downloads/macbook-pro-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on the Ivanky 13-in-1 USB-C dock, one monitor on its own HDMI, the backups, the 2.5 GbE adapter and the network speed tests.</span><span class="go">Open PDF &rarr;</span></a></div>'),
     '<section><h2>Earlier snapshots</h2><p class="note-t">How the desk looked on October 19, 2026, before the Wavlink dock and the KTC monitor: the <a href="mac-mini-m6-scan.html">full scan</a> and the <a href="mac-mini-map.html">chip and dock map</a>.</p></section>',
 ])
 hero = (f'<div class="eyebrow">Checked {CHECKED} · Mac18,5</div>\n'
         '<h1>Mac mini <em>desk setup</em></h1>\n'
         '<p class="lede">My play toy: an Apple M6 Mac mini, what is plugged into it, the chip inside each device, and the speed every link actually runs at.</p>\n'
-        + stats([("40", "Gb/s", "dock uplink"), ("~4.0", "GB/s", "drives behind the dock, combined"), ("6", "drives", "10 TB in all"), ("180 + 180", "Hz", "two displays"), ("0", "errors", "in the Nov 23 drive tests")]))
+        + stats([("40", "Gb/s", "dock uplink"), ("~4.0", "GB/s", "drives behind the dock, combined"), ("5", "drives", "9.5 TB in all"), ("180 + 180", "Hz", "two displays"), ("0", "errors", "in the Nov 23 drive tests")]))
 page("mac-mini.html", "Mac mini setup",
      "An Apple M6 Mac mini with a Thunderbolt 5 dock, six drives and two monitors: what is plugged into what, a page for each device, and measured speeds.",
      "tb", hero, hub, one=False)

@@ -27,7 +27,7 @@ D.append(dict(
             ("Power", "It came with a 20 W adapter, which isn't used. It runs from the same Mokin 140 W smart charger as the MacBook, which shows the power draw."),
             ("USB 3 inside", 'VIA <span class="mono">2109:0822</span> at 10 Gb/s, feeding a VIA <span class="mono">2109:0817</span> at 5 Gb/s'),
             ("USB 2 inside", 'VIA <span class="mono">2822</span> → VIA <span class="mono">2817</span>, plus two Genesys <span class="mono">05e3:0608</span> hubs, at 480 Mb/s'),
-            ("History", 'The same unit sat under the <a href="mac-mini.html">Mac mini</a> until early November, with the Scratch Disk in its M.2 slot.'),
+            ("History", 'The same unit sat under the <a href="mac-mini.html">Mac mini</a> until early November, with the Scratch Disk in its M.2 slot. Since November 27 that drive is back in the slot, now on the MacBook.'),
         ]),
             '<p class="note-t">Port list from the Ivanky product listing. Everything else is what macOS reported on November 27.</p>'),
         sec("Its ports, and what is in them", table(["Port", "Rated", "In use"], [
@@ -37,7 +37,7 @@ D.append(dict(
             ("USB-A and USB-C", "5 Gb/s each", '<a href="seagate-backup.html">Seagate hard drive</a>, 5 Gb/s'),
             ("USB-A ×3", "USB 2", "Lenovo Performance RGB Camera, 480 Mb/s"),
             ("SD and TF", "—", 'macOS lists a USB 3 card reader <span class="mono">(05e3:0749)</span> at 5 Gb/s, no card'),
-            ("M.2 NVMe / SATA slot", "10 Gb/s", 'Empty. Its Realtek RTL9210B-CG bridge shows at 480 Mb/s with no drive in it. On the Mac mini it held the Scratch Disk at about 780 MB/s.'),
+            ("M.2 NVMe / SATA slot", "10 Gb/s", '<a href="scratch-disk.html">Scratch Disk</a>, KingSpec 512 GB NVMe, at 10 Gb/s: 814 MB/s write, 781 read (November 27). Empty, the bridge showed 480 Mb/s.'),
             ("Audio ×2", "—", "Not checked"),
             ("Power in", "20 W adapter in the box", "Mokin 140 W charger"),
         ]),
@@ -80,6 +80,30 @@ D.append(dict(
                 ("Dock USB-A, SanDisk's own cable and adapter", "~446 MB/s", "~682 MB/s"),
             ], num=(1, 2)),
             '<p>The cable made the difference. On the dock\'s USB-A ports a different cable raised the write speed from about 450 to about 720 MB/s.</p>'),
+    ]))
+
+# ---------------------------------------------------------------- Scratch Disk
+D.append(dict(
+    slug="scratch-disk", name="Scratch Disk", em="512 GB NVMe", group="Storage", bus="usb", spd="10 Gb/s USB",
+    card="KingSpec 512 GB NVMe in the Ivanky dock's built-in M.2 slot since November 27. Claude's working space: 814 MB/s write, 781 read.",
+    lede="Working space. The 512 GB SSD that used to be the Mac mini's Scratch Disk, now in the Ivanky dock's built-in M.2 slot.",
+    path=[MB, UP, DOCK, ("wire", "USB 3 hub · 10 Gb/s", "usb"), ("node", "M.2 slot", "Realtek RTL9210B-CG", None), ("wire", "NVMe", "usb"), ("node", "KingSpec 512 GB", "volume Scratch Disk", "me")],
+    stats=[("814", "MB/s", "write, Nov 27"), ("781", "MB/s", "read, Nov 27"), ("30", "GiB", "used of 477"), ("10", "Gb/s", "USB link")],
+    body=[
+        sec("The drive", spec([
+            ("Drive", "KingSpec 512 GB M.2 NVMe, PCIe Gen3 x4, 2280"),
+            ("Where", 'The Ivanky dock\'s built-in M.2 slot, whose Realtek RTL9210B-CG bridge <span class="mono">(0bda:9210)</span> sits right on the dock\'s 10 Gb/s VIA VL822 hub'),
+            ("Link", "USB 10 Gb/s, shared with everything else on the dock. With the slot empty the bridge showed 480 Mb/s."),
+            ("Volume", "Scratch Disk (APFS). 30 GiB used of 477 GiB (November 27). SMART isn't readable through the USB bridge."),
+            ("Job", "Claude's temporary files and working copies on the MacBook, so the internal SSD stays clear."),
+            ("Before", 'Until November 27 it was the <a href="../mac-mini.html">Mac mini</a>\'s Scratch Disk, in a Ugreen USB enclosure on the Wavlink dock. Earlier still it sat in this same Ivanky slot when the dock was under the mini.'),
+        ])),
+        sec("Measured speed", bars([
+            ("Ivanky M.2 slot", "MacBook, Nov 27, 4 GiB, one run", 814, 781, "usb"),
+            ("Ugreen enclosure, Wavlink USB-A", "Mac mini, Nov 23, 8 GB, median of 3", 768, 692, "usb"),
+            ("Ugreen enclosure, Wavlink Thunderbolt port", "Mac mini, Nov 13, 8 GB", 787, 752, "usb"),
+        ], 1250),
+            '<p class="note-t">The MacBook run wrote a 4 GiB file flushed with F_FULLFSYNC, then read it with the page cache bypassed. The Mac mini runs used fio with direct I/O, so they are close but not identical tests. The bar scale ends at 1,250 MB/s, the ceiling of a 10 Gb/s USB link. A second, identical KingSpec arrives November 28 to compare the M.2 slot against a 10 Gb/s enclosure, both on a MacBook port and on the dock.</p>'),
     ]))
 
 # ---------------------------------------------------------------- Seagate
@@ -202,14 +226,14 @@ def line(x1, y1, x2, y2, cls, label="", lc="", lx=None, ly=None):
 
 R = 760
 PWR = 'style="stroke:#d9577a;stroke-width:3"'
-svg = ['<svg viewBox="0 0 1160 800" role="img" aria-labelledby="mbT"><title id="mbT">Port map: one USB-C cable at 10 Gb/s links the MacBook Pro to the Ivanky dock, which carries one monitor, both backup drives, a 2.5 GbE network adapter, a card reader, an empty M.2 slot and the camera. The second monitor is on the MacBook\'s own HDMI port. A Mokin 140 W charger powers the MacBook over MagSafe. The adapter carries the network; Wi-Fi 7 is on standby.</title>']
+svg = ['<svg viewBox="0 0 1160 800" role="img" aria-labelledby="mbT"><title id="mbT">Port map: one USB-C cable at 10 Gb/s links the MacBook Pro to the Ivanky dock, which carries one monitor, both backup drives, a 2.5 GbE network adapter, a card reader, the Scratch Disk in its M.2 slot and the camera. The second monitor is on the MacBook\'s own HDMI port. A Mokin 140 W charger powers the MacBook over MagSafe. The adapter carries the network; Wi-Fi 7 is on standby.</title>']
 svg += [line(280, 240, 430, 240, "l-u10", "10 Gb/s", "c-u10"), '<text x="355" y="262" class="lbl2" text-anchor="middle">USB-C, not TB</text>',
         line(280, 330, 332, 330, "l-free"), '<text x="338" y="334" class="lbl2">2 free</text>',
         line(638, 129, R, 129, "l-hdmi", "HDMI", "c-hdmi"),
         line(638, 199, R, 199, "l-u10", "10 Gb/s", "c-u10"),
         line(638, 269, R, 269, "l-u5", "5 Gb/s", "c-u5"),
         line(638, 349, R, 349, "l-u5", "5 Gb/s", "c-u5"), line(638, 419, R, 419, "l-u5", "5 Gb/s", "c-u5"),
-        line(638, 499, R, 499, "l-u2", "480 Mb/s", "c-u2"), line(638, 569, R, 569, "l-u2", "480 Mb/s", "c-u2"),
+        '<polyline points="638,288 700,288 700,499 760,499" class="ln l-u10"/>', '<text x="730" y="490" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>', line(638, 569, R, 569, "l-u2", "480 Mb/s", "c-u2"),
         '<polyline points="280,420 340,420 340,679 760,679" class="ln l-hdmi"/>', '<text x="550" y="670" class="lbl c-hdmi" text-anchor="middle">HDMI 2.1 → monitor\'s HDMI 2.0</text>',
         f'<line x1="90" y1="470" x2="90" y2="570" class="ln" {PWR}/>', '<text x="100" y="525" class="lbl" style="fill:#d9577a">MagSafe</text>',
         line(245, 470, 245, 720, "l-air"), '<text x="255" y="560" class="lbl c-mut">Wi-Fi 7</text><text x="255" y="576" class="lbl2">standby</text>']
@@ -231,12 +255,12 @@ svg += ['<rect x="30" y="150" width="250" height="320" rx="14" class="node mini"
         box(R, 240, 385, 58, "2.5 GbE adapter · en8 · default route", "Realtek RTL8156 · 2500Base-T to the ACASIS switch"),
         box(R, 320, 385, 58, "Seagate Expansion 2 TB · MacBook Backup", "Time Machine · hard drive"),
         box(R, 390, 385, 58, "Card reader", "SD and TF · 05e3:0749 · no card"),
-        box(R, 470, 385, 58, "M.2 slot · empty", "Realtek RTL9210B-CG · built into the dock"),
+        box(R, 470, 385, 58, "Scratch Disk · M.2 slot", "KingSpec 512 GB NVMe · RTL9210B-CG · 814 / 781 MB/s"),
         box(R, 540, 385, 58, "Lenovo camera", "Performance RGB Camera · USB 2"),
         box(R, 650, 385, 58, "KTC H24T7 · MacBook HDMI", "1440p at 144 Hz · HDMI 2.0 input")]
 HITS = [("ivanky-dock", "usb", 430, 20, 230, 64), ("displays", "hdmi", R, 100, 385, 58), ("sandisk-backup", "usb", R, 170, 385, 58),
         ("network", "net", R, 240, 385, 58),
-        ("seagate-backup", "usb5", R, 320, 385, 58), ("displays", "hdmi", R, 650, 385, 58), ("network", "net", 30, 720, 330, 64)]
+        ("seagate-backup", "usb5", R, 320, 385, 58), ("scratch-disk", "usb", R, 470, 385, 58), ("displays", "hdmi", R, 650, 385, 58), ("network", "net", 30, 720, 330, 64)]
 svg += [f'<a href="macbook/{s}.html" class="b-{b}" aria-label="{names[s]}"><rect class="hit" x="{x}" y="{y}" width="{w}" height="{h}" rx="8"/></a>' for s, b, x, y, w, h in HITS]
 svg.append("</svg>")
 KEYS = [("usb", "USB 10 Gb/s"), ("hdmi", "HDMI"), ("usb5", "USB 5 Gb/s"), ("usb2", "USB 2")]
@@ -252,8 +276,8 @@ for g in ["Dock", "Storage", "Displays", "Network"]:
 
 L = lambda s, t: f'<a href="macbook/{s}.html">{t}</a>'
 OK = '<span class="okk">✓ max</span>'
-PDFS = ('<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>Mac mini desk layout</b><span>Both monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with Media, DATA and the Scratch Disk, the November 23 drive tests, and the MacBook rows updated November 27.</span><span class="go">Open PDF &rarr;</span></a>'
-        '<a class="card" href="downloads/macbook-pro-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on the Ivanky 13-in-1 USB-C dock, one monitor on its own HDMI, the backups, the internal SSD, the 2.5 GbE adapter and the network speed tests.</span><span class="go">Open PDF &rarr;</span></a>'
+PDFS = ('<div class="grid"><a class="card" href="downloads/mac-mini-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>Mac mini desk layout</b><span>Both monitors on the mini\'s own ports over DisplayPort, the Wavlink dock with Media and DATA, the November 23 drive tests, and the MacBook rows and Scratch Disk move updated November 27.</span><span class="go">Open PDF &rarr;</span></a>'
+        '<a class="card" href="downloads/macbook-pro-desk-layout-2026-11-27.pdf"><span class="spd">PDF · Nov 27, 2026</span><b>MacBook Pro desk layout</b><span>The work-from-home MacBook on the Ivanky 13-in-1 USB-C dock, one monitor on its own HDMI, the backups, the Scratch Disk in the dock\'s M.2 slot, the internal SSD, the 2.5 GbE adapter and the network speed tests.</span><span class="go">Open PDF &rarr;</span></a>'
         '<a class="card" href="downloads/macbook-pro-desk-layout-2026-11-20.pdf"><span class="spd">PDF · Nov 20, 2026</span><b>MacBook Pro, earlier</b><span>The same desk on the Anker Thunderbolt 5 dock, before November 27.</span><span class="go">Open PDF &rarr;</span></a></div>')
 hub = "\n".join([
     f'<section><h2>What is plugged into what</h2>{fig}</section>',
@@ -273,26 +297,28 @@ hub = "\n".join([
             ("MacBook HDMI → " + L("displays", "KTC H24T7") + '<br><span class="sub">MacBook HDMI 2.1, monitor HDMI 2.0</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
             ("Ivanky HDMI → " + L("displays", "KTC H24T7") + '<br><span class="sub">DisplayPort Alt Mode, own wires</span>', "—", "1440p at 144 Hz (monitor\'s HDMI max)", "1440p at 144 Hz", OK),
             ("↳ " + L("sandisk-backup", "SanDisk SSD 1 TB"), "SanDisk 0781:5504", "10 Gb/s", "10 Gb/s", OK),
+            ("↳ " + L("scratch-disk", "Scratch Disk") + '<br><span class="sub">built-in M.2 slot, KingSpec 512 GB</span>', "Realtek 0bda:9210", "10 Gb/s", "10 Gb/s", OK),
             ("↳ " + L("network", "2.5 GbE adapter") + '<br><span class="sub">en8</span>', "Realtek 0bda:8156", "5 Gb/s (the adapter\'s max)", "5 Gb/s", OK),
             ('↳ USB 3 hub<br><span class="sub">Inside the dock</span>', "VIA 2109:0817", "5 Gb/s", "5 Gb/s", OK),
             ("&nbsp;&nbsp;↳ " + L("seagate-backup", "Seagate Expansion 2 TB"), "Seagate 0bc2:2030", "5 Gb/s", "5 Gb/s", OK),
             ("&nbsp;&nbsp;↳ Card reader, no card", "Generic 05e3:0749", "5 Gb/s", "5 Gb/s", OK),
             ('↳ USB 2 hubs<br><span class="sub">Inside the dock</span>', "VIA 2822 → 2817, Genesys 05e3:0608 ×2", "480 Mb/s", "480 Mb/s", OK),
-            ("&nbsp;&nbsp;↳ M.2 slot, empty", "Realtek 0bda:9210", "10 Gb/s with a drive", '480 Mb/s <span class="sub">(no drive)</span>', '<span class="sub">empty</span>'),
             ("&nbsp;&nbsp;↳ Lenovo camera", "Lenovo 17ef:4839", "USB 2", "480 Mb/s", OK),
             ("en8 → ACASIS switch" + '<br><span class="sub">default route</span>', "Realtek RTL8156", "2.5 Gb/s", "2500Base-T, full duplex", OK),
             ('MacBook → Wi-Fi<br><span class="sub">en0, standby</span>', "Wi-Fi 7", "—", "6 GHz ch 37, 160 MHz, 1921 Mb/s, −46 dBm", '<span class="sub">6 GHz</span>'),
         ])),
-    sec("Drive speeds", '<p class="note-t">4 GiB read of the same file, page cache bypassed, one run each, November 27, 2026. Internal SSD write: 4 GiB with a full flush to flash.</p>',
+    sec("Drive speeds", '<p class="note-t">4 GiB read of the same file, page cache bypassed, one run each, November 27, 2026. Internal SSD and Scratch Disk writes: 4 GiB with a full flush to flash. Scratch Disk read 19:55, after its write.</p>',
         bars([
             ("Internal SSD", "Apple AP1024Z", 11561, 9990, "tb"),
             ("SanDisk SSD", "on the Ivanky, 10 Gb/s", None, 780, "usb"),
+            ("Scratch Disk", "Ivanky M.2 slot, 10 Gb/s", 814, 781, "usb"),
             ("Seagate HDD", "on the Ivanky, 5 Gb/s", None, 99, "usb5"),
         ]),
         '<p class="note-t">Write speeds weren\'t tested on the backup drives; macOS blocks writes to Time Machine disks. The SanDisk read 766 MB/s and the Seagate 128 MB/s the day before. The Samsung 990 PRO that ran 2,877 / 2,928 MB/s on a MacBook port on November 7 now lives on the Mac mini as <a href="devices/data.html">DATA</a>.</p>'),
     sec("Storage", table(["Volume", "Drive", "Used", "Size"], [
         ("Macintosh HD", "Apple 1 TB internal (AP1024Z), FileVault on", "392 GiB", "926 GiB"),
         (L("sandisk-backup", "SANDISK TIMEMACHINE"), "SanDisk SSD 1 TB, on the Ivanky, Time Machine", "505 GiB", "931 GiB"),
+        (L("scratch-disk", "Scratch Disk"), "KingSpec 512 GB NVMe, in the Ivanky\'s M.2 slot, Claude scratch", "30 GiB", "477 GiB"),
         (L("seagate-backup", "MacBook Backup"), "Seagate Expansion 2 TB hard drive, on the Ivanky, Time Machine", "789 GiB", "1.8 TiB"),
     ], num=(2, 3)), '<p class="note-t">Used space read November 27, 2026.</p>'),
     sec("Network", table(["Interface", "Link", "Down", "Up", "Idle ping"], [
@@ -302,7 +328,7 @@ hub = "\n".join([
         ('<span class="sub">Mac mini, same switch</span>', "Built-in 2.5 GbE", "2.30 Gb/s", "2.31–2.35 Gb/s", "11.1–11.4 ms"),
     ], num=(2, 3, 4)), f'<p class="note-t">Measured {READ}, two runs each on wired, with networkQuality -s. Download holds near 1.74 Gb/s on either port, so the adapter sets the limit, not the dock. More on the ' + L("network", "network page") + '.</p>'),
     '<section><h2>Worth remembering</h2><div class="callouts">'
-    '<div class="callout"><h3>One 10 Gb/s link, and that\'s enough</h3><p>The Ivanky is a USB-C dock, not Thunderbolt. Both backup drives, the card reader and the camera share its single 10 Gb/s link. The SanDisk still reads at 780 MB/s, close to what it managed on its own port.</p></div>'
+    '<div class="callout"><h3>One 10 Gb/s link, and that\'s enough</h3><p>The Ivanky is a USB-C dock, not Thunderbolt. Both backup drives, the Scratch Disk, the card reader and the camera share its single 10 Gb/s link. The SanDisk still reads at 780 MB/s, close to what it managed on its own port.</p></div>'
     '<div class="callout"><h3>Video rides its own wires</h3><p>The dock\'s monitor runs over DisplayPort Alt Mode, separate from the USB data, so it doesn\'t slow the drives. The second monitor sits on the MacBook\'s own HDMI port.</p></div>'
     '<div class="callout"><h3>Two computers, no KVM</h3><p>Each monitor has both Macs plugged in at once: the Mac mini on DisplayPort, this MacBook on HDMI. The monitor\'s input button picks the computer.</p></div>'
     '<div class="callout"><h3>One charger for everything</h3><p>A Mokin 140 W smart charger runs the MacBook over MagSafe and the dock, and shows the power draw. With several devices on it, the 140 W is split, so the MacBook gets less than it would alone.</p></div>'
@@ -322,7 +348,7 @@ hub = "\n".join([
 ])
 hero = (f'<div class="eyebrow">Read {READ} · Mac17,9</div>\n'
         '<h1>Mac Work Book <em>Pro*</em></h1>\n'
-        '<p class="lede">An Apple M5 Pro MacBook Pro with 48 GB of memory at the home desk. One USB-C cable to the Ivanky dock carries a monitor, both backup drives, the wired network adapter and the camera; the second monitor is on the MacBook\'s own HDMI port, and a Mokin 140 W charger powers it all.</p>\n'
+        '<p class="lede">An Apple M5 Pro MacBook Pro with 48 GB of memory at the home desk. One USB-C cable to the Ivanky dock carries a monitor, both backup drives, the Scratch Disk, the wired network adapter and the camera; the second monitor is on the MacBook\'s own HDMI port, and a Mokin 140 W charger powers it all.</p>\n'
         '<p class="lede" style="font-size:14px">* I wish I owned this. Alas, it\'s on loan from work.</p>\n'
         + stats([("10", "Gb/s", "dock link"), ("48", "GB", "memory"), ("2", "backups", "Time Machine disks"), ("144 + 144", "Hz", "two displays"), ("100", "%", "battery capacity")]))
 page("macbook-pro.html", "Mac Work Book Pro",
