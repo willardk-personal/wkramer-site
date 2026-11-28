@@ -230,10 +230,10 @@ svg = ['<svg viewBox="0 0 1160 800" role="img" aria-labelledby="mbT"><title id="
 svg += [line(280, 240, 430, 240, "l-u10", "10 Gb/s", "c-u10"), '<text x="355" y="262" class="lbl2" text-anchor="middle">USB-C, not TB</text>',
         line(280, 330, 332, 330, "l-free"), '<text x="338" y="334" class="lbl2">2 free</text>',
         line(638, 129, R, 129, "l-hdmi", "HDMI", "c-hdmi"),
-        line(638, 199, R, 199, "l-u10", "10 Gb/s", "c-u10"),
-        line(638, 269, R, 269, "l-u5", "5 Gb/s", "c-u5"),
-        line(638, 349, R, 349, "l-u5", "5 Gb/s", "c-u5"), line(638, 419, R, 419, "l-u5", "5 Gb/s", "c-u5"),
-        '<polyline points="638,288 700,288 700,499 760,499" class="ln l-u10"/>', '<text x="730" y="490" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>', line(638, 569, R, 569, "l-u2", "480 Mb/s", "c-u2"),
+        line(638, 199, R, 199, "l-u10", "10 Gb/s", "c-u10"), line(638, 269, R, 269, "l-u10", "10 Gb/s", "c-u10"),
+        line(638, 339, R, 339, "l-u5", "5 Gb/s", "c-u5"),
+        line(638, 409, R, 409, "l-u5", "5 Gb/s", "c-u5"), line(638, 479, R, 479, "l-u5", "5 Gb/s", "c-u5"),
+        line(638, 549, R, 549, "l-u2", "480 Mb/s", "c-u2"),
         '<polyline points="280,420 340,420 340,679 760,679" class="ln l-hdmi"/>', '<text x="550" y="670" class="lbl c-hdmi" text-anchor="middle">HDMI 2.1 → monitor\'s HDMI 2.0</text>',
         f'<line x1="90" y1="470" x2="90" y2="570" class="ln" {PWR}/>', '<text x="100" y="525" class="lbl" style="fill:#d9577a">MagSafe</text>',
         line(245, 470, 245, 720, "l-air"), '<text x="255" y="560" class="lbl c-mut">Wi-Fi 7</text><text x="255" y="576" class="lbl2">standby</text>']
@@ -247,20 +247,20 @@ svg += ['<rect x="30" y="150" width="250" height="320" rx="14" class="node mini"
         '<rect x="430" y="20" width="230" height="595" rx="14" class="node dock"/>',
         '<text x="448" y="52" class="t-big" style="font-size:18px">Ivanky dock</text><text x="448" y="74" class="t2">13-in-1 · USB-C, not Thunderbolt</text>',
         '<rect x="446" y="100" width="192" height="58" rx="8" class="sub"/><text x="460" y="124" class="t1">HDMI out</text><text x="460" y="144" class="t2">4K@144 max · own wires</text>',
-        '<rect x="446" y="170" width="192" height="128" rx="8" class="sub"/><text x="460" y="194" class="t1">USB 3 hub · 10 Gb/s</text><text x="460" y="214" class="tm">VIA 2109:0822</text>',
-        '<rect x="446" y="320" width="192" height="128" rx="8" class="sub"/><text x="460" y="344" class="t1">↳ USB 3 hub · 5 Gb/s</text><text x="460" y="364" class="tm">VIA 2109:0817</text>',
-        '<rect x="446" y="470" width="192" height="128" rx="8" class="sub"/><text x="460" y="494" class="t1">USB 2 hubs</text><text x="460" y="514" class="tm">VIA 2822 → 2817</text><text x="460" y="530" class="tm">Genesys 05e3:0608 ×2</text>',
+        '<rect x="446" y="170" width="192" height="198" rx="8" class="sub"/><text x="460" y="194" class="t1">USB 3 hub · 10 Gb/s</text><text x="460" y="214" class="tm">VIA 2109:0822</text>',
+        '<rect x="446" y="380" width="192" height="128" rx="8" class="sub"/><text x="460" y="404" class="t1">↳ USB 3 hub · 5 Gb/s</text><text x="460" y="424" class="tm">VIA 2109:0817</text>',
+        '<rect x="446" y="520" width="192" height="80" rx="8" class="sub"/><text x="460" y="544" class="t1">USB 2 hubs</text><text x="460" y="564" class="tm">VIA 2822 → 2817</text><text x="460" y="580" class="tm">Genesys 05e3:0608 ×2</text>',
         box(R, 100, 385, 58, "KTC H24T7 · via the dock", "1440p at 144 Hz · dock HDMI"),
         box(R, 170, 385, 58, "SanDisk SSD 1 TB · SANDISK TIMEMACHINE", "Time Machine · 780 MB/s read"),
-        box(R, 240, 385, 58, "2.5 GbE adapter · en8 · default route", "Realtek RTL8156 · 2500Base-T to the ACASIS switch"),
-        box(R, 320, 385, 58, "Seagate Expansion 2 TB · MacBook Backup", "Time Machine · hard drive"),
-        box(R, 390, 385, 58, "Card reader", "SD and TF · 05e3:0749 · no card"),
-        box(R, 470, 385, 58, "Scratch Disk · M.2 slot", "KingSpec 512 GB NVMe · RTL9210B-CG · 814 / 781 MB/s"),
-        box(R, 540, 385, 58, "Lenovo camera", "Performance RGB Camera · USB 2"),
+        box(R, 310, 385, 58, "2.5 GbE adapter · en8 · default route", "Realtek RTL8156 · 2500Base-T to the ACASIS switch"),
+        box(R, 380, 385, 58, "Seagate Expansion 2 TB · MacBook Backup", "Time Machine · hard drive"),
+        box(R, 450, 385, 58, "Card reader", "SD and TF · 05e3:0749 · no card"),
+        box(R, 240, 385, 58, "Scratch Disk · M.2 slot", "KingSpec 512 GB NVMe · RTL9210B-CG · 814 / 781 MB/s"),
+        box(R, 520, 385, 58, "Lenovo camera", "Performance RGB Camera · USB 2"),
         box(R, 650, 385, 58, "KTC H24T7 · MacBook HDMI", "1440p at 144 Hz · HDMI 2.0 input")]
 HITS = [("ivanky-dock", "usb", 430, 20, 230, 64), ("displays", "hdmi", R, 100, 385, 58), ("sandisk-backup", "usb", R, 170, 385, 58),
-        ("network", "net", R, 240, 385, 58),
-        ("seagate-backup", "usb5", R, 320, 385, 58), ("scratch-disk", "usb", R, 470, 385, 58), ("displays", "hdmi", R, 650, 385, 58), ("network", "net", 30, 720, 330, 64)]
+        ("network", "net", R, 310, 385, 58),
+        ("seagate-backup", "usb5", R, 380, 385, 58), ("scratch-disk", "usb", R, 240, 385, 58), ("displays", "hdmi", R, 650, 385, 58), ("network", "net", 30, 720, 330, 64)]
 svg += [f'<a href="macbook/{s}.html" class="b-{b}" aria-label="{names[s]}"><rect class="hit" x="{x}" y="{y}" width="{w}" height="{h}" rx="8"/></a>' for s, b, x, y, w, h in HITS]
 svg.append("</svg>")
 KEYS = [("usb", "USB 10 Gb/s"), ("hdmi", "HDMI"), ("usb5", "USB 5 Gb/s"), ("usb2", "USB 2")]
