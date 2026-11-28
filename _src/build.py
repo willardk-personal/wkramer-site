@@ -462,8 +462,8 @@ page("devices/scratch-disk.html", "Scratch Disk · moved to the MacBook", "The S
 svg = (ROOT / "_src/diagram.svg").read_text().replace('<text x="28" y="650" class="tm">192.168.1.2</text>', "")
 HITS = [("ktc-h24t7", "dp", 190, 30, 165, 118), ("ktc-h24t7-hdmi", "dp", 15, 30, 165, 118), ("ssd-backup", "usb", 15, 700, 340, 106),
         ("wavlink-dock", "tb", 430, 40, 230, 100), ("media", "tb", 760, 150, 385, 62), ("data", "tb", 760, 226, 385, 62),
-        ("backup-hdd", "usb5", 760, 478, 385, 62), ("lan-adapter", "net", 760, 554, 385, 62),
-        ("blu-ray", "usb2", 760, 630, 385, 62), ("home-network", "net", 15, 560, 165, 110)]
+        ("backup-hdd", "usb5", 760, 554, 385, 62), ("lan-adapter", "net", 760, 630, 385, 62),
+        ("blu-ray", "usb2", 760, 706, 385, 62), ("home-network", "net", 15, 560, 165, 110)]
 names = {d["slug"]: d["name"] for d in D}
 hits = "".join(f'<a href="devices/{s}.html" class="b-{b}" aria-label="{names[s]}"><rect class="hit" x="{x}" y="{y}" width="{w}" height="{h}" rx="8"/></a>' for s, b, x, y, w, h in HITS)
 svg = svg.replace("</svg>", hits + "</svg>")

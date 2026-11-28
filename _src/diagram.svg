@@ -32,14 +32,14 @@
         <line x1="638" y1="333" x2="760" y2="333" class="ln l-u10"/>
         <text x="699" y="324" class="lbl c-u10" text-anchor="middle">10 Gb/s</text>
         <text x="699" y="352" class="lbl2" text-anchor="middle">front 30W</text>
-        <line x1="638" y1="509" x2="760" y2="509" class="ln l-u5"/>
-        <text x="699" y="500" class="lbl c-u5" text-anchor="middle">5 Gb/s</text>
+        <line x1="638" y1="509" x2="760" y2="509" class="ln l-free"/>
+        <text x="699" y="500" class="lbl2" text-anchor="middle">free</text>
         <line x1="638" y1="585" x2="760" y2="585" class="ln l-u5"/>
         <text x="699" y="576" class="lbl c-u5" text-anchor="middle">5 Gb/s</text>
-        <line x1="638" y1="661" x2="760" y2="661" class="ln l-u2"/>
-        <text x="699" y="652" class="lbl c-u2" text-anchor="middle">480 Mb/s</text>
-        <line x1="638" y1="737" x2="760" y2="737" class="ln l-free"/>
-        <text x="699" y="728" class="lbl2" text-anchor="middle">free</text>
+        <line x1="638" y1="661" x2="760" y2="661" class="ln l-u5"/>
+        <text x="699" y="652" class="lbl c-u5" text-anchor="middle">5 Gb/s</text>
+        <line x1="638" y1="737" x2="760" y2="737" class="ln l-u2"/>
+        <text x="699" y="728" class="lbl c-u2" text-anchor="middle">480 Mb/s</text>
 
         <!-- top: left display on R1, main (right) display on R4 -->
         <rect x="15" y="30" width="165" height="118" rx="8" class="node"/>
@@ -126,20 +126,20 @@
         <text x="774" y="328" class="t1">iPad mini / iPhone</text>
         <text x="774" y="348" class="t2">30W PD charging (15V/2A) · USB 3 over USB4 · 80 Gb/s cable</text>
 
-        <rect x="760" y="706" width="385" height="62" rx="8" class="node" style="stroke-dasharray:5 5"/>
-        <text x="774" y="732" class="t1" style="fill:var(--muted)">Orange USB-A port · free</text>
-        <text x="774" y="752" class="t2">Scratch Disk moved to the MacBook's Ivanky dock, Nov 27</text>
+        <rect x="760" y="478" width="385" height="62" rx="8" class="node" style="stroke-dasharray:5 5"/>
+        <text x="774" y="504" class="t1" style="fill:var(--muted)">Orange USB-A port · free</text>
+        <text x="774" y="524" class="t2">Scratch Disk moved to the MacBook's Ivanky dock, Nov 27</text>
 
         <!-- right column: usb -->
-        <rect x="760" y="478" width="385" height="62" rx="8" class="node"/>
-        <text x="774" y="504" class="t1">Backup · WD Elements 4TB HDD</text>
-        <text x="774" y="524" class="t2">Time Machine · behind a Parade hub</text>
-
         <rect x="760" y="554" width="385" height="62" rx="8" class="node"/>
-        <text x="774" y="580" class="t1">Realtek 2.5G USB LAN</text>
-        <text x="774" y="600" class="t2">RTL8156 · en12 · not in use</text>
+        <text x="774" y="580" class="t1">Backup · WD Elements 4TB HDD</text>
+        <text x="774" y="600" class="t2">Time Machine · behind a Parade hub</text>
 
         <rect x="760" y="630" width="385" height="62" rx="8" class="node"/>
-        <text x="774" y="656" class="t1">Blu-ray / DVD burner</text>
-        <text x="774" y="676" class="t2">Matshita UJ260 · Initio slim-drive bridge</text>
+        <text x="774" y="656" class="t1">Realtek 2.5G USB LAN</text>
+        <text x="774" y="676" class="t2">RTL8156 · en12 · not in use</text>
+
+        <rect x="760" y="706" width="385" height="62" rx="8" class="node"/>
+        <text x="774" y="732" class="t1">Blu-ray / DVD burner</text>
+        <text x="774" y="752" class="t2">Matshita UJ260 · Initio slim-drive bridge</text>
       </svg>
